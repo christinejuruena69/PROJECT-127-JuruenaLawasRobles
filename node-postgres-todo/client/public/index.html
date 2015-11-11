@@ -30,7 +30,7 @@
 
       <div class="todo-list">
         <ul ng-repeat="todo in todoData">
-          <li><h3><input class="lead" type="checkbox" ng-click="deleteTodo(todo.id)">&nbsp;{{ todo.text }}</li></h3><hr>
+          <li><h3><input class="lead" type="checkbox" ng-click="deleteTodo(todo.id)">&nbsp;{{ todo.text }} <input class="lead" type="radio" ng-click="updateTodo(todo.id)"></li></h3><hr>
         </ul>
       </div>
 

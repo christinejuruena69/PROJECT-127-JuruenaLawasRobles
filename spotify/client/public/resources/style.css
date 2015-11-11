@@ -1,0 +1,652 @@
+body
+{
+    /*background: url('http://farm3.staticflickr.com/2832/12303719364_c25cecdc28_b.jpg') fixed;*/
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+     margin-top: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family:  GothamLight, GothamExtraLight, ProximaNovaReg;
+    height:100%;
+    width: 100%;
+    background-color: #202020;
+     /*overflow-x: scroll;*/
+       white-space: nowrap;
+       overflow: auto;
+}
+
+.wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+p.form-title
+{
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 5%;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+form
+{
+    width: 250px;
+    margin: 0 auto;
+}
+
+form.login input[type="text"], form.login input[type="password"]
+{
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #FFFFFF;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    outline: 0;
+}
+
+form.login input[type="submit"]
+{
+    width: 100%;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 16px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+form.login input[type="submit"]:hover
+{
+    transition: background-color 0.5s ease;
+}
+
+form.login .remember-forgot
+{
+    float: left;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+form.login .forgot-pass-content
+{
+    min-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+form.login label, form.login a
+{
+    font-size: 12px;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+form.login a
+{
+    transition: color 0.5s ease;
+}
+
+form.login a:hover
+{
+    color: #2ecc71;
+}
+
+.pr-wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+}
+
+.show-pass-reset
+{
+    display: block !important;
+}
+
+.pass-reset
+{
+    margin: 0 auto;
+    width: 250px;
+    position: relative;
+    margin-top: 22%;
+    z-index: 999;
+    background: #FFFFFF;
+    padding: 20px 15px;
+}
+
+.pass-reset label
+{
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.pass-reset input[type="email"]
+{
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #000000;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #000000;
+    outline: 0;
+}
+
+.pass-reset input[type="submit"]
+{
+    width: 100%;
+    border: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 10px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.pass-reset input[type="submit"]:hover
+{
+    transition: background-color 0.5s ease;
+}
+.posted-by
+{
+    position: absolute;
+    bottom: 26px;
+    margin: 0 auto;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.66);
+    padding: 10px;
+    left: 45%;
+}
+
+
+
+
+/*tin tin */
+
+/*player*/
+/* The main content */
+
+@font-face{
+  font-family: ProximaNovaReg;
+  src: url(../fonts/ProximaNova/ProximaNova-Regular.otf);
+}
+@font-face{
+  font-family: GothamBook;
+  src: url(../fonts/Gotham/Gotham-Book.otf);
+}
+@font-face{
+  font-family: GothamExtraLight;
+  src: url(../fonts/Gotham/Gotham-ExtraLight.otf);
+}
+
+@font-face{
+  font-family: GothamLight;
+  src: url(../fonts/Gotham/Gotham-Light_0.otf);
+}
+.gotham-elight {
+  font-family: GothamExtraLight;
+}
+.gotham-book{
+  font-family: GothamBook;
+}
+.gotham-light{
+  font-family: GothamLight;
+}
+.proximanova-reg{
+  font-family: ProximaNovaReg;
+}
+
+
+.main-content {
+    font-family:  ProximaNovaReg, GothamBook, GothamLight, GothamExtraLight;
+    /*max-width: 900px;*/
+    /*padding-top: 40px;*/
+    margin: 0px 0px 0px 121px;
+    padding: 0;
+    background-color: #202020;
+    float: left;
+    top:0;
+    left:0;
+
+
+}
+/*/elements container*/
+div #elements{
+    top: 0;
+    left: 0;
+    width: 970px;
+    height: 100%;x
+    position: relative;
+    float: left;
+    /*background-color: pink;*/
+}
+/*/elements container*/
+
+/* search */
+#search_sidebar{
+    font-family: GothamBook;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: -35px;
+    padding-left: 50px;
+    margin-left: 120px;
+    background-color: #292c2f;
+    width: 255px;
+    height: 100%;
+    padding: 20px 0;
+    box-shadow:  8px 0 10px -4px rgba(32, 32, 32, 0.8);
+    display: none;
+    z-index: 5;
+}
+#search_box_div{
+    width: 100%;
+    height: 80px;
+    background-color: #A0A0A0;
+    padding: 30px 10px 5px 10px;
+
+}
+#search_box_div .input-group input#input-group-addon{
+
+}
+#search_box_div .input-group span.input-group-addon{
+    border-radius: 5px; 
+    left: 30px;
+}
+#search_box_div .input-group input#search_box{
+    /*background-color: red;*/
+    border-radius: 5px;
+    color: blue;
+}
+
+/* search */
+
+/*profile*/
+div#profile{
+    width: 900px;
+    height: 100%;
+    top: 0;
+    left: px;
+    display: block;
+    
+}
+
+
+/*/your music codess*/
+#your_music{
+    font-family: GothamBook;
+    /*position: fixed;*/
+    top: 0;
+    left: px;
+    margin-left: 5px;
+    background-color: #202020;
+    width: 900px;
+    height: 100%;
+    padding: 20px 0;
+    display: block;
+    z-index: 1;
+    /*background-color: blue;*/
+}
+#urmsc_nav{
+    /*margin-top: -10px;*/
+    top: 0;
+    width: 100%;
+    height: 35px;
+    /*background-color: red;*/
+    border-bottom: 1px solid gray;
+}
+#urmsc_nav a {
+    font-size: 1.2em;
+    color: gray;
+    letter-spacing: 2px;
+    position: relative;
+    text-decoration: none;
+    padding-bottom: 15px;
+    margin-right: 35px;
+}
+#urmsc_nav a:hover{
+    color: gray;
+}
+#urmsc_nav a:before{
+ content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ;
+  transition: all 0.3s ;
+}
+#urmsc_nav a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+#urmsc_nav a.selected{
+    /*background-color: #ffffff;*/
+    color:  #000;
+    font-weight: bold;
+    cursor: default;
+    border-bottom: 3px #4CC339 solid;
+}
+div #your_music div#playlist_sidebar span{
+    font-size: 3em;
+
+}
+div #your_music div#playlist_sidebar{
+    top:0;
+    left: 0;
+    padding: 0px;
+    margin-left: 10px;
+    height: 250px;
+    width: 250px;
+    background-color: #292c2f;
+    color: #b3bcc5;
+    display: none;
+}
+div #your_music div#playlist_sidebar h6,
+div #your_music div#playlist_sidebar span{
+    /*color: #b3bcc5;*/
+    /*width: 100px;*/
+
+}
+
+div #your_music div#playlist_sidebar span.glyphicon-plus, 
+div #your_music div#playlist_sidebar span.glyphicon-star{
+    font-size: 2.8em;
+}
+
+div #your_music div#playlist_sidebar .playlist_side_links {
+    border-bottom: 1px gray solid;
+    padding: 10px 5px 10px 20px;
+    cursor: pointer;
+}
+div #your_music div#playlistsongs{
+    height: 100%;
+    width: 500px;
+    /*background-color: #fff;*/
+}
+/*/MUSIC PLAYER!!!!!!!!!!!!!!!!!!!!*/
+
+/*/MUSIC PLAYER!!!!!!!!!!!!!!!!!!!!*/
+
+div#player{
+    top:0;
+    /*left: 50px;*/
+    height: 700px;
+    width: 250px;
+    background-color: #A0A0A0;
+    float: left;
+    /*position: fixed;*/
+    padding: 20px;
+
+}
+div#player div#player_artist_square{
+    border: 2px solid black;
+    margin:5px; 
+    width: 190px;
+    height: 190px;
+    background-color: #fff;
+}
+div#player div#player_label{
+    width: 190px;
+    height: 50px;
+    background-color: #fff;
+    margin: 5px;
+}
+div#player div#player_ctrl{
+    margin: 5px;
+
+    width: 190px;
+    height: 100px;
+    background-color: #fff;
+}
+
+
+/*backdrop daw */
+.darkClass
+{
+    background-color: white;
+    filter:alpha(opacity=50); /* IE */
+    opacity: 0.2; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.sidebar-left {
+    font-family: GothamBook;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #292c2f;
+    width: 120px;
+    height: 100%;
+    padding: 20px 0;
+    border-right: 1px gray solid;
+    z-index: 10;
+    
+}
+
+.sidebar-left a.company-logo {
+    display: block;
+    text-decoration: none;
+    font-family: Cookie, cursive;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    color:  #ffffff;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 2.6;
+    border-radius: 50%;
+    background-color:  #181a1b;
+}
+
+.sidebar-left .sidebar-links {
+    margin: 20px auto;
+}
+
+.sidebar-left .sidebar-links a {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto 5px auto;
+    padding: 20px 0;
+    background-color: #35393e;
+    text-align: center;
+    color:  #b3bcc5;
+    font-size: 12px;
+    font-weight: bold;
+    border-left-width: 2px;
+    border-left-style: solid;
+}
+
+.sidebar-left .sidebar-links a i.fa {
+    display: block;
+    font-size: 35px;
+    margin-bottom: 5px;
+}
+
+.sidebar-left .sidebar-links a.selected{
+    background-color: #ffffff;
+    color:  #7c8085;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: default;
+}
+
+/* Link Colors */
+
+.sidebar-left .sidebar-links a.link-blue {
+    border-color: #487db2;
+}
+.sidebar-left .sidebar-links a.link-blue i.fa {
+    color: #487db2;
+}
+
+.sidebar-left .sidebar-links a.link-red {
+    border-color: #da4545;
+}
+.sidebar-left .sidebar-links a.link-red i.fa {
+    color: #da4545;
+}
+
+.sidebar-left .sidebar-links a.link-yellow {
+    border-color: #d0d237;
+}
+.sidebar-left .sidebar-links a.link-yellow i.fa {
+    color: #d0d237;
+}
+
+.sidebar-left .sidebar-links a.link-green {
+    border-color: #86be2e;
+}
+.sidebar-left .sidebar-links a.link-green i.fa {
+    color: #86be2e;
+}
+
+@media (max-width: 900px) {
+    div #elements{
+        top: 0;
+        left: 0;
+        width: 500px;
+        float: left;
+        /*background-color: pink;*/
+    }
+
+}
+
+/* Making the sidebar responsive */
+/*/*/*/*
+@media (max-width: 900px) {
+
+    .main-content{
+        max-width: none;
+        padding: 40px 20px;
+        margin: 0 0 40px;
+    }
+
+    .sidebar-left {
+        width: auto;
+        height: auto;
+        position: inherit;
+        padding: 20px 0 0;
+    }
+
+    .sidebar-left .sidebar-links {
+        text-align: center;
+        margin: 20px auto 0;
+    }
+
+    .sidebar-left .sidebar-links a {
+        display: inline-block;
+        width: 100px;
+        margin: 0;
+        padding: 14px 0;
+        border-left: none;
+        border-top-width: 2px;
+        border-top-style: solid;
+    }
+
+}
+
+/* Mobile phone layout */
+/*
+@media (max-width: 450px) {
+
+    .sidebar-left {
+        padding: 20px 0;
+    }
+
+    .sidebar-left .sidebar-links {
+        text-align: center;
+        margin: 20px auto 0;
+    }
+
+    .sidebar-left .sidebar-links a {
+        display: block;
+        max-width: 240px;
+        width: auto;
+        vertical-align: middle;
+        text-align: left;
+        margin: 0 auto 5px;
+        padding: 10px 25px;
+        border-top: none;
+        border-left-width: 2px;
+        border-left-style: solid;
+    }
+
+    .sidebar-left .sidebar-links a i.fa {
+        display: inline-block;
+        font-size: 20px;
+        width: 20px;
+        margin: 0 20px 0 0;
+        vertical-align: middle;
+    }
+
+}*/
+/*/
+/*  Removing margins and paddings from the body, so that
+    the sidebar takes the full height of the page */
+/*
+body {
+    margin-top: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family:  GothamLight, GothamExtraLight, ProximaNovaReg;
+    height:100%;
+    width: 100%;
+    background-color: #202020;
+     /*overflow-x: scroll;
+      // white-space: nowrap;
+       overflow: auto;
+
+    
+}
+*/
