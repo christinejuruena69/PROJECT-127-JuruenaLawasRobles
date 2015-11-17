@@ -11,10 +11,10 @@
 	function config($routeProvider){
 		$routeProvider
 			.when("/sign-in", {
-				"controller": "SignInCtrl",
+				"controller": "MainCtrl",
 				"templateUrl": "sign-in/sign-in.view.html"})
 			.when("/sign-up", {
-				"controller": "SignUpCtrl",
+				"controller": "MainCtrl",
 				"templateUrl": "sign-up/sign-up.view.html"})
 			.when("/home", {
 				"controller": "HomeCtrl",

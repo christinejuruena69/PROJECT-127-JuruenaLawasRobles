@@ -43,7 +43,6 @@
 			var collapse_content_selector = $(this).attr('href');					
 				
 			//make the collapse content to be shown or hide
-			var toggle_switch = $(this);
 
 			var effect = 'slide';
 		    // Set the options for the effect type chosen
@@ -97,9 +96,13 @@
 			var collapse_content_selector = $(this).attr('href');					
 				
 			//make the collapse content to be shown or hide
-			$(collapse_content_selector).slideToggle(function(){
+			$(collapse_content_selector).toggle();
 
-			});
+			if (collapse_content_selector != "#playlist_div") {
+				console.log("hey");
+				$("#playlist_div").hide();
+
+			}
 			// $(collapse_content_selector).slideToggle(function(){		
 		});
 	});

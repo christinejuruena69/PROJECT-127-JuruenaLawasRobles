@@ -10,7 +10,7 @@
 	//$scope =angularjs service na parang require
 
 	function HomeCtrl($scope){
-		$scope.instructors=["maam betel", "sir reg", "maam lanie"];
+		
 
 	}
 })();

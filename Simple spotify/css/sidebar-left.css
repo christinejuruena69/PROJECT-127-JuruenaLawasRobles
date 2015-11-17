@@ -123,6 +123,8 @@ div#profile{
 }
 #urmsc_nav{
 	/*margin-top: -10px;*/
+	margin-left: -5px;
+	padding-left:10px; 
 	top: 0;
 	width: 100%;
 	height: 35px;
@@ -167,34 +169,62 @@ div#profile{
 	cursor: default;
 	border-bottom: 3px #4CC339 solid;
 }
-div #your_music div#playlist_sidebar span{
+div #your_music div#playlist_div span{
 	font-size: 3em;
 
 }
-div #your_music div#playlist_sidebar{
+
+div #your_music div#playlistsongs{
+	
+	width: 700px;
+	height: 800px;
+	background-color: red;
+	float: left;
+
+}
+
+div #your_music div#album_div{
+	width: 700px;
+	height: 800px;
+	background-color: blue;
+	display: none;
+}
+
+div #your_music div#artist_div{
+	
+	width: 700px;
+	height: 800px;
+	background-color: green;
+	display: none;
+
+}
+
+div #your_music div#playlist_sidebarlinks{
 	top:0;
 	left: 0;
 	padding: 0px;
-	margin-left: 10px;
+	margin-left: -5px;
 	height: 250px;
 	width: 250px;
 	background-color: #292c2f;
+	background-color: #292c2f;
 	color: #b3bcc5;
-	display: none;
+	float: left;
+	/*display: none;*/
 }
-div #your_music div#playlist_sidebar h6,
-div #your_music div#playlist_sidebar span{
+div #your_music div#playlist_div h6,
+div #your_music div#playlist_div span{
 	/*color: #b3bcc5;*/
 	/*width: 100px;*/
 
 }
 
-div #your_music div#playlist_sidebar span.glyphicon-plus, 
-div #your_music div#playlist_sidebar span.glyphicon-star{
+div #your_music div#playlist_div span.glyphicon-plus, 
+div #your_music div#playlist_div span.glyphicon-star{
 	font-size: 2.8em;
 }
 
-div #your_music div#playlist_sidebar .playlist_side_links {
+div #your_music div#playlist_div .playlist_side_links {
 	border-bottom: 1px gray solid;
 	padding: 10px 5px 10px 20px;
 	cursor: pointer;
@@ -214,8 +244,9 @@ div#player{
 	height: 700px;
 	width: 250px;
 	background-color: #A0A0A0;
-	float: left;
-	/*position: fixed;*/
+	/*float: left;*/
+	left: 1120px;
+	position: fixed;
 	padding: 20px;
 
 }

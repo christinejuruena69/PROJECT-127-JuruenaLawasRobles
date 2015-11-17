@@ -56,41 +56,66 @@
 		<div id="elements">
 			<div id="your_music">
 				<div id="urmsc_nav" class="urmsc_nav_links" >
-					<a href="#playlist_sidebar" class="playlist slide-toggle"> PLAYLISTS </a>
-					<a href="#" class="songs">SONGS </a>
-					<a href="#" class="albums"> ALBUMS</a>
-					<a href="#" class="artist"> ARTIST</a>	
+					<a href="#playlist_div" class="playlist slide-toggle"> PLAYLISTS </a>
+					<a href="#" class="songs slide-toggle">SONGS </a>
+					<a href="#album_div" class="albums slide-toggle"> ALBUMS</a>
+					<a href="#artist_div" class="artist slide-toggle"> ARTIST</a>	
 				</div>
-				<div id="playlist_sidebar">
-					<div class=" playlist_side_links">
-						<table class="pl_tbl1">
-							<tr>
-								<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
-								<td>  <h6> New Playlist  </h6> </td>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-							</tr>						
-						</table>
+				<div id="playlist_div">
+					<div id="playlist_sidebarlinks">
+						<div class=" playlist_side_links">
+							<table class="pl_tbl1">
+								<tr>
+									<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
+									<td>  <h6> New Playlist  </h6> </td>
+										<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>						
+							</table>
+						</div>
+						<div class="playlist_side_links">
+							<table  class="pl_tbl2">
+								<tr>
+									<td> <span  class="glyphicon glyphicon-star" > </span> </td>
+									<td>  <h6> Most Played </h6> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>						
+							</table>
+						</div>
+						<div class="playlist_side_links">
+			           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  value=""   required autofocus>
+				           	<input type="submit" value="Create" class="btn btn-success btn-sm" />
+						</div>
 					</div>
-					<div class="playlist_side_links">
-						<table  class="pl_tbl2">
-							<tr>
-								<td> <span  class="glyphicon glyphicon-star" > </span> </td>
-								<td>  <h6> Most Played </h6> </td>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-							</tr>						
-						</table>
-					</div>
-					<div class="playlist_side_links">
-		           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  value=""   required autofocus>
-			           	<input type="submit" value="Create" class="btn btn-success btn-sm" />
-					</div>
-				</div>
-				<div id="playlistsongs">
+					<div id="playlistsongs">
+							
 						
+					</div>
+				</div>
+				<div id="album_div">
+					<ul>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+					</ul>
+
+					
+				</div>
+				<div id="artist_div">
+					<ul>
+						<li>ey</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+						<li>dem</li>
+					</ul>
 					
 				</div>
 
