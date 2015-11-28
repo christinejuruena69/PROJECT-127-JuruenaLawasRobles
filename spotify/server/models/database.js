@@ -16,7 +16,7 @@ query.on('end', function() { client.end(); });
 
 
 
-
+//CREATE TABLE USER_SONG( User_id INT, Song_id INT)
 
 // INSERT INTO PLAYLIST(Playlist_Name) values ("Chill");
 // INSERT INTO PLAYLIST(Playlist_Name) values ("G lang");

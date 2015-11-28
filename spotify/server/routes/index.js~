@@ -13,8 +13,62 @@ var http = require('http');
 
     // });
 var pathname = "/api/v1/todos";
+var uspath = "/api/v1/user_song";
 
 module.exports = router;
+
+router.get(uspath, function(req,res){
+	var results = [];
+    // Grab data from http request
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+        var query = client.query("select *from user_song order by user_id asc;");
+       
+        query.on('row', function(row) {
+         		console.log(row);
+             results.push(row);
+         });
+         // After all data is returned, close connection and return results
+         query.on('end', function() {
+             done();
+             return res.json(results);
+         });
+        
+        // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
+    });
+});
+
+router.get(uspath+"/:id", function(req,res){
+	var results = [];
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+        // SQL Query > Select Data
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us, accounts a, songs s where us.user_id=a.user_id and s.song_id=sp.song_id;");
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+        		console.log(row);
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+});
 
 router.post(pathname, function(req,res){
 		var results = [];

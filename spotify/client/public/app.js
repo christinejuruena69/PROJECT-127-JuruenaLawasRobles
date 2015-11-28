@@ -22,7 +22,7 @@
 			.when("/admin", {
 				"controller": "AdminCtrl",
 				"templateUrl": "admin/admin.view.html"})
-			.otherwise({ 
-				"redirectTo": "/sign-in"});
+			//.otherwise({ 
+				//"redirectTo": "/sign-in"});
 	}
 })();
