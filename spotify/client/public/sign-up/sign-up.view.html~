@@ -21,7 +21,7 @@
 	                    	<input type="text" name="sex" id="sex" placeholder="Sex"  value=""   ng-model="formData.Sex" required autofocus>
 		                	<br />
 
-	                    	<input type="password" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
+	                    	<input type="text" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
 		                	<br />
 
 	                    	<input type="text" name="EmailAddress" id="EmailAddress" placeholder="Email Address"  value=""  ng-model="formData.Email_Address"  required autofocus>                   

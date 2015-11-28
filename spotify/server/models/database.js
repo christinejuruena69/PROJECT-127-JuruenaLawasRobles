@@ -4,10 +4,13 @@ var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 
 var client = new pg.Client(connectionString);
 client.connect();
-// var query = client.query('CREATE TABLE Playlist( Playlist_id SERIAL PRIMARY KEY, Playlist_Name VARCHAR(40) not null UNIQUE, Playlist_duration INT, Playlist_no_of_songs INT)');
-// var query = client.query('CREATE TABLE SONG_PLAYLIST( Playlist_id INT REFERENCES Playlist, Song_id INT UNIQUE REFERENCES Songs )' );
+ 
+ var query = client.query('CREATE TABLE Playlist( Playlist_id SERIAL PRIMARY KEY, Playlist_Name VARCHAR(40) not null UNIQUE, Playlist_duration INT, Playlist_no_of_songs INT)');
+ 
+  var query = client.query('CREATE TABLE Songs( Song_id SERIAL PRIMARY KEY, Song_title VARCHAR(40) not null, Song_album VARCHAR(50), Song_genre VARCHAR(50))');
 
-// var query = client.query('CREATE TABLE Songs( Song_id SERIAL PRIMARY KEY, Song_title VARCHAR(40) not null, Song_album VARCHAR(50), Song_genre VARCHAR(50))');
+ var query = client.query('CREATE TABLE SONG_PLAYLIST( Playlist_id INT REFERENCES Playlist, Song_id INT UNIQUE REFERENCES Songs )' );
+
 
 query.on('end', function() { client.end(); });
 

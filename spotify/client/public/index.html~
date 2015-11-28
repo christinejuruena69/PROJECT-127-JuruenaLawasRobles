@@ -35,8 +35,8 @@
 	<script src="main.service.js" ></script>
 	<script src="home/home.controller.js" ></script>
 	<script src="home/home.service.js" ></script>
-	<script src="admin/admin.controller.js" ></script>
-	<script src="admin/admin.service.js" ></script>
+	<script src="home/home.controller.js" ></script>
+	<script src="home/home.service.js" ></script>
 	<!-- app -->
 
 

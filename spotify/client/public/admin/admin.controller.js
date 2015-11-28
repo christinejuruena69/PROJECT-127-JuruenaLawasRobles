@@ -1,25 +1,20 @@
 'use strict';
 
 (function(){
-	"use strict";
 	angular
 		.module("app")
-		.controller("MainCtrl", MainCtrl); //this is a part of a module called app (yung nasa taas)
-	
-	MainCtrl.$inject = ["$scope", "$location", "MainService"]; // angularjs na property 
+		.controller("AdminCtrl", AdminCtrl); //this is a part of a module called app (yung nasa taas)
+	AdminCtrl.$inject = ["$scope", "$location", "AdminService"]; // angularjs na property 
 	//HomeCtrl may dependencies or gagamit ng other modules/services 
 	//angularsj construct
 	//$scope =angularjs service na parang require
 
-	function MainCtrl($scope, $location, MainService){
-		$scope.users = [];
-		$scope.accounts={};
-		$scope.formData={};
-		$scope.SignIndata={ Username:'',Password:''};
-		var user = {};
-		
-		
-		MainService.GetAll().then(function(data){
+	function AdminCtrl($scope, $location, AdminService){
+	var user = {};
+	$scope.users = [];
+	$scope.accounts={};
+	
+	AdminService.GetAll().then(function(data){
 				$('body').css('display', 'none');
 				$scope.accounts = data;
 				$scope.users = data;
@@ -27,48 +22,45 @@
 				$('body').css('display', '');
 		});
 		
-		
-		$scope.createStudent = function(){
-			MainService.Create($scope.formData)
-			.then(function (data){
-				$scope.formData={};
-				$scope.formData.UserName="";
-				// $scope.accounts.push(data);
-				// console.log($scope.accounts);
-				$scope.accounts = data;
-				$scope.users.push(data);		
-				goLogin();	
+	$scope.logout = function(){
+		document.cookie ="user=\"\"";
+		var cookie = document.cookie.split(";");
+		console.log(cookie[0]);
+		document.cookie = cookie[0];
+		isLoggedIn();
+	}
+	
+	$scope.makeAdmin = function(account){
+		account.user_role = 2;
+		AdminService.update(account)
+				.then(function(data){
+					alert("Make admin success");
+					console.log(data);
 			});
-		}
-		
-		function traverse(){
-			for(var i=0;i<$scope.users.length;i++){
-				console.log($scope.SignIndata.Password);
-				console.log($scope.users[i].password);
-				if($scope.users[i].username === $scope.SignIndata.Username){
-					if($scope.SignIndata.Password === $scope.users[i].password){
-						$scope.SignIndata = $scope.users[i];
-						return i;
-						}
-						alert("Username/Password incorrect");
-						return null;
-				}
-			}
-			alert("Username/Password is incorrect");
-			return -1;
-		}
-		
-		$scope.ValidateUser = function (){
-			var x = traverse();
-			console.log(x);
-			if(x != null && x>-1){
-				console.log($scope.SignIndata);
-				document.cookie = "user="+JSON.stringify($scope.SignIndata);
-				goLoginHome();
-				
-			}
-		}
-		
+		isLoggedIn();
+	};
+	
+	$scope.approveUser = function(account){
+		account.user_role = 1;
+		AdminService.update(account)
+				.then(function(data){
+					alert("User approved");
+					console.log(data);
+			});
+		isLoggedIn();
+	};
+	
+	$scope.unauthorizeUser = function(account){
+		account.user_role = null;
+		AdminService.update(account)
+				.then(function(data){
+					alert("Restricted User");
+					console.log(data);
+			});
+		isLoggedIn();
+	};
+	
+	//login and riderecting
 		function goSignUp(){
 			$location.url("/sign-up");
 			console.log($location);
@@ -118,9 +110,12 @@
 					
 			}catch(err){
 				//alert("No user is logged in");
+				//alert(err.message); //this thing works
 				document.cookie = "user=\"\"";
 				goLogin();
 			}
 		}
+	
 	}
 })();
+// Anonymouse function

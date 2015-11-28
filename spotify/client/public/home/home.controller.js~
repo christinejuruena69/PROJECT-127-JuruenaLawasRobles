@@ -15,7 +15,7 @@
 // });
 
 
-	function HomeCtrl($scope, $location, HomeService){
+	function HomeCtrl($scope, HomeService){
 		$scope.custom = true;
 		$scope.album = true;
 		$scope.artist = true;

@@ -20,8 +20,8 @@
 				"controller": "HomeCtrl",
 				"templateUrl": "home/home.view.html"})
 			.when("/admin", {
-				"controller": "AdminCtrl",
-				"templateUrl": "admin/admin.view.html"})
+				"controller": "HomeCtrl",
+				"templateUrl": "home/home.view.html"})
 			.otherwise({ 
 				"redirectTo": "/sign-in"});
 	}
