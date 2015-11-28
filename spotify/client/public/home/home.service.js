@@ -21,6 +21,8 @@
 		service.AddSong = AddSong;	
 		service.UpdateSong= UpdateSong;	
 		service.GetOneSong = GetOneSong;	
+		service.DeletePlaylist = DeletePlaylist;	
+		service.EditPlaylist = EditPlaylist;	
 		return service;
 
 		function GetAll(){
@@ -64,6 +66,49 @@
 					deferred.resolve(data);
 				});
 		}
+		function DeletePlaylist(playlist_id){
+			var deferred = $q.defer();
+			// $http.delete(allSongs , {params: {song_id: songid}})
+			$http.delete(plistUrl +"/"+ playlist_id)
+				.success(function(data){
+					console.log(data);				
+					deferred.resolve(data);
+					// alert("Song removed!");
+				}) 
+				.error(function (data, status, header, config) {
+					console.log("Data: " + data +
+                    "\n\n\n\nstatus: " + status +
+                    "\n\n\n\nheaders: " + header +
+                    "\n\n\n\nconfig: " + config);
+                alert("Cannot remove from songs");
+        });	
+				return deferred.promise;
+		}
+		function EditPlaylist(playlist_id, editedplist){
+			console.log(editedplist)
+			var deferred = $q.defer();
+			$http.put(plistUrl+ "/"+ playlist_id, editedplist)
+				.success(function(data){
+					console.log(data);				
+					deferred.resolve(data);
+				});
+				
+				return deferred.promise;
+		}
+		function RemovefromPlaylist(){
+			var deferred = $q.defer();
+			// $http.delete(allSongs , {params: {song_id: songid}})
+			$http.delete(plist_songsUrl +"/"+ songid)
+				.success(function(data){
+					console.log(data);				
+					deferred.resolve(data);
+					// alert("Song removed!");
+				});
+		}
+
+
+
+
 		function RemovefromSongs(songid){
 			var deferred = $q.defer();
 			// $http.delete(allSongs , {params: {song_id: songid}})

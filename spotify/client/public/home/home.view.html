@@ -71,14 +71,14 @@
       <div class="modal-body">
       	<span>Add song details</span> 
       	<form class="login"  ng-model="editedSong" action="" method="post" role="form">     
-      	<span> Song Title: {{editedSong.song_title}}&nbsp;</span>
+      	<span> Song Title: &nbsp;</span>
 	        <input type="" ng-model="editedSong.song_title" name="" id="" placeholder=""  value=""  required autofocus>
 	        <br />
-	      <span> Song Album: {{editedSong.song_album}}</span>
+	      <span> Song Album: </span>
 	        <input type="" ng-model="editedSong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
-        <span> Song Artist: {{editedSong.song_artist}}</span>
+        <span> Song Artist:</span>
 	        <input type="" ng-model="editedSong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
-	      <span> Song Genre:  {{editedSong.song_genre}}&nbsp; </span>
+	      <span> Song Genre: &nbsp; </span>
 	        <input type="" ng-model="editedSong.song_genre" name="" id="" placeholder=""  value=""  required autofocus>	      
 	        <br />                    
 		   	</form>
@@ -157,20 +157,46 @@
 							</table>
 						</div>
 						<div class="playlist_side_links">
-			           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
 
+						 <!-- <button popover-animation="true" uib-popover="I fade in and out!" type="button" class="btn btn-default">fading</button> -->
+   
+
+
+
+			           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
+										<br/>
 				           	<input type="submit"  ng-click="newPlaylist()"value="Create" class="btn btn-success btn-sm" />
 						</div>
 						<div id="playlists_for_real">
+						<div ng-hide="editplaylisttextbox">
+							
+			        <input type="text" name="" id="" placeholder="Playlist"  ng-model="editedplist.playlist_name" value="" required autofocus >
+				     <br/>
+				     <input type="submit"  ng-click="editPlaylist(playlist)"value="Save" class="btn btn-success btn-sm" />
+				     <input type="submit"  value="Cancel" ng-click="canceleditPlaylist()" class="btn btn-success btn-sm" />
+						</div>
+							
+							<br/>
 							<table class="table">
 								<thead>
+								<tr> Playlist Name</tr>
+								<tr> Action </tr>
 									
 								</thead>
 								<tbody>
 									<tr ng-repeat="playlist in playlists">
 									
 									
-										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>			
+										<td ng-click="getplaylist(playlist)"> <h6 ng-hide="editplaylistnametext"> {{ playlist.playlist_name}}  </h6>
+
+
+
+										</td>
+										<td>
+										<a> <span  class="glyphicon glyphicon-remove" ng-click="deletePlaylist(playlist)" > </span> </a>
+										<a> <span  class="glyphicon glyphicon-pencil" ng-click="geteditPlaylist(playlist)" > </span> </a>
+										 </a>									
+										</td>			
 										
 									</tr>
 									
@@ -181,6 +207,7 @@
 						</div>
 					</div>
 					<div id="playlistsongs">	
+					<h4> {{ currentplaylistTitle }}</h4>
 
 
 						<table class="table">
@@ -188,8 +215,8 @@
 									<tr>
 										<th> Track </th>
 										<th>Artist</th>
-										<th>Time</th>
 										<th> Album </th>
+										<th> Genre </th>
 										<th> Action </th>
 									</tr>
 									
@@ -199,10 +226,14 @@
 									
 									
 									<td ng-click=""> {{ song.song_title}} </td>			
-										<td ng-click=""> {{ song.song_album}} </td>			
 										<td ng-click=""> {{ song.song_artist}} </td>			
+										<td ng-click=""> {{ song.song_album}} </td>			
 										<td ng-click=""> {{ song.song_genre}} </td>			
-										<td ng-click="">  <input type="submit"  ng-click="" value="Remove" class="btn btn-success" /> </td>			
+										<td ng-click="">  
+										<a> <span  class="glyphicon glyphicon-remove" ng-click="removefromPlaylist(song)" > </span> </a>									
+
+										<input type="submit"  ng-click="" value="Remove" class="btn btn-success" />
+										</td>			
 									</tr>
 									
 								</tbody>
@@ -223,8 +254,8 @@
 									<tr>
 										<th> Track </th>
 										<th>Artist</th>
-										<th>Time</th>
 										<th> Album </th>
+										<th> Genre </th>
 										<th> Action </th>
 									</tr>
 									
@@ -234,8 +265,8 @@
 									
 									
 										<td ng-click=""> {{ song.song_title}} </td>			
-										<td ng-click=""> {{ song.song_album}} </td>			
 										<td ng-click=""> {{ song.song_artist}} </td>			
+										<td ng-click=""> {{ song.song_album}} </td>			
 										<td ng-click=""> {{ song.song_genre}} </td>			
 										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >  
 										<input type="button" value="Remove" ng-click="removefromSongs(song)"> 

@@ -21,11 +21,16 @@
 		$scope.artist = true;
 		$scope.songlist = true;
 		$scope.saved=false;
-
+		$scope.editplaylisttextbox=true;
+		$scope.editplaylistnametext=false;
+		
      $scope.curreditedSong={};
+     $scope.curreditplist={};
+
 		$scope.allsongs={}	;
 	    $scope.playlists={};
 	    $scope.currentplaylist={};
+	    $scope.currentplaylistTitle="";
 	   	$scope.song_filename='';
 	   	$scope.selectedPlaylistid=0;
 	   	// $scope.editedSong=[];
@@ -83,6 +88,55 @@
         			$scope.newplaylist={};
 					});	
         }
+
+
+        $scope.deletePlaylist = function(playlist){
+        	HomeService.DeletePlaylist(playlist.playlist_id)
+        		.then(function (data){
+        			var index = $scope.playlists.indexOf(playlist);
+	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
+    					// $scope.degreePrograms.splice(index,1);
+    					$scope.playlists.splice(index,1);
+					});	
+        }
+        $scope.canceleditPlaylist = function (){
+           $scope.editplaylisttextbox = $scope.editplaylisttextbox === false ? true: false;   
+            $scope.editedplist = {};
+        }
+        $scope.geteditPlaylist = function(playlist){
+        	// $scope.editplaylistnametext=true;
+           // $scope.editplaylisttextbox = $scope.editplaylisttextbox === false ? true: false;
+           $scope.editplaylisttextbox=false;
+
+        	console.log(playlist.playlist_id);
+        	$scope.editedplist= playlist;
+        	$scope.curreditplist=playlist;
+
+        }
+        $scope.editPlaylist = function(playlist){
+        	// $scope.editplaylistnametext=true;
+        	console.log($scope.curreditplist.playlist_id);
+        	console.log($scope.editplaylistname);
+        	// $scope.editplaylistname= playlist.playlist_name;
+        	HomeService.EditPlaylist($scope.curreditplist.playlist_id, $scope.editedplist)
+        		.then(function (data){
+
+        		$scope.editedplist={};
+        		$scope.curreditplist={};
+
+					});	
+        }
+        function removefromPlaylist(){
+        	HomeService.RemovefromPlaylist($scope.curreditplist.playlist_id, $scope.editedplist)
+        		.then(function (data){
+
+        		$scope.editedplist={};
+        		$scope.curreditplist={};
+
+					});	
+        }
+
+
         $scope.temp_all_playlist=[];
 				$scope.temp_all_songs=[];
  				var temp_playlist = [];
@@ -123,6 +177,8 @@
 		   				}
 						});
 						$scope.currentplaylist = temp_playlist;
+						$scope.currentplaylistTitle = playlist.playlist_name;
+
 						$scope.temp_all_songs= [];
 						$scope.temp_all_playlist= [];
 						temp_playlist=[];

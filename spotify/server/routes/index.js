@@ -210,10 +210,6 @@ router.get('/api/v1/albums', function(req, res) {
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM SONG_ALBUM;");
-
-        // var query = client.query(
-            // "WITH Song_ids_table as ( select * from SONG_PLAYLIST), select * from SONGS where song_id in ( select song_id in Song_ids_table);");
-
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
@@ -228,58 +224,90 @@ router.get('/api/v1/albums', function(req, res) {
     });
 
 });
-
-router.post('/api/v1/plist', function(req, res) {
-
-    var results = [];
-
-    // Grab data from http request
-    var data = {
-        Name: req.body.FName + " " +req.body.MName + " " + req.body.LName, //2
-        Sex: req.body.Sex, //3
-        Email_Address: req.body.Email_Address, //4
-        Birthday: req.body.Birthday, //5
-        Age: req.body.Age //6
-    };
-    console.log( data.UserName, data.Name );
-
-    // Get a Postgres client from the connection pool
-    pg.connect(connectionString, function(err, client, done) {
-        // Handle connection errors
-        if(err) {
-          done();
-          console.log(err);
-          return res.status(500).json({ success: false, data: err});
-        }
-
-       client.query("INSERT INTO ACCOUNTS3(UserName, Name, Sex, Email_Address, Birthday, Age, Date_Joined) values( $1, $2, $3, $4, $5, $6, current_date)", 
-            [ data.UserName,
-              data.Name, 
-              data.Sex, 
-              data.Email_Address, 
-              data.Birthday, data.Age
-            ]);
-        
-        // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
-
-        // SQL Query > Select Data
-            var query = client.query("SELECT * FROM ACCOUNTS3 ORDER BY User_id ASC");
-
-            // Stream results back one row at a time
-            query.on('row', function(row) {
-                results.push(row);
-            });
-
-            // After all data is returned, close connection and return results
-            query.on('end', function() {
-                done();
-                return res.json(results);
-            });
-            // ^^^^ KUNG MAY IRERETURN SA WE PAGE LIKE SA HOME! FUCK YEAH
-
-
+router.get('/api/v1/songs/:song_id', function(req,res) {
+ console.log(req.params.song_id);
+ pg.connect(connectionString, function(err, client, done) {
+ var x = [];
+ var id = req.params.song_id;
+    var query = client.query("SELECT * FROM SONGS where song_id = $1", [id]);
+        query.on('row', function(row) {
+                console.log(row);
+            x.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(x);
+        });
     });
 });
+router.get('api/v1/plist/:playlist_id', function(req,res) {
+ console.log(req.params.playlist_id);
+ pg.connect(connectionString, function(err, client, done) {
+ var x = [];
+ var id = req.params.playlist_id;
+    var query = client.query("SELECT * FROM PLAYLIST where playlist_id = $1", [id]);
+        query.on('row', function(row) {
+                console.log(row);
+            x.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(x);
+        });
+    });
+});
+
+// router.post('/api/v1/plist', function(req, res) {
+
+//     var results = [];
+
+//     // Grab data from http request
+//     var data = {
+//         Name: req.body.FName + " " +req.body.MName + " " + req.body.LName, //2
+//         Sex: req.body.Sex, //3
+//         Email_Address: req.body.Email_Address, //4
+//         Birthday: req.body.Birthday, //5
+//         Age: req.body.Age //6
+//     };
+//     console.log( data.UserName, data.Name );
+
+//     // Get a Postgres client from the connection pool
+//     pg.connect(connectionString, function(err, client, done) {
+//         // Handle connection errors
+//         if(err) {
+//           done();
+//           console.log(err);
+//           return res.status(500).json({ success: false, data: err});
+//         }
+
+//        client.query("INSERT INTO ACCOUNTS3(UserName, Name, Sex, Email_Address, Birthday, Age, Date_Joined) values( $1, $2, $3, $4, $5, $6, current_date)", 
+//             [ data.UserName,
+//               data.Name, 
+//               data.Sex, 
+//               data.Email_Address, 
+//               data.Birthday, data.Age
+//             ]);
+        
+//         // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
+
+//         // SQL Query > Select Data
+//             var query = client.query("SELECT * FROM ACCOUNTS3 ORDER BY User_id ASC");
+
+//             // Stream results back one row at a time
+//             query.on('row', function(row) {
+//                 results.push(row);
+//             });
+
+//             // After all data is returned, close connection and return results
+//             query.on('end', function() {
+//                 done();
+//                 return res.json(results);
+//             });
+//             // ^^^^ KUNG MAY IRERETURN SA WE PAGE LIKE SA HOME! FUCK YEAH
+
+
+//     });
+// });
 
 router.post('/api/v1/plist-songs', function(req, res) {
 
@@ -352,6 +380,22 @@ router.post('/api/v1/songs', function(req, res) {
               data.song_genre,
               data.song_artist
             ]);        
+
+       var query = client.query("SELECT * FROM SONGS ORDER BY song_id ASC");
+
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+            // ^^^^ KUNG MAY IRERETURN SA WE PAGE LIKE SA HOME! FUCK YEAH
+
+
             // /kulang ng directory
     });
 });
@@ -364,7 +408,6 @@ router.put('/api/v1/songs/:song_id', function(req, res) {
     var id = req.params.song_id;
     // Grab data from http request
     var data = {
-        song_id: req.body.song_id,
         song_title: req.body.song_title,
         song_album: req.body.song_album,
         song_genre: req.body.song_genre,
@@ -387,42 +430,70 @@ router.put('/api/v1/songs/:song_id', function(req, res) {
             data.song_album,
             data.song_genre,
             data.song_artist,
-            data.song_id
+            id
         ]);
 
         // SQL Query > Select Data
-        // var query = client.query("SELECT * FROM SONGS ORDER BY song_id ASC");
+        var query = client.query("SELECT * FROM SONGS ORDER BY song_id ASC");
 
-        // // Stream results back one row at a time
-        // query.on('row', function(row) {
-        //     results.push(row);
-        // });
-
-        // // After all data is returned, close connection and return results
-        // query.on('end', function() {
-        //     done();
-        //     return res.json(results);
-        // });
-    });
-
-});
-
-router.get('/api/v1/songs/:song_id', function(req,res) {
- console.log(req.params.song_id);
- pg.connect(connectionString, function(err, client, done) {
- var x = [];
- var id = req.params.song_id;
-    var query = client.query("SELECT * FROM SONGS where song_id = $1", [id]);
+        // Stream results back one row at a time
         query.on('row', function(row) {
-                console.log(row);
-            x.push(row);
+            results.push(row);
         });
+
+        // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            return res.json(x);
+            return res.json(results);
         });
     });
+
 });
+
+
+router.put('/api/v1/plist/:playlist_id', function(req, res) {
+    var results = [];
+    // Grab data from the URL parameters
+    var id = req.params.playlist_id;
+    // Grab data from http request
+    var data = {
+      playlist_name : req.body.playlist_name
+    };
+    console.log(data);
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).send(json({ success: false, data: err}));
+        }
+
+        // SQL Query > Update Data
+        client.query("UPDATE PLAYLIST SET playlist_name=($1) WHERE playlist_id=($2)",
+         [  data.playlist_name,id
+        ]);
+
+        // SQL Query > Select Data
+        var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+
+});
+
+
+
 router.delete('/api/v1/songs/:song_id', function(req, res) {
 
     var results = [];
@@ -445,6 +516,42 @@ router.delete('/api/v1/songs/:song_id', function(req, res) {
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM SONGS ORDER BY song_id ASC");
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+
+});
+router.delete('/api/v1/plist/:playlist_id', function(req, res) {
+
+    var results = [];
+
+    // Grab data from the URL parameters
+    var id = req.params.playlist_id;
+
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+        // SQL Query > Delete Data
+        client.query("DELETE FROM PLAYLIST WHERE playlist_id=($1)", [id]);
+
+        // SQL Query > Select Data
+        var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
 
         // Stream results back one row at a time
         query.on('row', function(row) {

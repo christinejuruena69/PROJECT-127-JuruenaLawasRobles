@@ -1,3 +1,6 @@
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 body
 {
     /*background: url('http://farm3.staticflickr.com/2832/12303719364_c25cecdc28_b.jpg') fixed;*/
@@ -416,10 +419,13 @@ div #your_music div#artist_div{
 
 }
 
+div #your_music div#playlist_sidebarlinks input{
+    margin-left: 20px;
+
+}
 div #your_music div#playlist_sidebarlinks{
     top:0;
     left: 0;
-    padding: 0px;
     margin-left: -5px;
     height: 650px;
     width: 250px;
@@ -431,6 +437,7 @@ div #your_music div#playlist_sidebarlinks{
 }
 div #your_music div#playlist_div h6,
 div #your_music div#playlist_div span{
+    padding-left: 20px;
     /*color: #b3bcc5;*/
     /*width: 100px;*/
 

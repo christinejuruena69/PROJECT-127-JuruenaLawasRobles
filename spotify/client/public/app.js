@@ -2,7 +2,7 @@
 
 (function(){
 	angular
-		.module("app",[ 'ngRoute'])
+		.module("app",[ 'ngRoute','ui.bootstrap'])
 		//app gagamit ng routeprovider
 		.config(config);
 
