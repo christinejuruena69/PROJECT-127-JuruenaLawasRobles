@@ -198,6 +198,7 @@ form.login a:hover
 
 /*player*/
 /* The main content */
+/* The main content */
 
 @font-face{
   font-family: ProximaNovaReg;
@@ -248,7 +249,7 @@ div #elements{
     top: 0;
     left: 0;
     width: 970px;
-    height: 100%;x
+    height: 100%;
     position: relative;
     float: left;
     /*background-color: pink;*/
@@ -269,7 +270,7 @@ div #elements{
     height: 100%;
     padding: 20px 0;
     box-shadow:  8px 0 10px -4px rgba(32, 32, 32, 0.8);
-    display: none;
+    /*display: none;*/
     z-index: 5;
 }
 #search_box_div{
@@ -310,8 +311,8 @@ div#profile{
     font-family: GothamBook;
     /*position: fixed;*/
     top: 0;
-    left: px;
-    margin-left: 5px;
+    /*left:-100px;*/
+    margin-left: -110px;
     background-color: #202020;
     width: 900px;
     height: 100%;
@@ -322,6 +323,8 @@ div#profile{
 }
 #urmsc_nav{
     /*margin-top: -10px;*/
+    /*margin-left: -5px;*/
+    padding-left:10px; 
     top: 0;
     width: 100%;
     height: 35px;
@@ -366,34 +369,79 @@ div#profile{
     cursor: default;
     border-bottom: 3px #4CC339 solid;
 }
-div #your_music div#playlist_sidebar span{
+div #your_music div#playlist_div{
+    width: 1000px;
+    height: 650px;
+    /*background-color: red;*/
+    /*margin-left: -5px;*/
+    /*float: left;*/
+}
+div #your_music div#playlist_div span{
     font-size: 3em;
 
 }
-div #your_music div#playlist_sidebar{
+
+div #your_music div#playlistsongs{
+     width: 1000px;
+    height: 100%;
+    background-color: pink;
+    float: left;
+
+}
+
+div #your_music div#songlist_div{
+   width: 1000px;
+    height: 100%;
+    
+    background-color: pink;
+    /*display: none;*/
+    /*margin-left: -5px;*/
+}
+div #your_music div#album_div{
+   width: 1000px;
+    height: 650px;
+    background-color: pink;
+    /*background-color: blue;*/
+    /*display: none;*/
+    /*margin-left: -5px;*/
+}
+
+div #your_music div#artist_div{
+   width: 1000px;
+    height: 650px;
+    background-color: pink;
+    /*background-color: green;*/
+    /*margin-left: -5px;*/
+     /*display: none;*/
+
+}
+
+div #your_music div#playlist_sidebarlinks{
     top:0;
     left: 0;
     padding: 0px;
-    margin-left: 10px;
-    height: 250px;
+    margin-left: -5px;
+    height: 650px;
     width: 250px;
     background-color: #292c2f;
+    background-color: #292c2f;
     color: #b3bcc5;
-    display: none;
+    float: left;
+    /*display: none;*/
 }
-div #your_music div#playlist_sidebar h6,
-div #your_music div#playlist_sidebar span{
+div #your_music div#playlist_div h6,
+div #your_music div#playlist_div span{
     /*color: #b3bcc5;*/
     /*width: 100px;*/
 
 }
 
-div #your_music div#playlist_sidebar span.glyphicon-plus, 
-div #your_music div#playlist_sidebar span.glyphicon-star{
+div #your_music div#playlist_div span.glyphicon-plus, 
+div #your_music div#playlist_div span.glyphicon-star{
     font-size: 2.8em;
 }
 
-div #your_music div#playlist_sidebar .playlist_side_links {
+div #your_music div#playlist_div .playlist_side_links {
     border-bottom: 1px gray solid;
     padding: 10px 5px 10px 20px;
     cursor: pointer;
@@ -413,8 +461,9 @@ div#player{
     height: 700px;
     width: 250px;
     background-color: #A0A0A0;
-    float: left;
-    /*position: fixed;*/
+    /*float: left;*/
+    left: 1120px;
+    position: fixed;
     padding: 20px;
 
 }
@@ -560,93 +609,3 @@ div#player div#player_ctrl{
     }
 
 }
-
-/* Making the sidebar responsive */
-/*/*/*/*
-@media (max-width: 900px) {
-
-    .main-content{
-        max-width: none;
-        padding: 40px 20px;
-        margin: 0 0 40px;
-    }
-
-    .sidebar-left {
-        width: auto;
-        height: auto;
-        position: inherit;
-        padding: 20px 0 0;
-    }
-
-    .sidebar-left .sidebar-links {
-        text-align: center;
-        margin: 20px auto 0;
-    }
-
-    .sidebar-left .sidebar-links a {
-        display: inline-block;
-        width: 100px;
-        margin: 0;
-        padding: 14px 0;
-        border-left: none;
-        border-top-width: 2px;
-        border-top-style: solid;
-    }
-
-}
-
-/* Mobile phone layout */
-/*
-@media (max-width: 450px) {
-
-    .sidebar-left {
-        padding: 20px 0;
-    }
-
-    .sidebar-left .sidebar-links {
-        text-align: center;
-        margin: 20px auto 0;
-    }
-
-    .sidebar-left .sidebar-links a {
-        display: block;
-        max-width: 240px;
-        width: auto;
-        vertical-align: middle;
-        text-align: left;
-        margin: 0 auto 5px;
-        padding: 10px 25px;
-        border-top: none;
-        border-left-width: 2px;
-        border-left-style: solid;
-    }
-
-    .sidebar-left .sidebar-links a i.fa {
-        display: inline-block;
-        font-size: 20px;
-        width: 20px;
-        margin: 0 20px 0 0;
-        vertical-align: middle;
-    }
-
-}*/
-/*/
-/*  Removing margins and paddings from the body, so that
-    the sidebar takes the full height of the page */
-/*
-body {
-    margin-top: 0px;
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    font-family:  GothamLight, GothamExtraLight, ProximaNovaReg;
-    height:100%;
-    width: 100%;
-    background-color: #202020;
-     /*overflow-x: scroll;
-      // white-space: nowrap;
-       overflow: auto;
-
-    
-}
-*/

@@ -1,4 +1,100 @@
-<div class="main-content">
+<!-- Modal -->
+<div ng-app class="modal" id="addtoplistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add to playlist</h4>
+      </div>
+      <div class="modal-body">
+      	<span>Select playlist: </span> 
+      	<div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Playlist <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				    <li ng-repeat="playlist in playlists"> <a ng-click="getselected(playlist)">{{ playlist.playlist_name}} </a> </li>
+				  </ul>
+				</div>
+      	<span>Selected playlist: {{selectedPlaylist}} </span> 
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addsongtoPlaylist()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<!-- Modal -->
+<div ng-app class="modal" id="addsongModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add song details</h4>
+      </div>
+      <div class="modal-body">
+      	<span>Add song details</span> 
+      	<form class="login"  ng-model="newsong" action="" method="post" role="form">     
+      	<span> Song Title: &nbsp;</span>
+	        <input type="" ng-model="newsong.song_title" name="" id="" placeholder=""  value=""  required autofocus>
+	        <br />
+	      <span> Song Album: </span>
+	        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+        <span> Song Artist: </span>
+	        <input type="" ng-model="newsong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+	      <span> Song Genre: &nbsp;</span>
+	        <input type="" ng-model="newsong.song_genre" name="" id="" placeholder=""  value=""  required autofocus>	      
+	        <br />                    
+		   	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addsonganddetails()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div ng-app class="modal" id="editsongModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit song details</h4>
+      </div>
+      <div class="modal-body">
+      	<span>Add song details</span> 
+      	<form class="login"  ng-model="editedSong" action="" method="post" role="form">     
+      	<span> Song Title: {{editedSong.song_title}}&nbsp;</span>
+	        <input type="" ng-model="editedSong.song_title" name="" id="" placeholder=""  value=""  required autofocus>
+	        <br />
+	      <span> Song Album: {{editedSong.song_album}}</span>
+	        <input type="" ng-model="editedSong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+        <span> Song Artist: {{editedSong.song_artist}}</span>
+	        <input type="" ng-model="editedSong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+	      <span> Song Genre:  {{editedSong.song_genre}}&nbsp; </span>
+	        <input type="" ng-model="editedSong.song_genre" name="" id="" placeholder=""  value=""  required autofocus>	      
+	        <br />                    
+		   	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="updateSong()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->
+
+
+
+<div ng-app="app" class="main-content">
 			
 		<aside class="sidebar-left">
 
@@ -6,18 +102,18 @@
             <img src="images/sp.png" class="company-logo" width="100px" height="100px;">
 
 			<div class="sidebar-links">
-				<span class="glyphicon glyphicon-search"> </span>
-				<a class="link-blue side-toggle" href="#search_sidebar"></i>Search</a>
+				<span class="glyphicon glyphicon-search"> </span>    
+				<a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a>
 				<span class=""> </span>				
-				<a class="link-red show-toggle" href="#"></i>Browse</a>
+				<a class="link-red" href="#"></i>Browse</a>
 				<span class=""> </span>				
-				<a class="link-yellow selected show-toggle" href="#your_music"></i>Your Music</a>
+				<a class="link-yellow selected" href="#your_music"></i>Your Music</a>
 				<span class=""> </span>				
-				<a class="link-green show-toggle" href="#profile"></i>Profile</a>
+				<a class="link-green" href="#profile"></i>Profile</a>
 			</div>
 
 		</aside>
-		<div id="search_sidebar">
+		<div id="search_sidebar" ng-hide="custom">
 			<div id="search_box_div">
 				<div class="input-group input-group-md">
 				  <span class="input-group-addon">
@@ -31,46 +127,159 @@
 		<div id="elements">
 			<div id="your_music">
 				<div id="urmsc_nav" class="urmsc_nav_links" >
-					<a href="#playlist_sidebar" class="playlist slide-toggle"> PLAYLISTS </a>
-					<a href="#" class="songs">SONGS </a>
-					<a href="#" class="albums"> ALBUMS</a>
-					<a href="#" class="artist"> ARTIST</a>	
+					<a class="playlist" ng-click="togglePlaylist()"> PLAYLISTS </a>
+					<a  class="songs" ng-click="toggleSongs()" >SONGS </a>
+					<a  ng-click="toggleAlbum()" class="albums"> ALBUMS</a>
+					<a class="artist" ng-click="toggleArtist()"> ARTIST</a>	
 				</div>
-				<div id="playlist_sidebar">
-					<div class=" playlist_side_links">
-						<table class="pl_tbl1">
-							<tr>
-								<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
-								<td>  <h6> New Playlist  </h6> </td>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-							</tr>						
-						</table>
+				<div id="playlist_div"  ng-hide="playlist">
+					<div id="playlist_sidebarlinks">
+						<div class=" playlist_side_links">
+							<table class="pl_tbl1">
+								<tr>
+									<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
+									<td>  <h6> New Playlist  </h6> </td>
+										<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>						
+							</table>
+						</div>
+						<div class="playlist_side_links">
+							<table  class="pl_tbl2">
+								<tr>
+									<td> <span  class="glyphicon glyphicon-star" > </span> </td>
+									<td>  <h6> Most Played </h6> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>						
+							</table>
+						</div>
+						<div class="playlist_side_links">
+			           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
+
+				           	<input type="submit"  ng-click="newPlaylist()"value="Create" class="btn btn-success btn-sm" />
+						</div>
+						<div id="playlists_for_real">
+							<table class="table">
+								<thead>
+									
+								</thead>
+								<tbody>
+									<tr ng-repeat="playlist in playlists">
+									
+									
+										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>			
+										
+									</tr>
+									
+								</tbody>
+									
+								</table>
+							
+						</div>
 					</div>
-					<div class="playlist_side_links">
-						<table  class="pl_tbl2">
-							<tr>
-								<td> <span  class="glyphicon glyphicon-star" > </span> </td>
-								<td>  <h6> Most Played </h6> </td>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-							</tr>						
-						</table>
-					</div>
-					<div class="playlist_side_links">
-		           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  value=""   required autofocus>
-			           	<input type="submit" value="Create" class="btn btn-success btn-sm" />
-					</div>
-				</div>
-				<div id="playlistsongs">
+					<div id="playlistsongs">	
+
+
+						<table class="table">
+								<thead>
+									<tr>
+										<th> Track </th>
+										<th>Artist</th>
+										<th>Time</th>
+										<th> Album </th>
+										<th> Action </th>
+									</tr>
+									
+								</thead>
+								<tbody>
+									<tr ng-repeat="song in currentplaylist">
+									
+									
+									<td ng-click=""> {{ song.song_title}} </td>			
+										<td ng-click=""> {{ song.song_album}} </td>			
+										<td ng-click=""> {{ song.song_artist}} </td>			
+										<td ng-click=""> {{ song.song_genre}} </td>			
+										<td ng-click="">  <input type="submit"  ng-click="" value="Remove" class="btn btn-success" /> </td>			
+									</tr>
+									
+								</tbody>
+									
+								</table>
+
 						
-					
+					</div>
 				</div>
+				<div id="songlist_div" ng-hide="songlist">
+					<form action="">
+					  <input type="file" name="pic" accept="audio/*" name="song_filename" ng-model="song_filename" 
+					  onchange="angular.element(this).scope().fileNameChanged(this)"   >
+					  <input type="button" value="Upload"  data-toggle="modal" data-target="#addsongModal">
+					</form>
+					<table class="table">
+								<thead>
+									<tr>
+										<th> Track </th>
+										<th>Artist</th>
+										<th>Time</th>
+										<th> Album </th>
+										<th> Action </th>
+									</tr>
+									
+								</thead>
+								<tbody>
+									<tr ng-repeat="song in allsongs">
+									
+									
+										<td ng-click=""> {{ song.song_title}} </td>			
+										<td ng-click=""> {{ song.song_album}} </td>			
+										<td ng-click=""> {{ song.song_artist}} </td>			
+										<td ng-click=""> {{ song.song_genre}} </td>			
+										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >  
+										<input type="button" value="Remove" ng-click="removefromSongs(song)"> 
+										<input type="button" value="Play" ng-click=""> 
+										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal"> 
 
 
+										<button type="button" class="btn btn-link" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span  class="glyphicon glyphicon-plus" > </span> </button>
 
+
+										<a ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" > <span  class="glyphicon glyphicon-plus" > </span> </a>
+										<span  class="glyphicon glyphicon-remove" > </span>
+										<span  class="glyphicon glyphicon-play" > </span>
+										</td>			
+										
+									</tr>
+									
+								</tbody>
+									
+								</table>
+
+				</div>
+				<div id="album_div" ng-hide="album">
+					<table class="table">
+								<thead>									
+								</thead>
+								<tbody>
+									<tr ng-repeat="playlist in playlists">								
+										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>													
+									</tr>									
+								</tbody>									
+								</table>					
+				</div>
+				<div id="artist_div" ng-hide="artist">
+					<table class="table">
+								<thead>									
+								</thead>
+								<tbody>
+									<tr ng-repeat="playlist in playlists">									
+										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>													
+									</tr>									
+								</tbody>									
+								</table>					
+				</div>
 
 				
 			</div>
@@ -81,6 +290,7 @@
 				
 			</div>
 		</div>
+
 		<div id="player">
 			<div id="player_artist_square">
 						
@@ -94,24 +304,24 @@
 				</div>
 				<div id="main_ctrl">
 					
-	          <i class="glyphicon glyphicon-step-backward"></i>
-	          <i class="glyphicon glyphicon-play-circle"></i>
-	          <i class="glyphicon glyphicon-step-forward"></i>
-	          <br />
-	          <br />
-	          <br />
+		          <i class="glyphicon glyphicon-step-backward"></i>
+		          <i class="glyphicon glyphicon-play-circle"></i>
+		          <i class="glyphicon glyphicon-step-forward"></i>
+		          <br />
+		          <br />
+		          <br />
 
-	           <i class="glyphicon glyphicon-list" ></i>
-	          <i class="glyphicon glyphicon-random"></i>
-	          <i class="glyphicon glyphicon-retweet"></i>
-	          <i class="glyphicon glyphicon-volume"></i>
+		           <i class="glyphicon glyphicon-list" ></i>
+		          <i class="glyphicon glyphicon-random"></i>
+		          <i class="glyphicon glyphicon-retweet"></i>
+		          <i class="glyphicon glyphicon-volume"></i>
 	         		
-				</div>
-				
+				</div>				
 			</div>
 					
 				
 		</div>
 
 		
-	</div>
+</div>
+

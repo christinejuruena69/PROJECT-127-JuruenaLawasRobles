@@ -20,6 +20,6 @@
 				"controller": "HomeCtrl",
 				"templateUrl": "home/home.view.html"})
 			.otherwise({ 
-				"redirectTo": "/sign-in"});
+				"redirectTo": "/home"});
 	}
 })();

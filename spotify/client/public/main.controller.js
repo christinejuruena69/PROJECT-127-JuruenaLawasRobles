@@ -17,7 +17,7 @@
 
 		MainService.GetAll().then(function(data){
 				$scope.accounts=data;
-				console.log(data);
+				// console.log(data);
 
 		});
 
@@ -28,19 +28,19 @@
 				$scope.formData.UserName="";
 				// $scope.accounts.push(data);
 				// console.log($scope.accounts);
-				$scope.accounts=data;
-				console.log($scope.accounts);				
+				// $scope.accounts=data;
+				// console.log($scope.accounts);				
 			});
 		}
-		// $scope.ValidateUser =function (SignIndata){
-		// 	MainService.Check($scope.SignIndata.user_id)
-		// 		.then(function (data){
-		// 			$scope.SignIndata=data;
-
-		// 			console.log(data);
-		// 			console.log(SignIndata);
-		// 		});
-		// }
+		$scope.ValidateUser =function (SignIndata){
+			MainService.Check($scope.SignIndata.user_id)
+				.then(function (data){
+					$scope.SignIndata=data;
+ 
+					// console.log(data);
+					console.log(SignIndata);
+				});
+		}
 
 	}
 })();
