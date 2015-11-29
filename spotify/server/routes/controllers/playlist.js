@@ -40,7 +40,7 @@ exports.getAllPlaylist = function(req, res) {
 @  Functions below respond to '/api/v1/plist/:id'
 */
 
-exports.newPlaylist = function(req, res) {
+exports.addNewPlaylist = function(req, res) {
     var results = [];
     var data = {
         playlist_name: req.body.playlist_name, //1
@@ -57,7 +57,6 @@ exports.newPlaylist = function(req, res) {
        client.query("INSERT INTO Playlist( Playlist_Name,user_id) values( $1,$2)", //ayusin ito
             [ data.playlist_name,req.params.id]);
 
-        // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
     });
 };
 
@@ -138,7 +137,7 @@ exports.getSongsInUserPlaylist = function(req, res){
 					console.log(err);
 					return res.status(500).json({ success: false, data: err});
 				}
-				var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, song_playlist us, accounts a, songs s where a.user_id=$1 and p.user_id=a.user_id and us.playlist_id=p.playlist_id and s.song_id=us.song_id;",[req.params.id]);
+				var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, song_playlist us, account a, songs s where a.user_id=$1 and p.user_id=a.user_id and us.playlist_id=p.playlist_id and s.song_id=us.song_id;",[req.params.id]);
 				query.on('row', function(row) {
 						console.log(row);
 						 results.push(row);
@@ -148,4 +147,79 @@ exports.getSongsInUserPlaylist = function(req, res){
 						 return res.json(results);
 				 });
 		});
+};
+
+
+
+exports.updatePlaylistNoofSongs = function(req,res){
+    var results = [];
+    var id = req.params.playlist_id;
+    var data = {
+      playlist_name : req.body.playlist_name
+    };
+    console.log(data);
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).send(json({ success: false, data: err}));
+        }
+
+        client.query("UPDATE PLAYLIST SET playlist_name=($1) WHERE playlist_id=($2)",
+         [  data.playlist_name,id
+        ]);
+
+        var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+
+};
+exports.updateToDecPlaylistNoofSongs = function(req,res){
+    var results = [];
+
+    var id = req.params.playlist_id;
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+        client.query("DELETE FROM PLAYLIST WHERE playlist_id=($1)", [id]);
+
+        client.query("DELETE FROM PLAYLIST_SONG where playlist_id = $1", [id]);
+        var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
+
+        query.on('row', function(row) {
+            results.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+
+};
+
+exports.getPlaylistSongs = function(req,res){
+ pg.connect(connectionString, function(err, client, done) {
+ var x = [];
+ var id = req.params.playlist_id;
+    var query = client.query("SELECT * FROM PLAYLIST where playlist_id = $1", [id]);
+        query.on('row', function(row) {
+                console.log(row);
+            x.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(x);
+        });
+    });
 };

@@ -1,0 +1,24 @@
+<div id="user_list">
+
+<table class="table table-hover table-striped">
+<tdead>
+<tr class="info">
+  <th>Username</th>
+  <th>User Role</th>
+  <th></th>
+  <th></th>
+</tr>
+<tdead>
+<tbody>
+<tr ng-repeat = "account in accounts"> <!-- loop-->
+  <td>{{account.username}}</td> <!-- use expression -->
+  <td>{{account.user_role}}</td>
+  <td><button class="btn btn-primary" type="button" ng-click="makeAdmin(account)">Make Admin</button></td>
+  <td><button class="btn btn-success" type="button" ng-click="approveUser(account)">Approve User</button></td>
+  <td><button class="btn btn-danger" type="button" ng-click="unauthorizeUser(account)">Unauthorize User</button></td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
