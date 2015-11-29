@@ -1,3 +1,6 @@
+///record label removed
+
+
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
@@ -153,7 +156,7 @@ router.get('/api/v1/songs', function(req, res) {
         var query = client.query("SELECT * FROM SONGS ORDER by song_id ASC;");
 
         // var query = client.query(
-            // "WITH Song_ids_table as ( select * from SONG_PLAYLIST), select * from SONGS where song_id in ( select song_id in Song_ids_table);");
+            // "WITH Song_ids_table as ( select * from PLAYLIST_SONG), select * from SONGS where song_id in ( select song_id in Song_ids_table);");
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -184,10 +187,10 @@ router.get('/api/v1/plist-songs', function(req, res) {
         }
 
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM SONG_PLAYLIST order by playlist_id ASC;");
+        var query = client.query("SELECT * FROM PLAYLIST_SONG order by playlist_id ASC;");
 
         // var query = client.query(
-            // "WITH Song_ids_table as ( select * from SONG_PLAYLIST), select * from SONGS where song_id in ( select song_id in Song_ids_table);");
+            // "WITH Song_ids_table as ( select * from PLAYLIST_SONG), select * from SONGS where song_id in ( select song_id in Song_ids_table);");
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -300,7 +303,7 @@ router.get('api/v1/plist-songs/:playlist_id', function(req,res) {
  pg.connect(connectionString, function(err, client, done) {
  var x = [];
  var id = req.params.playlist_id;
-    var query = client.query("SELECT * FROM SONG_PLAYLIST where playlist_id = $1", [id]);
+    var query = client.query("SELECT * FROM PLAYLIST_SONG where playlist_id = $1", [id]);
         query.on('row', function(row) {
                 console.log(row);
             x.push(row);
@@ -462,7 +465,7 @@ router.post('/api/v1/plist-songs', function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-       client.query("INSERT INTO SONG_PLAYLIST(Playlist_id, Song_id) values( $1, $2)", 
+       client.query("INSERT INTO PLAYLIST_SONG(Playlist_id, Song_id) values( $1, $2)", 
             [ data.playlist_id,
               data.song_id
             ]);     
@@ -474,7 +477,7 @@ router.post('/api/v1/plist-songs', function(req, res) {
         // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
 
         // SQL Query > Select Data
-            var query = client.query("SELECT * FROM SONG_PLAYLIST ORDER BY Playlist_id ASC");
+            var query = client.query("SELECT * FROM PLAYLIST_SONG ORDER BY Playlist_id ASC");
 
             // Stream results back one row at a time
             query.on('row', function(row) {
@@ -858,7 +861,7 @@ router.delete('/api/v1/songs/:song_id', function(req, res) {
         // SQL Query > Delete Data
         client.query("DELETE FROM SONGS WHERE song_id=($1)", [id]);
         
-        client.query("DELETE FROM SONG_PLAYLIST where song_id = $1", [id]);
+        client.query("DELETE FROM PLAYLIST_SONG where song_id = $1", [id]);
 
 
         // SQL Query > Select Data
@@ -897,7 +900,7 @@ router.delete('/api/v1/plist/:playlist_id', function(req, res) {
         // SQL Query > Delete Data
         client.query("DELETE FROM PLAYLIST WHERE playlist_id=($1)", [id]);
 
-        client.query("DELETE FROM SONG_PLAYLIST where playlist_id = $1", [id]);
+        client.query("DELETE FROM PLAYLIST_SONG where playlist_id = $1", [id]);
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");

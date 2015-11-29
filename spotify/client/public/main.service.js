@@ -31,19 +31,19 @@
 				});
 				return deferred.promise;				
 		}	
-		function Check(user_id){
+		
+		function Check(user){
 			var deferred = $q.defer();
-			$http.get('/api/v1/todos/'+ user_id)
+			
+			$http.get('/api/v1/todos/')
 				.success(function(data){
 					deferred.resolve(data);
 				});
-				return deferred.promise;
 
+			return deferred.promise;
+			
 		}
-
-
-
 	}
 	
 })();
-// Anonymouse function
+// Anonymous function

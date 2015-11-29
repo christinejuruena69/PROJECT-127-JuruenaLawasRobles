@@ -1,0 +1,215 @@
+<div ng-app="app" class="main-content">
+
+		<aside class="sidebar-left">
+
+			<!-- <a class="company-logo" href="#">Logo</a> -->
+            <img src="images/sp.png" class="company-logo" width="100px" height="100px;">
+
+			<div class="sidebar-links">
+				<span class="glyphicon glyphicon-search"> </span>
+				<a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a>
+				<span class=""> </span>
+				<a class="link-red" href="#"></i>Browse</a>
+				<span class=""> </span>
+				<a class="link-yellow selected" href="#your_music"></i>Your Music</a>
+				<span class=""> </span>
+				<a class="link-green" href="#profile"></i>Profile</a>
+			</div>
+
+		</aside>
+		<div id="search_sidebar" ng-hide="custom">
+			<div id="search_box_div">
+				<div class="input-group input-group-md">
+				  <span class="input-group-addon">
+				    <span class="glyphicon glyphicon-search"></span>
+				  </span>
+				  <input class="form-control" type="text" placeholder="Search" id="search_box">
+				</div>
+			</div>
+
+		</div>
+		<div id="elements">
+			<div id="your_music">
+				<div id="urmsc_nav" class="urmsc_nav_links" >
+					<a class="playlist" ng-click="togglePlaylist()"> ACCOUNTS </a>
+					<a  class="songs" ng-click="toggleSongs()" >SONGS </a>
+					<a  ng-click="toggleAlbum()" class="albums"> ALBUMS</a>
+					<a class="artist" ng-click="toggleArtist()"> ARTIST</a>
+					<a class="artist" ng-click="logout()"> Logout</a>
+				</div>
+				<div id="playlist_div"  ng-hide="playlist">
+					<div id="user_list">
+
+					<table class="table table-hover table-striped">
+					<tdead>
+					<tr class="info">
+					  <th>Username</th>
+					  <th>User Role</th>
+					  <th></th>
+					  <th></th>
+					</tr>
+					<tdead>
+					<tbody>
+					<tr ng-repeat = "account in accounts"> <!-- loop-->
+					  <td>{{account.username}}</td> <!-- use expression -->
+					  <td>{{account.user_role}}</td>
+					  <td><button class="btn btn-primary" type="button" ng-click="makeAdmin(account)">Make Admin</button></td>
+					  <td><button class="btn btn-success" type="button" ng-click="approveUser(account)">Approve User</button></td>
+					  <td><button class="btn btn-danger" type="button" ng-click="unauthorizeUser(account)">Unauthorize User</button></td>
+					</tr>
+
+					</tbody>
+					</table>
+
+					</div>
+
+				</div>
+
+
+
+
+				<div id="songlist_div" ng-hide="songlist">
+					<form action="">
+					  <input type="file" name="pic" accept="audio/*" name="song_filename" ng-model="song_filename"
+					  onchange="angular.element(this).scope().fileNameChanged(this)"   >
+					  <input type="button" value="Upload"  data-toggle="modal" data-target="#addsongModal">
+					</form>
+					<table class="table">
+								<thead>
+									<tr>
+										<th> Track </th>
+										<th>Artist</th>
+										<th> Album </th>
+										<th> Genre </th>
+										<th> Action </th>
+									</tr>
+
+								</thead>
+								<tbody>
+									<tr ng-repeat="song in allsongs">
+
+
+										<td ng-click=""> {{ song.song_title}} </td>
+										<td ng-click=""> {{ song.song_artist}} </td>
+										<td ng-click=""> {{ song.song_album}} </td>
+										<td ng-click=""> {{ song.song_genre}} </td>
+										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
+										<input type="button" value="Remove" ng-click="removefromSongs(song)">
+										<input type="button" value="Play" ng-click="">
+										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
+
+
+										<button type="button" class="btn btn-link" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span  class="glyphicon glyphicon-plus" > </span> </button>
+
+
+										<a ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" > <span  class="glyphicon glyphicon-plus" > </span> </a>
+										<span  class="glyphicon glyphicon-remove" > </span>
+										<span  class="glyphicon glyphicon-play" > </span>
+										</td>
+
+									</tr>
+
+								</tbody>
+
+								</table>
+
+				</div>
+				<div id="album_div" ng-hide="album">
+					<table class="table">
+								<thead>
+									<tr>
+										<th> Album Title </th>
+										<!-- <th> Number of Songs </th> -->
+										<th> Record Label</th>
+										<th>Year Released</th>
+
+									</tr>
+
+								</thead>
+								<tbody>
+									<tr ng-repeat="album in allalbums">
+
+
+										<td ng-click=""> {{ album.album_title}} </td>
+										<td ng-click=""> {{ album.Record_label}} </td>
+										<td ng-click=""> {{ album.Year_released}} </td>
+										</td>
+
+									</tr>
+
+								</tbody>
+
+								</table>
+				</div>
+				<div id="artist_div" ng-hide="artist">
+					<table class="table">
+								<thead>
+									<tr>
+
+										<th> Artist_name </th>
+										<!-- <th> Number of Songs </th> -->
+										<th> Artist_no_of_songs</th>
+										<th>No_of_albums</th>
+
+									</tr>
+
+								</thead>
+								<tbody>
+									<tr ng-repeat="artist1 in allartists">
+
+
+										<td ng-click=""> {{ artist1.artist_name}} </td>
+										<td ng-click=""> {{ artist1.artist_no_of_songs}} </td>
+										<td ng-click=""> {{ artist1.artist_no_of_albums}} </td>
+										</td>
+
+									</tr>
+
+								</tbody>
+
+						</table>
+				</div>
+
+
+			</div>
+			<div id="darkLayer" class="darkClass" style="display:none"></div>
+
+			<div id="profile">
+
+
+			</div>
+		</div>
+
+		<div id="player">
+			<div id="player_artist_square">
+
+			</div>
+			<div id="player_label">
+
+			</div>
+			<div id="player_ctrl">
+				<div id="status">
+
+				</div>
+				<div id="main_ctrl">
+
+		          <i class="glyphicon glyphicon-step-backward"></i>
+		          <i class="glyphicon glyphicon-play-circle"></i>
+		          <i class="glyphicon glyphicon-step-forward"></i>
+		          <br />
+		          <br />
+		          <br />
+
+		           <i class="glyphicon glyphicon-list" ></i>
+		          <i class="glyphicon glyphicon-random"></i>
+		          <i class="glyphicon glyphicon-retweet"></i>
+		          <i class="glyphicon glyphicon-volume"></i>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+</div>
