@@ -7,9 +7,7 @@ var bodyParser = require('body-parser');
 var moment = require('moment');
 moment().format();
 
-var routes = require('./server/routes/index');
-
-var users = require('./server/routes/users');
+var routes = require('./server/routes/routes');
 
 var app = express();
 
@@ -23,10 +21,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('method-override')());
 app.use(express.static(path.join(__dirname, './client', 'public')));
-
+app.use(require(__dirname + '/server/routes/routes')(express.Router()));
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
