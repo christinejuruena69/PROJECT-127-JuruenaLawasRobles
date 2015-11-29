@@ -19,7 +19,7 @@ exports.getUserSongs = function(req,res){
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-        var query = client.query("select *from user_song order by user_id asc;");
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us, accounts a, songs s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.id]);
         query.on('row', function(row) {
          		console.log(row);
              results.push(row);

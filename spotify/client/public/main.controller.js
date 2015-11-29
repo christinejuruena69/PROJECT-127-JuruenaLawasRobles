@@ -1,7 +1,6 @@
 'use strict';
 
 (function(){
-	"use strict";
 	angular
 		.module("app")
 		.controller("MainCtrl", MainCtrl); //this is a part of a module called app (yung nasa taas)

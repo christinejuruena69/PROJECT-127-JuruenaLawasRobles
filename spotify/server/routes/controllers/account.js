@@ -29,7 +29,7 @@ exports.init = function(req,res){
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-       client.query("INSERT INTO ACCOUNTS(UserName, Name, Password, Sex, Email_Address, Birthday, Age, User_role, Date_Joined) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)",
+       client.query("INSERT INTO ACCOUNTS(Username, Name, Password, Sex, Email_Address, Birthday, Age, User_role, Date_Joined) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)",
             [ data.UserName,
               data.Name,
               data.Password,
