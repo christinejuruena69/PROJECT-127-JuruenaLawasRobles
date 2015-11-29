@@ -43,8 +43,20 @@
       	<span> Song Title: &nbsp;</span>
 	        <input type="" ng-model="newsong.song_title" name="" id="" placeholder=""  value=""  required autofocus>
 	        <br />
-	      <span> Song Album: </span>
-	        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+	       <form role="form">
+			    <div class="radio">
+			      <input type="radio" name="Album" value="Album" ng-model="albumtype" >Album
+		      	<div ng-show="isShown('Album')"> 		      	
+			      <span > Song Album: 
+			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+			     	</span>
+		      </div>
+			    </div>
+			    <div class="radio">
+			      <input type="radio" name="Single" value="Single" ng-model="albumtype">Single
+			    </div>			   
+			  </form>
+	       	
         <span> Song Artist: </span>
 	        <input type="" ng-model="newsong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
 	      <span> Song Genre: &nbsp;</span>
@@ -54,7 +66,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="addsonganddetails()">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="addsonganddetails(newsong)">Save changes</button>
       </div>
     </div>
   </div>
@@ -134,11 +146,20 @@
 				</div>
 				<div id="playlist_div"  ng-hide="playlist">
 					<div id="playlist_sidebarlinks">
+					<div class="" ng-hide="createplist">
+						<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
+						<br/>
+					  <input type="submit"  ng-click="newPlaylist()"value="Create" class="btn btn-success btn-sm" />
+					</div>
+
 						<div class=" playlist_side_links">
 							<table class="pl_tbl1">
 								<tr>
 									<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
-									<td>  <h6> New Playlist  </h6> </td>
+									<td>  <h6 ng-click="shownewplist()"> New Playlist  </h6> 
+										
+
+									</td>
 										<td> </td>
 									<td> </td>
 									<td> </td>
@@ -156,17 +177,7 @@
 								</tr>						
 							</table>
 						</div>
-						<div class="playlist_side_links">
-
-						 <!-- <button popover-animation="true" uib-popover="I fade in and out!" type="button" class="btn btn-default">fading</button> -->
-   
-
-
-
-			           		<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
-										<br/>
-				           	<input type="submit"  ng-click="newPlaylist()"value="Create" class="btn btn-success btn-sm" />
-						</div>
+						
 						<div id="playlists_for_real">
 						<div ng-hide="editplaylisttextbox">
 							
@@ -230,7 +241,7 @@
 										<td ng-click=""> {{ song.song_album}} </td>			
 										<td ng-click=""> {{ song.song_genre}} </td>			
 										<td ng-click="">  
-										<a> <span  class="glyphicon glyphicon-remove" ng-click="removefromPlaylist(song)" > </span> </a>									
+										<a> <span  class="glyphicon glyphicon-remove" ng-click="removeSongfromPlaylist(song)" > </span> </a>									
 
 										<input type="submit"  ng-click="" value="Remove" class="btn btn-success" />
 										</td>			
@@ -291,25 +302,58 @@
 				</div>
 				<div id="album_div" ng-hide="album">
 					<table class="table">
-								<thead>									
+								<thead>
+									<tr>
+										<th> Album Title </th>
+										<!-- <th> Number of Songs </th> -->
+										<th> Record Label</th>
+										<th>Year Released</th>
+									
+									</tr>
+									
 								</thead>
 								<tbody>
-									<tr ng-repeat="playlist in playlists">								
-										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>													
-									</tr>									
-								</tbody>									
-								</table>					
+									<tr ng-repeat="album in allalbums">
+									
+									
+										<td ng-click=""> {{ album.album_title}} </td>			
+										<td ng-click=""> {{ album.Record_label}} </td>			
+										<td ng-click=""> {{ album.Year_released}} </td>			
+										</td>			
+										
+									</tr>
+									
+								</tbody>
+									
+								</table>
 				</div>
 				<div id="artist_div" ng-hide="artist">
 					<table class="table">
-								<thead>									
+								<thead>
+									<tr>
+
+										<th> Artist_name </th>
+										<!-- <th> Number of Songs </th> -->
+										<th> Artist_no_of_songs</th>
+										<th>No_of_albums</th>
+									
+									</tr>
+									
 								</thead>
 								<tbody>
-									<tr ng-repeat="playlist in playlists">									
-										<td ng-click="getplaylist(playlist)"> {{ playlist.playlist_name}} </td>													
-									</tr>									
-								</tbody>									
-								</table>					
+									<tr ng-repeat="artist1 in allartists">
+									
+									
+										<td ng-click=""> {{ artist1.artist_name}} </td>			
+										<td ng-click=""> {{ artist1.artist_no_of_songs}} </td>			
+										<td ng-click=""> {{ artist1.artist_no_of_albums}} </td>			
+										</td>			
+										
+									</tr>
+									
+								</tbody>
+									
+						</table>
 				</div>
 
 				

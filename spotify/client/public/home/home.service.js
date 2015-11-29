@@ -10,6 +10,8 @@
 		var plistUrl="http://localhost:3000/api/v1/plist";
 		var allSongs="http://localhost:3000/api/v1/songs";
 		var plist_songsUrl="http://localhost:3000/api/v1/plist-songs";
+		var albumsUrl="http://localhost:3000/api/v1/album";
+		var artistUrl="http://localhost:3000/api/v1/artist";
 
 		var service={};			//should be an object, 		
 		service.GetAll = GetAll;	
@@ -23,6 +25,13 @@
 		service.GetOneSong = GetOneSong;	
 		service.DeletePlaylist = DeletePlaylist;	
 		service.EditPlaylist = EditPlaylist;	
+		service.RemoveSongfromPlaylist = RemoveSongfromPlaylist;	
+		service.GetAllAlbums =GetAllAlbums;	
+		service.GetAllArtist =GetAllArtist;	
+		service.AddNewAlbum =AddNewAlbum;	
+		service.UpdateAlbum=UpdateAlbum;	
+		service.UpdateArtist=UpdateArtist;	
+		service.AddNewArtist=AddNewArtist;	
 		return service;
 
 		function GetAll(){
@@ -34,11 +43,9 @@
 				return deferred.promise;		
 		}
 		function MakenewPlaylist(newplaylist){
-        	console.log(newplaylist);
 			var deferred = $q.defer();
 			$http.post( plistUrl , newplaylist)
 				.success(function(data){
-
 					deferred.resolve(data);
 				});
 				return deferred.promise;				
@@ -60,6 +67,7 @@
 				return deferred.promise;
 		}
 		function AddsongtoPlaylist(plistsong){
+			var deferred = $q.defer();			
 			console.log(plistsong);
 			$http.post( plist_songsUrl , plistsong)
 				.success(function(data){
@@ -95,7 +103,7 @@
 				
 				return deferred.promise;
 		}
-		function RemovefromPlaylist(){
+		function RemoveSongfromPlaylist(){
 			var deferred = $q.defer();
 			// $http.delete(allSongs , {params: {song_id: songid}})
 			$http.delete(plist_songsUrl +"/"+ songid)
@@ -148,7 +156,7 @@
 				return deferred.promise;
 
 		}
-			function GetOneSong(song_id){
+		function GetOneSong(song_id){
 			var deferred = $q.defer();
 			$http.get(allSongs+"/"+ song_id)
 				.success(function(data){
@@ -160,24 +168,61 @@
 
 				return deferred.promise;
 		}
-	
-		// function Update(degreeProgram_id, editDegreeProgram){
-		// 	console.log(degreeProgram_id);
-		// 	console.log(editDegreeProgram);
-		// 	var deferred = $q.defer();
-		// 	$http.put(apiUrl+ "/degree-programs/"+ degreeProgram_id, editDegreeProgram)
-		// 		.success(function(data){
-		// 			console.log(data);				
-		// 			deferred.resolve(data);
-		// 		});
-				
-		// 		return deferred.promise;
+		function GetAllAlbums(){
+				var deferred = $q.defer();
+			$http.get(albumsUrl)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function (data, status, header, config) {
+					alert("no album found!");
+				});
+				return deferred.promise;
+		}
+		function GetAllArtist(){
+			var deferred = $q.defer();
+			$http.get(artistUrl)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function (data, status, header, config) {
+					alert("no artist found!");
+				});
+				return deferred.promise;
+		}
 
-		// }
-
-
-
-
+		function AddNewAlbum(tempalbum){
+			var deferred = $q.defer();			
+			$http.post(albumsUrl , tempalbum)
+				.success(function(data){
+					deferred.resolve(data);
+				});
+				return deferred.promise;
+		}
+		function UpdateAlbum(albumid, tempalbum){			
+			var deferred = $q.defer();			
+			$http.put(albumsUrl +"/"+ albumid, tempalbum)
+				.success(function(data){
+					deferred.resolve(data);
+				});
+				return deferred.promise;
+		}
+		function AddNewArtist(tempartist){
+			var deferred = $q.defer();			
+			$http.post(artistUrl , tempartist)
+				.success(function(data){
+					deferred.resolve(data);
+				});
+				return deferred.promise;
+		}
+		function UpdateArtist(artistid, tempartist){			
+			var deferred = $q.defer();			
+			$http.put(artistUrl +"/"+ artistid, tempartist)
+				.success(function(data){
+					deferred.resolve(data);
+				});
+				return deferred.promise;
+		}
 	}
 	
 })();

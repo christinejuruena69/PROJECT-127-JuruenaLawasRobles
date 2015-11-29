@@ -437,7 +437,7 @@ div #your_music div#playlist_sidebarlinks{
 }
 div #your_music div#playlist_div h6,
 div #your_music div#playlist_div span{
-    padding-left: 20px;
+    /*padding-left: 20px;*/
     /*color: #b3bcc5;*/
     /*width: 100px;*/
 

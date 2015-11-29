@@ -30,15 +30,30 @@
 		$scope.allsongs={}	;
 	    $scope.playlists={};
 	    $scope.currentplaylist={};
+	    $scope.allalbums={};
+	    $scope.allartists={};
 	    $scope.currentplaylistTitle="";
 	   	$scope.song_filename='';
 	   	$scope.selectedPlaylistid=0;
+    	$scope.selectedSongid = 0;
+
 	   	// $scope.editedSong=[];
 	        
 		HomeService.GetAll().then(function(data){
 			$scope.playlists=data;
-			// console.log(data);
 		});
+		HomeService.GetAllSongs().then(function(data){
+    	$scope.allsongs=data;
+		});
+		HomeService.GetAllAlbums().then(function(data){
+    	$scope.allalbums=data;
+		});
+		HomeService.GetAllArtist().then(function(data){
+    	$scope.allartists=data;
+    	// console.log($scope.allartists);
+		});
+
+
 
 			// $scope.playlist = true;
 			
@@ -69,14 +84,17 @@
             $scope.songlist = $scope.songlist === false ? true: false;
 						$scope.artist = true;
             $scope.album = true;						
-						$scope.playlist = true;
-
-						HomeService.GetAllSongs().then(function(data){
-    						$scope.allsongs=data;
-							// console.log(data);
-						});
+						$scope.playlist = true;		
 
         };
+        $scope.newp= false;
+        $scope.createplist= true;
+        $scope.shownewplist = function (){
+        	// $scope.createplist= false;   
+          $scope.createplist = $scope.createplist === false ? true: false;
+
+        	     	
+        }
         // toggle tabs
 
         // playlist
@@ -84,7 +102,9 @@
         	HomeService.MakenewPlaylist($scope.newplaylist)
         		.then(function (data){
         			console.log("hiiiiii");
-					$scope.playlists.push(data);
+        			console.log(data);
+							// $scope.playlists.push($scope.newplaylist);
+							$scope.playlists=data;
         			$scope.newplaylist={};
 					});	
         }
@@ -126,8 +146,8 @@
 
 					});	
         }
-        function removefromPlaylist(){
-        	HomeService.RemovefromPlaylist($scope.curreditplist.playlist_id, $scope.editedplist)
+        function removeSongfromPlaylist(){
+        	HomeService.RemoveSongfromPlaylist($scope.curreditplist.playlist_id, $scope.editedplist)
         		.then(function (data){
 
         		$scope.editedplist={};
@@ -141,13 +161,26 @@
 				$scope.temp_all_songs=[];
  				var temp_playlist = [];
 
-    	  $scope.selectedSongid = 0;
     	  $scope.putsongid = function (song){
 	    	  $scope.selectedSongid = song.song_id;
     	  }
+    	  $scope.songalbum="album";
+    	  $scope.songtype = function(button){
+    	  	console.log(button.value);
+          $scope.songalbum = $scope.songalbum === false ? true: false;   
+    	  }
+
+    	  $scope.isShown = function(albumtype) {
+        	return albumtype === $scope.albumtype;
+    		}
+    		$scope.getallAlbum  =function (){
+
+    		}
         $scope.getplaylist= function(playlist){
-        	$scope.currentplaylist = [];
         	console.log(playlist.playlist_name);
+        	console.log(playlist.playlist_id);
+        	
+        	$scope.currentplaylist = {};
         	HomeService.Getsongsforplaylist()
         		.then(function (all_playlist){
         			var temp = [];
@@ -191,6 +224,13 @@
 	    	  	song_album: "",
 	    	  	song_genre: "",
 	    	  	song_artist: ""
+    	  }
+    	  $scope.getselected = function(playlist){
+
+    	  	console.log(playlist.playlist_name);   	  	
+    	  	$scope.selectedPlaylist= playlist.playlist_name;
+    	  	$scope.selectedPlaylistid= playlist.playlist_id;
+    	  	console.log($scope.selectedPlaylistid);
     	  }	
     	  $scope.addsongtoPlaylist = function(){
 	    	  $scope.plistsong={
@@ -200,18 +240,12 @@
 
     	  	HomeService.AddsongtoPlaylist($scope.plistsong)
         		.then(function (data){
-        			console.log("playlist added");					
-					});	
-	    	  $scope.selectedSongid = 0;
-    	  	$scope.selectedPlaylistid= 0;
-    	  }
-    	  $scope.getselected = function(playlist){
 
-    	  	console.log(playlist.playlist_name);   	  	
-    	  	$scope.selectedPlaylist= playlist.playlist_name;
-    	  	$scope.selectedPlaylistid= playlist.playlist_id;
-    	  	console.log($scope.selectedPlaylistid);
+						});	
+	    	  $scope.selectedSongid =0;
+    	  	$scope.selectedPlaylistid=0;
     	  }
+    	  
         // playlist
 
         // songs
@@ -224,13 +258,77 @@
     	  	console.log($scope.newsong.song_title);
     	  	
     	  }
-    	  $scope.addsonganddetails = function(){
+    	  $scope.addsonganddetails = function(newsongp){
     	  	console.log($scope.newsong);
+    	  	console.log(newsongp.song_album);
     	  	HomeService.AddSong($scope.newsong)
     	  		.then(function (data){
-					$scope.allsongs.push(data);
-					$scope.newsong={};
-				});	
+							// $scope.allsongs.push(newsongp);
+							$scope.allsongs=data;
+							$scope.newsong={};
+		    	  	if (newsongp.song_album.length > 0){
+		    	  		var tempalbum={
+		    	  			album_title: newsongp.song_album
+		    	  		}
+		    	  		var albumid=0;
+		    	  		console.log($scope.allalbums);
+		    	  		$.each( $scope.allalbums, function( index, item ) {	
+		    	  				console.log("item.album_title: "+item.album_title + ", newsongp.song_album"+newsongp.song_album);
+		    	  				console.log(item.album_id);
+
+			   					if( newsongp.song_album == item.album_title){
+			   						albumid=item.album_id;
+			   						console.log(albumid);
+			   					}			   					
+								});
+								if (albumid>0){ //if exists
+									console.log("meron na");
+			   					HomeService.UpdateAlbum(albumid, tempalbum)
+					       		.then(function (data){
+
+									});
+								}else{ //if not make new album
+									console.log("wala pa");
+									HomeService.AddNewAlbum(tempalbum)
+					       		.then(function (data){
+										$scope.allalbums=data;						
+									});
+								}
+
+		    	  	}
+		    	  	if (newsongp.song_artist.length > 0){
+		    	  		var tempartist={
+		    	  			artist_name: newsongp.song_artist,
+		    	  			album_name: newsongp.song_album
+		    	  		}
+		    	  		var artistid=0;
+		    	  		console.log($scope.allartists);
+		    	  		$.each( $scope.allartists, function( index, item ) {	
+		    	  				console.log(item.artist_id);
+
+			   					if( newsongp.song_artist == item.artist_name){
+			   						artistid=item.artist_id;
+			   						console.log(artistid);
+			   					}			   					
+								});
+								if (artistid>0){ //if exists
+									console.log("meron na");
+			   					HomeService.UpdateArtist(artistid, tempartist)
+					       		.then(function (data){
+									});
+								}else{ //if not make new album
+									console.log("wala pa");
+									HomeService.AddNewArtist(tempartist)
+					       		.then(function (data){
+										$scope.allartists=data;						
+									});
+								}
+		    	  	}
+
+						});
+						// function( error ){Do something with error
+						// 	console.log("error!");
+						// });	
 				$scope.newsong={};
 				alert("Song added!");
     	  }
@@ -243,7 +341,7 @@
 	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
     					// $scope.degreePrograms.splice(index,1);
     					$scope.allsongs.splice(index,1);
-					});
+							});
 			
     	  }
 
