@@ -1,0 +1,27 @@
+<div>
+<table>
+	 <form class="login"  ng-submit="" data-ng-model="searchData"  role="form" >
+	 	<tr><th>search box</th></tr>
+		<tr><td><input type="text" name="SearchThis" id="SearchThis" placeholder="Search a song, artist or album"  value="" ng-model="searchData.SearchThis"></td></tr>
+		<tr><td><input type="submit" ng-click="SearchItem(searchData)" value="Search" class="btn btn-success btn-sm" /></td></tr>
+	</form>
+</table>
+
+<!--
+
+===========================PATTERN CODE TO THE CODE SNIPPET BELOW
+
+<tr ng-repeat="song in currentplaylist">																	
+	<td ng-click=""> {{ song.song_title}} </td>			
+	<td ng-click=""> {{ song.song_album}} </td>			
+	<td ng-click=""> {{ song.song_artist}} </td>			
+	<td ng-click=""> {{ song.song_genre}} </td>			
+	<td ng-click="">  <input type="submit"  ng-click="" value="Remove" class="btn btn-success" /> </td>			
+</tr>
+-->
+<ul ng-repeat="item in allstuff">
+	<li>{{ item.song_title }}</li>
+	<li>{{ item.arist_name }}</li>
+	<li>{{ item.album_name }}</li>
+</ul>
+</div>

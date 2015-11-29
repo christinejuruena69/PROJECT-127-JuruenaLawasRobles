@@ -5,10 +5,10 @@
             	<div id="signup" >
             		<p class="form-title" >  Sign Up</p>
 	              <!-- <form class="login"  role="form" > -->
-	              <form class="login"  ng-submit="createStudent()" data-ng-model="formData"  role="form" >
+	              <form class="login"  ng-submit="createStudent(formData)" data-ng-model="formData"  role="form" >
 
 		              
-		                	<input type="text" name="FirstName" id="FirstName" placeholder="First Name"  value="" ng-model="formData.FName"   required autofocus>
+		                	<input type="text" name="FirstName" id="FirstName" placeholder="First Name"  value="" ng-model="formData.FName">
 		                	<br />
 		                	<input type="text" name="MiddleName" id="MiddleName" placeholder="Middle Name"  value="" ng-model="formData.MName"  required autofocus>
 		                	<br />
@@ -16,21 +16,27 @@
 	                		<input type="text" name="LastName" id="LastName" placeholder="Last Name"  value="" ng-model="formData.LName"   required autofocus>
 		                	<br />
 
-	                    	<input type="text" name="username" id="username" placeholder="Username"  value=""   ng-model="formData.UserName" required autofocus>
+		                	<!--
+								Attempt to add this action/functionality to form below
+								onchange="angular.element(this).scope().usernameChanged(this)" 
+		                	-->
+	                    	<input type="text" name="username" id="username" placeholder="Username"  value="" ng-model="formData.UserName" required autofocus>
 	                    	<br />
-	                    	<input type="text" name="sex" id="sex" placeholder="Sex"  value=""   ng-model="formData.Sex" required autofocus>
+
+	                    	<input type="radio" name="sex" id="sex" value="male" ng-model="formData.Sex" required autofocus> Male 
+	                    	<input type="radio" name="sex" id="sex" value="female" ng-model="formData.Sex" required autofocus>Female
+
 		                	<br />
 
-	                    	<input type="text" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
+	                    	<input type="password" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
 		                	<br />
 
-	                    	<input type="text" name="EmailAddress" id="EmailAddress" placeholder="Email Address"  value=""  ng-model="formData.Email_Address"  required autofocus>                   
+	                    	<input type="email" name="EmailAddress" id="EmailAddress" placeholder="Email Address"  value=""  ng-model="formData.Email_Address" required autofocus> 
+	                    	                  
 		                	<br />
 
-	                    	<input type="text" name="Birthday" id="Birthday" placeholder="Birthday (YYYY-MM-DD"  value=""  ng-model="formData.Birthday"  required autofocus> 
-		                	<br />
-
-	                    	<input type="text" name="Age" id="Age" placeholder="Age"  value=""  ng-model="formData.Age"  required autofocus>
+	                    	<input type="date" name="Birthday" id="Birthday" value=""  ng-model="formData.Birthday"  required autofocus>
+	                    
 		                	<br />
 
 	                   		<!-- <input type="submit"  value="Sign Up" class="btn btn-success btn-sm" /> -->

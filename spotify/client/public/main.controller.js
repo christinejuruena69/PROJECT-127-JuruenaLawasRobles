@@ -21,17 +21,15 @@
 
 		});
 
-		$scope.createStudent =function(){
+		$scope.createStudent = function(){
+			console.log($scope.formData);
 			MainService.Create($scope.formData)
 			.then(function (data){
 				$scope.formData={};
-				$scope.formData.UserName="";
-				// $scope.accounts.push(data);
-				// console.log($scope.accounts);
-				// $scope.accounts=data;
-				// console.log($scope.accounts);				
+			console.log($scope.accounts);				
 			});
 		}
+		
 		$scope.ValidateUser =function (SignIndata){
 			MainService.Check($scope.SignIndata.user_id)
 				.then(function (data){
