@@ -35,7 +35,7 @@ exports.getAllAlbums = function(req, res) {
     });
 };
 
-exports.getOneAlbum= function(req, res) {
+exports.getOneAlbum = function(req, res) {
  console.log(req.params.album_id);
  pg.connect(connectionString, function(err, client, done) {
  var x = [];

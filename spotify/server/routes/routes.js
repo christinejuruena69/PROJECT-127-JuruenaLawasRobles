@@ -56,9 +56,7 @@ router.route(playlistPerUser)
     .delete(plController.updateToDecPlaylistNoofSongs);
     // .get(plController.getPlaylistSongs);
 
-
 //playlist_songs
-
   router.route(playlistWithSongs)
     .post(plController.addSongToPlaylist)
     .get(plController.getAllPlaylistSongs);
@@ -66,8 +64,6 @@ router.route(playlistPerUser)
     router.route(playlistWithSongs+'/:playlist_id')
       .get(plController.getPlaylistSongs);
     // .get(plController.getSongsInUserPlaylist);
-
-  ////
 
 //albums
   router.route(albums)

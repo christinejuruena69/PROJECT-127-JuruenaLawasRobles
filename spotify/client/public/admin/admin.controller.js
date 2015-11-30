@@ -9,118 +9,116 @@
 	//angularsj construct
 	//$scope =angularjs service na parang require
 
-
-
 	function AdminCtrl($scope, $location, AdminService, HomeService){
-//toggle tabs albums, songs, stuff
-$scope.custom = true;
-$scope.album = true;
-$scope.artist = true;
-$scope.songlist = true;
-$scope.apptoveuserbtn= false;
-$scope.allsongs={};
+	//toggle tabs albums, songs, stuff
+		$scope.custom = true;
+		$scope.album = true;
+		$scope.artist = true;
+		$scope.songlist = true;
+		$scope.apptoveuserbtn= false;
+		$scope.allsongs={};
+		$scope.allalbums={};
+		$scope.allartists={};
+		$scope.playlists={};
 
-	$scope.allalbums={};
+		$scope.toggleCustom = function() {
+				$scope.custom = $scope.custom === false ? true: false;
+		};
 
-	$scope.allartists={};
-	$scope.playlists={};
+		$scope.toggleArtist = function() {
+				$scope.artist = $scope.artist === false ? true: false;
+				$scope.album = true;
+				$scope.playlist = true;
+				$scope.songlist = true;
+		};
 
+		$scope.togglePlaylist = function() {
+				$scope.playlist = $scope.playlist === false ? true: false;
+				$scope.album = true;
+				$scope.artist = true;
+				$scope.songlist = true;
 
+		};
 
-	$scope.toggleCustom = function() {
-			$scope.custom = $scope.custom === false ? true: false;
-	};
-	$scope.toggleArtist = function() {
-			$scope.artist = $scope.artist === false ? true: false;
-			$scope.album = true;
-			$scope.playlist = true;
-			$scope.songlist = true;
-	};
-	$scope.togglePlaylist = function() {
-			$scope.playlist = $scope.playlist === false ? true: false;
-			$scope.album = true;
-			$scope.artist = true;
-			$scope.songlist = true;
+		$scope.toggleAlbum = function() {
+				$scope.album = $scope.album === false ? true: false;
+				$scope.artist = true;
+				$scope.playlist = true;
+				$scope.songlist = true;
 
-	};
-	$scope.toggleAlbum = function() {
-			$scope.album = $scope.album === false ? true: false;
-			$scope.artist = true;
-			$scope.playlist = true;
-			$scope.songlist = true;
+		};
 
-	};
-	$scope.toggleSongs = function() {
-			$scope.songlist = $scope.songlist === false ? true: false;
-			$scope.artist = true;
-			$scope.album = true;
-			$scope.playlist = true;
+		$scope.toggleSongs = function() {
+				$scope.songlist = $scope.songlist === false ? true: false;
+				$scope.artist = true;
+				$scope.album = true;
+				$scope.playlist = true;
 
-	};
-
-
-	HomeService.GetAllSongs().then(function(data){
-		$scope.allsongs=data;
-	});
-	HomeService.GetAllAlbums().then(function(data){
-		$scope.allalbums=data;
-	});
-	HomeService.GetAllArtist().then(function(data){
-		$scope.allartists=data;
-	});
+		};
 
 
-
-	var user = {};
-	$scope.users = [];
-	$scope.accounts={};
-
-	AdminService.GetAll().then(function(data){
-				$('body').css('display', 'none');
-				$scope.accounts = data;
-				$scope.users = data;
-				isLoggedIn();
-				$('body').css('display', '');
+		HomeService.GetAllSongs().then(function(data){
+			$scope.allsongs=data;
 		});
 
-	$scope.logout = function(){
-		document.cookie ="user=\"\"";
-		var cookie = document.cookie.split(";");
-		console.log(cookie[0]);
-		document.cookie = cookie[0];
-		isLoggedIn();
-	}
+		HomeService.GetAllAlbums().then(function(data){
+			$scope.allalbums=data;
+		});
 
-	$scope.makeAdmin = function(account){
-		account.user_role = 2;
-		AdminService.update(account)
-				.then(function(data){
-					alert("Make admin success");
-					console.log(data);
-			});
-		isLoggedIn();
-	};
+		HomeService.GetAllArtist().then(function(data){
+			$scope.allartists=data;
+		});
 
-	$scope.approveUser = function(account){
-		$scope.apptoveuserbtn=true;
-		account.user_role = 1;
-		AdminService.update(account)
-				.then(function(data){
-					alert("User approved");
-					console.log(data);
-			});
-		isLoggedIn();
-	};
+		var user = {};
+		$scope.users = [];
+		$scope.accounts={};
 
-	$scope.unauthorizeUser = function(account){
-		account.user_role = null;
-		AdminService.update(account)
-				.then(function(data){
-					alert("Restricted User");
-					console.log(data);
+		AdminService.GetAll().then(function(data){
+					$('body').css('display', 'none');
+					$scope.accounts = data;
+					$scope.users = data;
+					isLoggedIn();
+					$('body').css('display', '');
 			});
-		isLoggedIn();
-	};
+
+		$scope.logout = function(){
+			document.cookie ="user=\"\"";
+			var cookie = document.cookie.split(";");
+			console.log(cookie[0]);
+			document.cookie = cookie[0];
+			isLoggedIn();
+		}
+
+		$scope.makeAdmin = function(account){
+			account.user_role = 2;
+			AdminService.update(account)
+					.then(function(data){
+						alert("Make admin success");
+						console.log(data);
+				});
+			isLoggedIn();
+		};
+
+		$scope.approveUser = function(account){
+			$scope.apptoveuserbtn=true;
+			account.user_role = 1;
+			AdminService.update(account)
+					.then(function(data){
+						alert("User approved");
+						console.log(data);
+				});
+			isLoggedIn();
+		};
+
+		$scope.unauthorizeUser = function(account){
+			account.user_role = null;
+			AdminService.update(account)
+					.then(function(data){
+						alert("Restricted User");
+						console.log(data);
+				});
+			isLoggedIn();
+		};
 
 	//login and riderecting
 		function goSignUp(){
@@ -177,7 +175,6 @@ $scope.allsongs={};
 				goLogin();
 			}
 		}
-
 	}
 })();
-// Anonymouse function
+// Anonymous function

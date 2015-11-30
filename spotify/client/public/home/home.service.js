@@ -18,6 +18,7 @@
 		var service={};			//should be an object,
 		service.GetAllPlaylists = GetAllPlaylists;
 		service.GetallUserSongs = GetallUserSongs;
+
 		service.Getsongsforplaylist = Getsongsforplaylist;
 		service.GetAllSongs = GetAllSongs;
 		service.MakenewPlaylist = MakenewPlaylist;

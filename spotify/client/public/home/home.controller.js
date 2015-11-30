@@ -77,7 +77,7 @@
 							if (song.song_id == songid){
 								console.log(song);
 							tempallsongs.push(song);
-							
+
 							}
 						});
 					}
@@ -103,9 +103,6 @@
 			document.cookie = cookie[0];
 			isLoggedIn();
 		}
-
-
-
 
 			// $scope.playlist = true;
 

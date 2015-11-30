@@ -1,7 +1,6 @@
 'use strict';
 
 (function(){
-	"use strict";
 	angular
 		.module("app")
 		.controller("MainCtrl", MainCtrl); //this is a part of a module called app (yung nasa taas)
@@ -34,8 +33,6 @@
 			.then(function (data){
 				$scope.formData={};
 				$scope.formData.UserName="";
-				// $scope.accounts.push(data);
-				// console.log($scope.accounts);
 				$scope.accounts = data;
 				$scope.users.push(data);
 				goLogin();
