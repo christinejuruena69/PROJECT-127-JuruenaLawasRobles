@@ -5,10 +5,11 @@ albumController = require('./controllers/album');
 artistController = require('./controllers/artist');
 
 var pathname = "/api/v1/todos";
-var uspath = "/api/v1/user_song";
+var uspath = "/api/v1/user-songs";
 var playlist = "/api/v1/plist";
+var playlistPerUser = "/api/v1/user-plist";
 var playlistWithSongs = '/api/v1/plist-songs'
-var albums = 'api/v1/albums';
+var albums = '/api/v1/albums';
 var songs = '/api/v1/songs';
 var artist = '/api/v1/artist';
 
@@ -25,14 +26,14 @@ module.exports = function(router) {
 //songs
   router.route(uspath)
     .get(userSong.getUserSongs)
-    .post(userSong.insertNewSong);
+    .post(userSong.insertSongtoUser);
 
   router.route(uspath+'/:id')
     .get(userSong.getUserAdded);
 
-  // router.route(songs)
-  //   .post(userSong.insertNewSong)
-  //   .get(userSong.getAllSongs);
+  router.route(songs)
+    .post(userSong.insertNewSong)
+    .get(userSong.getAllSongs);
 
   router.route(songs+'/:song_id')
     .put(userSong.updateSong)
@@ -40,23 +41,31 @@ module.exports = function(router) {
     .get(userSong.getSongDetails);
 
 //playlist
+router.route(playlistPerUser)
+  .get(plController.getUserOwnedPlaylist);
+
   router.route(playlist)
-    .get(plController.getAllPlaylist)
+    // .get(plController.getUserOwnedPlaylist)
+    .get(plController.getallPlaylist)
     .post(plController.addNewPlaylist);
 
   router.route(playlist+'/:playlist_id')
     // .post(plController.newPlaylist)
-    .get(plController.getUserOwnedPlaylist)
+    // .get(plController.getUserOwnedPlaylist)
     .put(plController.updatePlaylistNoofSongs)
-    .delete(plController.updateToDecPlaylistNoofSongs)
-    .get(plController.getPlaylistSongs);
+    .delete(plController.updateToDecPlaylistNoofSongs);
+    // .get(plController.getPlaylistSongs);
 
 
 //playlist_songs
 
   router.route(playlistWithSongs)
     .post(plController.addSongToPlaylist)
-    .get(plController.getSongsInUserPlaylist);
+    .get(plController.getAllPlaylistSongs);
+
+    router.route(playlistWithSongs+'/:playlist_id')
+      .get(plController.getPlaylistSongs);
+    // .get(plController.getSongsInUserPlaylist);
 
   ////
 
@@ -76,7 +85,7 @@ module.exports = function(router) {
 
   router.route(artist+'/:artist_id')
     .get(artistController.getOneArtist)
-    .get(artistController.updateArtistNofSongs);
+    .put(artistController.updateArtistNofSongs);
 
   return router;
 };

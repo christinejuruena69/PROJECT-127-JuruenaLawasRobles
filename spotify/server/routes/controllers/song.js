@@ -68,12 +68,11 @@ exports.insertNewSong = function(req, res) {
         song_title: req.body.song_title,
         song_album: req.body.song_album,
         song_genre: req.body.song_genre,
-        song_artist: req.body.song_artist
+        song_artist: req.body.song_artist,
+				user_id: req.body.user_id
     };
-    console.log( data.playlist_id, data.song_id );
-    // Get a Postgres client from the connection pool
+    console.log( data.user_id);
     pg.connect(connectionString, function(err, client, done) {
-        // Handle connection errors
         if(err) {
           done();
           console.log(err);
@@ -85,15 +84,50 @@ exports.insertNewSong = function(req, res) {
               data.song_genre,
               data.song_artist
             ]);
-			client.query("INSERT INTO song(song_title, song_album, song_genre, song_artist) values( $1, $2, $3, $4)",
-			 [ data.song_title,
-				 data.song_album,
-				 data.song_genre,
-			 		data.song_artist
-				]);			
+
+			var query = client.query("SELECT * FROM SONG ORDER BY song_id ASC");
+					 query.on('row', function(row) {
+							 results.push(row);
+					 });
+					 query.on('end', function() {
+							 done();
+							 return res.json(results);
+					 });
+    });
+};
 
 
-            // /kulang ng directory
+exports.insertSongtoUser = function(req, res) {
+    var results = [];
+    // Grab data from http request
+    var data = {
+			song_id : req.body.song_id,
+			user_id: req.body.user_id
+    };
+    console.log( data.user_id);
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+			client.query("INSERT INTO user_song(song_id, user_id) values( $1, $2)",
+			 [ data.song_id,
+				 data.user_id
+				]);
+			// var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us,
+			// accounts a, songs s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.id]);
+			//
+			var query = client.query("SELECT * FROM user_SONG ORDER BY song_id ASC");
+					 query.on('row', function(row) {
+							 results.push(row);
+					 });
+					 query.on('end', function() {
+							 done();
+							 return res.json(results);
+					 });
     });
 };
 
@@ -158,7 +192,9 @@ exports.deleteSong = function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
         // SQL Query > Delete Data
-        client.query("DELETE FROM song WHERE song_id=($1)", [id]);
+				client.query("DELETE FROM song WHERE song_id=($1)", [id]);
+
+				client.query("DELETE FROM user_song WHERE song_id=($1)", [id]);
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM song ORDER BY song_id ASC");
         // Stream results back one row at a time

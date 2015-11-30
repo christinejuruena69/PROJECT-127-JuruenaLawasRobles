@@ -42,8 +42,8 @@ exports.addNewArtist= function(req, res) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-      client.query("INSERT INTO ARTIST(Artist_name, Artist_no_of_songs, artist_no_of_albums ) values( $1, 0, 0)", 
-            [ data.album_title]);     
+      client.query("INSERT INTO ARTIST(Artist_name, Artist_no_of_songs, artist_no_of_albums ) values( $1, 1, 0)",
+            [ data.artist_name]);
          // SQL Query > Select Data
             var query = client.query("SELECT * FROM ARTIST ORDER BY artist_id ASC");
 
@@ -80,7 +80,7 @@ exports.updateArtistNofSongs= function(req, res) {
         }
 
         // SQL Query > Update Data
-        client.query("UPDATE ARTIST SET Artist_no_of_songs=(Artist_no_of_songs+1), artist_name=($2) WHERE Album_id=($1)", 
+        client.query("UPDATE ARTIST SET Artist_no_of_songs=(Artist_no_of_songs+1), artist_name=($2) WHERE Album_id=($1)",
           [ id,
           data.artist_name
           ]);

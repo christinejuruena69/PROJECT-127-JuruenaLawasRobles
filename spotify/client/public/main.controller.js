@@ -23,6 +23,8 @@
 				$scope.accounts = data;
 				$scope.users = data;
 				isLoggedIn();
+				// console.log("Logged in");
+				// alert("Loggedin");
 				$('body').css('display', '');
 		});
 

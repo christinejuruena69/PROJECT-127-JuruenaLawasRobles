@@ -7,18 +7,22 @@
 	HomeService.$inject=["$http", "$q"]; //modules dependencies
 
 	function HomeService($http, $q){
+		var plistUrlperUser="http://localhost:3000/api/v1/user-plist";
 		var plistUrl="http://localhost:3000/api/v1/plist";
-		var allSongs="http://localhost:3000/api/v1/user_song";
+		var allSongs="http://localhost:3000/api/v1/songs";
+		var userSongs="http://localhost:3000/api/v1/user-songs";
 		var plist_songsUrl="http://localhost:3000/api/v1/plist-songs";
-		var albumsUrl="http://localhost:3000/api/v1/album";
+		var albumsUrl="http://localhost:3000/api/v1/albums";
 		var artistUrl="http://localhost:3000/api/v1/artist";
 
 		var service={};			//should be an object,
-		service.GetAll = GetAll;
+		service.GetAllPlaylists = GetAllPlaylists;
+		service.GetallUserSongs = GetallUserSongs;
 		service.Getsongsforplaylist = Getsongsforplaylist;
 		service.GetAllSongs = GetAllSongs;
 		service.MakenewPlaylist = MakenewPlaylist;
 		service.AddsongtoPlaylist = AddsongtoPlaylist;
+		service.AddSongtoUser = AddSongtoUser;
 		service.RemovefromSongs = RemovefromSongs;
 		service.AddSong = AddSong;
 		service.UpdateSong= UpdateSong;
@@ -34,7 +38,8 @@
 		service.AddNewArtist=AddNewArtist;
 		return service;
 
-		function GetAllPlaylist(){
+
+		function GetAllPlaylists(){
 			var deferred = $q.defer();
 			$http.get(plistUrl)
 				.success(function(data){
@@ -42,44 +47,16 @@
 				});
 				return deferred.promise;
 		}
-		function GetAllSongs(){
-			var deferred = $q.defer();
-			$http.get(allSongs)
-				.success(function(data){
-					deferred.resolve(data);
-				});
-				return deferred.promise;
-		}
-		function GetAllAlbums(){
-				var deferred = $q.defer();
-			$http.get(albumsUrl)
-				.success(function(data){
-					deferred.resolve(data);
-				});
-				// .error(function (data, status, header, config) {
-				// 	alert("no album found!");
-				// });
-				return deferred.promise;
-		}
-		function GetAllArtist(){
-			var deferred = $q.defer();
-			$http.get(artistUrl)
-				.success(function(data){
-					deferred.resolve(data);
-				})
-				.error(function (data, status, header, config) {
-					alert("no artist found!");
-				});
-				return deferred.promise;
-		}
-
 
 		function MakenewPlaylist(newplaylist){
+			console.log(newplaylist);
 			var deferred = $q.defer();
 			$http.post( plistUrl , newplaylist)
 				.success(function(data){
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
 				return deferred.promise;
 		}
 		function Getsongsforplaylist(){
@@ -87,7 +64,9 @@
 			$http.get(plist_songsUrl)
 				.success(function(data){
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
 				return deferred.promise;
 		}
 		function GetAllSongs(){
@@ -95,16 +74,31 @@
 			$http.get(allSongs)
 				.success(function(data){
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
 				return deferred.promise;
 		}
+		function GetallUserSongs(){
+			var deferred = $q.defer();
+			$http.get(userSongs)
+				.success(function(data){
+					deferred.resolve(data);
+				}).error(function () {
+	        deferred.reject();
+	      });
+				return deferred.promise;
+		}
+
 		function AddsongtoPlaylist(plistsong){
 			var deferred = $q.defer();
 			console.log(plistsong);
 			$http.post( plist_songsUrl , plistsong)
 				.success(function(data){
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
 		}
 		function DeletePlaylist(playlist_id){
 			var deferred = $q.defer();
@@ -115,13 +109,9 @@
 					deferred.resolve(data);
 					// alert("Song removed!");
 				})
-				.error(function (data, status, header, config) {
-					console.log("Data: " + data +
-                    "\n\n\n\nstatus: " + status +
-                    "\n\n\n\nheaders: " + header +
-                    "\n\n\n\nconfig: " + config);
-                alert("Cannot remove from songs");
-        });
+				.error(function () {
+	        deferred.reject();
+	      });
 				return deferred.promise;
 		}
 		function EditPlaylist(playlist_id, editedplist){
@@ -131,7 +121,9 @@
 				.success(function(data){
 					console.log(data);
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
 
 				return deferred.promise;
 		}
@@ -142,9 +134,12 @@
 				.success(function(data){
 					console.log(data);
 					deferred.resolve(data);
-					// alert("Song removed!");
-				});
+				}).error(function () {
+	        deferred.reject();
+	      });
+
 		}
+
 
 		function RemovefromSongs(songid){
 			var deferred = $q.defer();
@@ -169,7 +164,25 @@
 			$http.post(allSongs , newsong)
 				.success(function(data){
 					deferred.resolve(data);
-				});
+				}).error(function () {
+	        deferred.reject();
+					alert("cannot insert to songs!");
+	      });
+				console.log(deferred.promise.$$state.status); // 0
+				return deferred.promise;
+
+		}
+		function AddSongtoUser(usersong){
+			var deferred = $q.defer();
+			$http.post(userSongs , usersong)
+				.success(function(data){
+					deferred.resolve(data);
+					// console.log(data);
+				}).error(function () {
+	        deferred.reject();
+					alert("cannot insert to songs!");
+	      });
+				console.log(deferred.promise.$$state.status); // 0
 				return deferred.promise;
 
 		}
@@ -197,7 +210,28 @@
 
 				return deferred.promise;
 		}
-
+		function GetAllAlbums(){
+				var deferred = $q.defer();
+			$http.get(albumsUrl)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function (data, status, header, config) {
+					alert("no album found!");
+				});
+				return deferred.promise;
+		}
+		function GetAllArtist(){
+			var deferred = $q.defer();
+			$http.get(artistUrl)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function (data, status, header, config) {
+					alert("no artist found!");
+				});
+				return deferred.promise;
+		}
 
 		function AddNewAlbum(tempalbum){
 			var deferred = $q.defer();

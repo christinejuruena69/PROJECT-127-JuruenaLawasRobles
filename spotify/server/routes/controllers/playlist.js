@@ -9,7 +9,7 @@ var http = require('http');
 @  Functions below respond to '/api/v1/plist'
 */
 
-exports.getAllPlaylist = function(req, res) {
+exports.getallPlaylist = function(req, res) {
     var results = [];
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -44,6 +44,7 @@ exports.addNewPlaylist = function(req, res) {
     var results = [];
     var data = {
         playlist_name: req.body.playlist_name, //1
+        user_id: req.body.user_id
     };
     console.log( data.UserName, data.Name );
     // Get a Postgres client from the connection pool
@@ -55,7 +56,7 @@ exports.addNewPlaylist = function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
        client.query("INSERT INTO Playlist( Playlist_Name,user_id) values( $1,$2)", //ayusin ito
-            [ data.playlist_name,req.params.id]);
+            [ data.playlist_name,data.user_id]);
 
     });
 };
@@ -63,6 +64,9 @@ exports.addNewPlaylist = function(req, res) {
 exports.getUserOwnedPlaylist = function(req, res) {
     var results = [];
     // Get a Postgres client from the connection pool
+    console.log("crazy");
+    console.log(req.query.user_id);
+    var user_id = req.query.user_id;
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
         if(err) {
@@ -70,7 +74,8 @@ exports.getUserOwnedPlaylist = function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM Playlist where user_id=$1;", [req.params.id]);
+        // var query = client.query("SELECT * FROM Playlist where user_id=$1;", [req.params.id]);
+        var query = client.query("SELECT * FROM Playlist where user_id=($1);", [user_id]);
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
@@ -104,14 +109,14 @@ exports.addSongToPlaylist = function(req, res) { //fix
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-       client.query("INSERT INTO SONG_PLAYLIST(Playlist_id, Song_id) values( $1, $2)", //ayusin ito
+       client.query("INSERT INTO playlist_song(Playlist_id, Song_id) values( $1, $2)", //ayusin ito
             [ data.playlist_id,
               data.song_id
             ]);
         // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
 
         // SQL Query > Select Data
-            var query = client.query("SELECT * FROM SONG_PLAYLIST ORDER BY User_id ASC");
+            var query = client.query("SELECT * FROM playlist_song ORDER BY User_id ASC");
 
             // Stream results back one row at a time
             query.on('row', function(row) {
@@ -129,7 +134,7 @@ exports.addSongToPlaylist = function(req, res) { //fix
     });
 };
 
-exports.getSongsInUserPlaylist = function(req, res){
+exports.getsongInUserPlaylist = function(req, res){
 	var results = [];
 		pg.connect(connectionString, function(err, client, done) {
 				if(err) {
@@ -137,7 +142,7 @@ exports.getSongsInUserPlaylist = function(req, res){
 					console.log(err);
 					return res.status(500).json({ success: false, data: err});
 				}
-				var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, song_playlist us, account a, songs s where a.user_id=$1 and p.user_id=a.user_id and us.playlist_id=p.playlist_id and s.song_id=us.song_id;",[req.params.id]);
+				var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, playlist_song us, account a, song s where a.user_id=$1 and p.user_id=a.user_id and us.playlist_id=p.playlist_id and s.song_id=us.song_id;",[req.params.id]);
 				query.on('row', function(row) {
 						console.log(row);
 						 results.push(row);
@@ -208,11 +213,28 @@ exports.updateToDecPlaylistNoofSongs = function(req,res){
 
 };
 
+exports.getAllPlaylistSongs = function(req,res){
+  pg.connect(connectionString, function(err, client, done) {
+  var x = [];
+  var id = req.params.playlist_id;
+  var query = client.query("SELECT * FROM PLAYLIST_SONG order by playlist_id ASC;");
+         query.on('row', function(row) {
+                 console.log(row);
+             x.push(row);
+         });
+         query.on('end', function() {
+             done();
+             return res.json(x);
+         });
+     });
+ };
+
+
 exports.getPlaylistSongs = function(req,res){
  pg.connect(connectionString, function(err, client, done) {
  var x = [];
  var id = req.params.playlist_id;
-    var query = client.query("SELECT * FROM PLAYLIST where playlist_id = $1", [id]);
+    var query = client.query("SELECT * FROM PLAYLIST_SONG  where playlist_id = $1", [id]);
         query.on('row', function(row) {
                 console.log(row);
             x.push(row);

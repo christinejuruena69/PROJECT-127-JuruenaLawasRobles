@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div ng-app class="modal" id="addtoplistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div ng-app="app" class="modal" id="addtoplistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -273,7 +273,7 @@
 
 								</thead>
 								<tbody>
-									<tr ng-repeat="song in allsongs">
+									<tr ng-repeat="song in displayUsersongs">
 
 
 										<td ng-click=""> {{ song.song_title}} </td>
@@ -306,8 +306,8 @@
 								<thead>
 									<tr>
 										<th> Album Title </th>
-										<!-- <th> Number of Songs </th> -->
-										<th> Record Label</th>
+										<th> Number of Songs </th>
+										<!-- <th> Record Label</th> -->
 										<th>Year Released</th>
 
 									</tr>
@@ -318,7 +318,7 @@
 
 
 										<td ng-click=""> {{ album.album_title}} </td>
-										<td ng-click=""> {{ album.Record_label}} </td>
+										<td ng-click=""> {{ album.album_no_of_albums}} </td>
 										<td ng-click=""> {{ album.Year_released}} </td>
 										</td>
 

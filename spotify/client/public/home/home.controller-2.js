@@ -23,8 +23,7 @@
      $scope.curreditedSong={};
      $scope.curreditplist={};
 
-		$scope.allsongsofUser={};
-		$scope.displayUsersongs={};
+		$scope.allsongs={}	;
 	    $scope.playlists={};
 	    $scope.currentplaylist={};
 	    $scope.allalbums={};
@@ -36,56 +35,14 @@
 
 	   	// $scope.editedSong=[];
 		isLoggedIn();
-		console.log(user.user_id);
-		HomeService.GetallUserSongs()
-			.then(function(data){
-			$scope.allsongsofUser=data;
+		HomeService.GetAllPlaylists().then(function(data){
+			$scope.playlists=data;
+			// console.log(data);
+
 		});
-		HomeService.GetAllSongs()
-			.then(function(data){
+		HomeService.GetAllSongs().then(function(data){
     	$scope.allsongs=data;
-			$scope.refreshsongs();
 		});
-		HomeService.GetAllPlaylists()
-		.then(function(data){
-			console.log("all plist");
-			console.log(data);
-			$scope.tempplists = data;
-			var playlists = [];
-			console.log($scope.tempplists);
-			$.each( $scope.tempplists, function( index, item ) {
-				if( user.user_id == item.user_id){
-				playlists.push(item);
-				}
-			});
-			$scope.playlists=playlists;
-		});
-		$scope.refreshsongs = function (){
-			console.log("refresh yeay");
-
-			console.log( "allsongs");
-			console.log(	$scope.allsongs);
-			console.log("allsongsofUser");
-			console.log(	$scope.allsongsofUser);
-				var songid;
-				//kita naman niya ang allsongsofUser and allsongs
-				var tempallsongs =[];
-				$.each( $scope.allsongsofUser, function( index, item ) {
-					if (item.user_id == user.user_id){
-						songid = item.song_id;
-						$.each( $scope.allsongs, function( index, song ) {
-							if (song.song_id == songid){
-								console.log(song);
-							tempallsongs.push(song);
-							
-							}
-						});
-					}
-				});
-				$scope.displayUsersongs=tempallsongs;
-		}
-
-
 		HomeService.GetAllAlbums().then(function(data){
     	$scope.allalbums=data;
 		});
@@ -148,14 +105,7 @@
     	  // playlist // playlist // playlist // playlist // playlist
 
         $scope.newPlaylist= function(){
-					console.log(user.user_id);
-
-					var tempplist = {
-						playlist_name: $scope.newplaylist.playlist_name,
-						user_id: user.user_id
-					};
-					console.log(tempplist);
-        	HomeService.MakenewPlaylist(tempplist)
+        	HomeService.MakenewPlaylist($scope.newplaylist)
         		.then(function (data){
         			console.log("hiiiiii");
         			console.log(data);
@@ -219,13 +169,20 @@
         		.then(function (all_playlist){
         			var temp = [];
 							$scope.temp_all_playlist=all_playlist;
+
+        			HomeService.GetAllSongs()
+		        		.then(function (all_songs){
+									$scope.temp_all_songs=all_songs;
+		        		});
+							});
+
       			var temp_song_id;
 		   			$.each( $scope.temp_all_playlist, function( index, item ) {
 				  		if (item.playlist_id == playlist.playlist_id){
 				  			temp_song_id = item.song_id;
 				  			// console.log( item.song_id );
 
-			   				$.each( $scope.allsongs, function( index, song ) {
+			   				$.each( $scope.temp_all_songs, function( index, song ) {
 			   					if( temp_song_id == song.song_id){
 			 						temp_playlist.push(song);
 			   					}
@@ -241,9 +198,7 @@
 
 
 				console.log($scope.currentplaylist);
-			});
-		}
-
+    	  }
 
         $scope.temp_all_playlist=[];
 				$scope.temp_all_songs=[];
@@ -281,8 +236,7 @@
     	  $scope.addsongtoPlaylist = function(){
 	    	  $scope.plistsong={
 	    	  	playlist_id : $scope.selectedPlaylistid,
-	    	  	song_id: $scope.selectedSongid,
-						user_id : user.user_id
+	    	  	song_id: $scope.selectedSongid
 	    	  }
 
     	  	HomeService.AddsongtoPlaylist($scope.plistsong)
@@ -306,144 +260,122 @@
     	  	console.log($scope.newsong.song_title);
 
     	  }
-				$scope.allsongstemp={};
-
-    	  $scope.addsonganddetails = function(){
+    	  $scope.addsonganddetails = function(newsongp){
 
 
-					var tempnewsong= {
-						song_title : $scope.newsong.song_title,
-						song_album : $scope.newsong.song_album,
-						song_genre : $scope.newsong.song_genre,
-						song_artist : $scope.newsong.song_artist,
-						user_id : user.user_id
-					}
+					// var tempnewsong= {
+					// 	song_title : $scope.newsong.song_title,
+					// 	song_album : $scope.newsong.song_album,
+					// 	song_genre : $scope.newsong.song_genre,
+					// 	song_artist : $scope.newsong.song_artist,
+					// 	user_id : user.user_id
+					// }
 					$scope.allsongsniuser = {};
 					console.log("FUCK YOU very");
 
-    	  	HomeService.AddSong(tempnewsong)
+    	  	HomeService.AddSong($scope.newsong)
     	  		.then(function (data){
-							$scope.allsongstemp=data;
+							console.log(data);
+							console.log(data);
+
+							console.log('FUCK YOU');
+							// var tempdata = data[data.length];
+							$scope.allsongs=data;
 							$scope.newsong={};
-							$scope.addtoUserSong(tempnewsong);
-							$scope.ArtistandAlbum(tempnewsong);
-							$scope.refreshsongs();
-							// $scope.displayUsersongs.push(tempnewsong);
 
-							alert("Song added!");
+							console.log(data);
+							console.log("HOY HELP");
 
-						}).catch(function() {
-					    console.log('unable to get the poneys');
-							alert("Song not added!");
-					  });
+							// $.each( $scope.allsongs, function( index, item ) {
+							// 		// console.log(item.song_title);
+							//
+							// 	if( tempnewsong.song_title == item.song_title ){
+							// 		// albumid=item.album_id;
+							// 		console.log("eto na");
+							// 	}
+							// });
+
+
+
+
+							// $scope.allsongs.push(newsongp);
+							if (newsongp.song_album.length > 0){
+		    	  		var tempalbum={
+		    	  			album_title: newsongp.song_album
+		    	  		}
+		    	  		var albumid=0;
+		    	  		console.log($scope.allalbums);
+		    	  		$.each( $scope.allalbums, function( index, item ) {
+		    	  				console.log("item.album_title: "+item.album_title + ", newsongp.song_album"+newsongp.song_album);
+		    	  				console.log(item.album_id);
+
+			   					if( newsongp.song_album == item.album_title){
+			   						albumid=item.album_id;
+			   						console.log(albumid);
+			   					}
+								});
+								if (albumid>0){ //if exists
+									console.log("meron na");
+			   					HomeService.UpdateAlbum(albumid, tempalbum)
+					       		.then(function (data){
+
+									});
+								}else{ //if not make new album
+									console.log("wala pa");
+									HomeService.AddNewAlbum(tempalbum)
+					       		.then(function (data){
+										$scope.allalbums=data;
+									});
+								}
+
+		    	  	}
+		    	  	if (newsongp.song_artist.length > 0){
+		    	  		var tempartist={
+		    	  			artist_name: newsongp.song_artist,
+		    	  			album_name: newsongp.song_album
+		    	  		}
+		    	  		var artistid=0;
+		    	  		console.log($scope.allartists);
+		    	  		$.each( $scope.allartists, function( index, item ) {
+		    	  				console.log(item.artist_id);
+
+			   					if( newsongp.song_artist == item.artist_name){
+			   						artistid=item.artist_id;
+			   						console.log(artistid);
+			   					}
+								});
+								if (artistid>0){ //if exists
+									console.log("meron na");
+			   					HomeService.UpdateArtist(artistid, tempartist)
+					       		.then(function (data){
+									});
+								}else{ //if not make new album
+									console.log("wala pa");
+									HomeService.AddNewArtist(tempartist)
+					       		.then(function (data){
+										$scope.allartists=data;
+									});
+								}
+		    	  	}
+
+						});
 						// function( error ){Do something with error
 						// 	console.log("error!");
 						// });
-				// $scope.allsongs=data;
 
+				$scope.newsong={};
+				alert("Song added!");
 
     	  }
-				$scope.addtoUserSong = function (tempnewsong){
-					var usersong ={};
-					$.each( $scope.allsongstemp, function( index, item ) {
-						if( tempnewsong.song_title == item.song_title ){
-							usersong = {
-								song_id : item.song_id,
-								user_id : user.user_id
-							}
-							return false;
-						}
-					});
-					HomeService.AddSongtoUser(usersong)
-						.then(function (data){
-						$scope.allsongsofUser=data;
-						}).catch(function() {
-					    console.log('unable to get the poneys');
-							alert("Song not added!");
-					  });
-
-
-				}
-				$scope.ArtistandAlbum = function (tempnewsong){
-					var song_artist= tempnewsong.song_artist;
-					console.log(song_artist);
-
-					$.each( $scope.allsongstemp, function( index, item ) {
-						if( tempnewsong.song_title == item.song_title ){
-							albumid=item.album_id;
-							return false;
-						}
-					});
-					// $scope.allsongs.push(tempnewsong);
-					if (tempnewsong.song_album.length > 0){
-						var tempalbum={
-							album_title: tempnewsong.song_album
-						}
-						var albumid=0;
-						console.log($scope.allalbums);
-						$.each( $scope.allalbums, function( index, item ) {
-								console.log("item.album_title: "+item.album_title + ", tempnewsong.song_album"+tempnewsong.song_album);
-							if( tempnewsong.song_album == item.album_title){
-								albumid=item.album_id;
-								return false;
-							}
-						});
-						if (albumid>0){ //if exists
-							console.log("meron na");
-							HomeService.UpdateAlbum(albumid, tempalbum)
-								.then(function (data){
-									console.log("albums");
-									console.log(data);
-									$scope.allalbums=data;
-							});
-						}else{ //if not make new album
-							console.log("wala pa");
-							HomeService.AddNewAlbum(tempalbum)
-								.then(function (data){
-								$scope.allalbums=data;
-								console.log("diri");
-								console.log($scope.allalbums);
-							});
-						}
-
-					}
-					if (song_artist.length > 0){
-						var tempartist={
-							artist_name: tempnewsong.song_artist
-							// album_name: tempnewsong.song_album
-						}
-						var artistid=0;
-						console.log($scope.allartists);
-						$.each( $scope.allartists, function( index, item ) {
-							if( tempnewsong.song_artist == item.artist_name){
-								artistid=item.artist_id;
-							return false;
-							}
-						});
-						if (artistid>0){ //if exists
-							console.log("meron na");
-							HomeService.UpdateArtist(artistid, tempartist)
-								.then(function (data){
-							});
-						}else{ //if not make new album
-							console.log("wala pa");
-							HomeService.AddNewArtist(tempartist)
-								.then(function (data){
-								$scope.allartists=data;
-							});
-						}
-					}
-
-				}
     	  $scope.removefromSongs =function(song){
 
 	    	  	HomeService.RemovefromSongs(song.song_id)
 	        		.then(function (data){
 	        			console.log("removed!");
-	        			var index = $scope.displayUsersongs.indexOf(song);
+	        			var index = $scope.allsongs.indexOf(song);
 	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
     					// $scope.degreePrograms.splice(index,1);
-    					$scope.displayUsersongs.splice(index,1);
+    					$scope.allsongs.splice(index,1);
 							});
 
     	  }
