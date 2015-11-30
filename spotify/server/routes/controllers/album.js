@@ -35,7 +35,7 @@ exports.getAllAlbums = function(req, res) {
     });
 };
 
-exports.getOneAlbum= function(req, res) {
+exports.getOneAlbum = function(req, res) {
  console.log(req.params.album_id);
  pg.connect(connectionString, function(err, client, done) {
  var x = [];
@@ -63,9 +63,9 @@ exports.addNewAlbum= function(req, res) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-                      
-       client.query("INSERT INTO ALBUM(Album_title, Album_no_of_songs, Record_label) values( $1, 0, '')", 
-            [ data.album_title]);     
+
+       client.query("INSERT INTO ALBUM(Album_title, Album_no_of_songs, Record_label) values( $1, 0, '')",
+            [ data.album_title]);
             var query = client.query("SELECT * FROM ALBUM ORDER BY album_id ASC");
             query.on('row', function(row) {
                 results.push(row);
@@ -93,7 +93,7 @@ exports.updateAlbumNoofSongs= function(req, res) {
           console.log(err);
           return res.status(500).send(json({ success: false, data: err}));
         }
-        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1), Album_title=($2) WHERE Album_id=($1)", 
+        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1), Album_title=($2) WHERE Album_id=($1)",
           [ id,
           data.album_title
           ]);

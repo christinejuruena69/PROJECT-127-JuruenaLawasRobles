@@ -11,6 +11,7 @@ var http = require('http');
 
 exports.init = function(req,res){
 		var results = [];
+		var flag = false;
     // Grab data from http request
     var data = {
         UserName: req.body.UserName, //1
@@ -24,36 +25,35 @@ exports.init = function(req,res){
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
-        if(err) {
-          done();
-          console.log(err);
-          return res.status(500).json({ success: false, data: err});
-        }
-<<<<<<< HEAD
-       client.query("INSERT INTO ACCOUNTS(Username, Name, Password, Sex, Email_Address, Birthday, Age, User_role, Date_Joined) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)",
-=======
-       client.query("INSERT INTO account(UserName, Name, Password, Sex, Email_Address, Birthday, Age, User_role, Date_Joined) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)",
->>>>>>> 0ab21d2fec6d218974182fe2dd1596de31921373
-            [ data.UserName,
-              data.Name,
-              data.Password,
-              data.Sex,
-              data.Email_Address,
-              data.Birthday,
-              data.Age
-            ]);
-        // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
-        // SQL Query > Select Data
-            var query = client.query("SELECT * FROM account ORDER BY User_id ASC");
-            // Stream results back one row at a time
-            query.on('row', function(row) {
-                results.push(row);
-            });
-            // After all data is returned, close connection and return results
-            query.on('end', function() {
-                done();
-                return res.json(results);
-            });
+      if(err) {
+        done();
+        console.log(err);
+        return res.status(500).json({ success: false, data: err});
+      }
+
+	    client.query('INSERT INTO account(UserName, Name, Password, Sex, Email_Address, Birthday, Age, User_role, Date_Joined) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)',
+	          [ data.UserName,
+	            data.Name,
+	            data.Password,
+	            data.Sex,
+	            data.Email_Address,
+	            data.Birthday,
+	            data.Age
+	          ]);
+      // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or  prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
+      // SQL Query > Select Data
+			results = [];
+
+      query = client.query("SELECT * FROM account ORDER BY User_id ASC");
+      // Stream results back one row at a time
+      query.on('row', function(row) {
+        results.push(row);
+      });
+      // After all data is returned, close connection and return results
+      query.on('end', function() {
+        done();
+      return res.json(results);
+      });
     });
 };
 

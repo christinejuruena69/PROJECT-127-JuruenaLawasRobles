@@ -36,9 +36,10 @@
 	   	// $scope.editedSong=[];
 
 		HomeService.GetAllPlaylist().then(function(data){
+			$('body').css('display', 'none');
 			$scope.playlists=data;
-			// console.log(data);
 			isLoggedIn();
+			$('body').css('display', '');
 		});
 		HomeService.GetAllSongs().then(function(data){
     	$scope.allsongs=data;
@@ -60,9 +61,6 @@
 			document.cookie = cookie[0];
 			isLoggedIn();
 		}
-
-
-
 
 			// $scope.playlist = true;
 

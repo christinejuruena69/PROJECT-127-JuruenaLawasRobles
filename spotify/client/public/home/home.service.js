@@ -14,7 +14,7 @@
 		var artistUrl="http://localhost:3000/api/v1/artist";
 
 		var service={};			//should be an object,
-		service.GetAll = GetAll;
+		service.GetAllPlaylist = GetAllPlaylist;
 		service.Getsongsforplaylist = Getsongsforplaylist;
 		service.GetAllSongs = GetAllSongs;
 		service.MakenewPlaylist = MakenewPlaylist;

@@ -5,7 +5,6 @@ var path = require('path');
 var connectionString = require(path.join(__dirname, '../', '../', '../', 'config'));
 var http = require('http');
 
-//better to delete this kasi parehas lang siya ng getAllSongs
 
 /*
 @  Functions below respond to '/api/v1/user_song/'
@@ -19,11 +18,9 @@ exports.getUserSongs = function(req,res){
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-<<<<<<< HEAD
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us, accounts a, songs s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.id]);
-=======
+        // var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us, accounts a, songs s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.id]);
         var query = client.query("select * from user_song order by user_id asc;");
->>>>>>> 0ab21d2fec6d218974182fe2dd1596de31921373
+
         query.on('row', function(row) {
          		console.log(row);
              results.push(row);
@@ -94,7 +91,7 @@ exports.insertNewSong = function(req, res) {
 				 data.song_album,
 				 data.song_genre,
 			 		data.song_artist
-				]);			
+				]);
 
 
             // /kulang ng directory

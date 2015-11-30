@@ -8,7 +8,7 @@ var pathname = "/api/v1/todos";
 var uspath = "/api/v1/user_song";
 var playlist = "/api/v1/plist";
 var playlistWithSongs = '/api/v1/plist-songs'
-var albums = 'api/v1/albums';
+var albums = '/api/v1/album';
 var songs = '/api/v1/songs';
 var artist = '/api/v1/artist';
 
@@ -51,14 +51,10 @@ module.exports = function(router) {
     .delete(plController.updateToDecPlaylistNoofSongs)
     .get(plController.getPlaylistSongs);
 
-
 //playlist_songs
-
   router.route(playlistWithSongs)
     .post(plController.addSongToPlaylist)
     .get(plController.getSongsInUserPlaylist);
-
-  ////
 
 //albums
   router.route(albums)

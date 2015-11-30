@@ -31,8 +31,6 @@
 			.then(function (data){
 				$scope.formData={};
 				$scope.formData.UserName="";
-				// $scope.accounts.push(data);
-				// console.log($scope.accounts);
 				$scope.accounts = data;
 				$scope.users.push(data);
 				goLogin();
