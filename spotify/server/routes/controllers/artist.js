@@ -25,7 +25,7 @@ exports.getOneArtist= function(req, res) {
 
 exports.addNewArtist= function(req, res) {
     var results = [];
-    
+
     var data = {
         artist_name : req.body.artist_name,
         album_name : req.body.album_name
@@ -39,16 +39,10 @@ exports.addNewArtist= function(req, res) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-<<<<<<< HEAD
       client.query("INSERT INTO ARTIST(Artist_name, Artist_no_of_songs, artist_no_of_albums ) values( $1, 1, 0)",
             [ data.artist_name]);
          // SQL Query > Select Data
-=======
-      client.query("INSERT INTO ARTIST(Artist_name, Artist_no_of_songs, artist_no_of_albums ) values( $1, 0, 0)",
-            [ data.album_title]);
-
->>>>>>> 4854eedc929dcb1e6c4aa8f7ce2cdaca381b612f
-            var query = client.query("SELECT * FROM ARTIST ORDER BY artist_id ASC");
+          var query = client.query("SELECT * FROM ARTIST ORDER BY artist_id ASC");
 
             query.on('row', function(row) {
                 results.push(row);
