@@ -23,26 +23,47 @@ exports.getOneArtist= function(req, res) {
     });
 };
 
-// exports.GetallSongsPerArtist = function(req, res){
-// 	var results = [];
-// 		pg.connect(connectionString, function(err, client, done) {
-// 				if(err) {
-// 					done();
-// 					console.log(err);
-// 					return res.status(500).json({ success: false, data: err});
-// 				}
-//         console.log(req.params.album_id);
-//         var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song art song s where sa.album_id=($1) and a.album_id=($1) and s.song_id=sa.song_id;", [req.params.album_id]);
-//         query.on('row', function(row) {
-// 						console.log(row);
-// 						 results.push(row);
-// 				 });
-// 				 query.on('end', function() {
-// 						 done();
-// 						 return res.json(results);
-// 				 });
-// 		});
-// };
+exports.GetallSongsPerArtist = function(req, res){
+	var results = [];
+		pg.connect(connectionString, function(err, client, done) {
+				if(err) {
+					done();
+					console.log(err);
+					return res.status(500).json({ success: false, data: err});
+				}
+        console.log(req.params.album_id);
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song artsong, song s where artsong.artist_id=($1) and a.artist_id=($1) and s.song_id=sa.song_id;",
+         [req.params.artist_id]);
+        query.on('row', function(row) {
+						console.log(row);
+						 results.push(row);
+				 });
+				 query.on('end', function() {
+						 done();
+						 return res.json(results);
+				 });
+		});
+};
+exports.GetallartistSong= function(req, res) {
+    var results = [];
+
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+          var query = client.query("SELECT * FROM album_song ORDER BY album_id ASC;");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
 
 exports.addNewArtist= function(req, res) {
     var results = [];
@@ -74,7 +95,32 @@ exports.addNewArtist= function(req, res) {
             });
     });
 };
-
+exports.AddSongtoArtist= function(req, res) {
+    var results = [];
+    var data = {
+          album_id : req.body.album_id,
+          song_id: req.body.song_id
+    };
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+        client.query("INSERT INTO artist_song(album_id, Song_id) values( $1, $2)", //ayusin ito
+             [ data.album_id,
+               data.song_id
+             ]);
+            var query = client.query("SELECT * FROM artist_song ORDER BY album_id ASC");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
 exports.updateArtistNofSongs= function(req, res) {
     var results = [];
     // Grab data from the URL parameters

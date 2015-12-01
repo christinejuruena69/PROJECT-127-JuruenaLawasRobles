@@ -419,11 +419,16 @@
 							artist_name: tempnewsong.song_artist,
 							album_name: tempnewsong.song_album
 						}
+						var artistsong = {};
 						var artistid=0;
 						console.log($scope.allartists);
 						$.each( $scope.allartists, function( index, item ) {
 							if( tempnewsong.song_artist == item.artist_name){
 								artistid=item.artist_id;
+								artistsong = {
+									artist_id: artistid,
+									song_id: song_id
+								}
 							return false;
 							}
 						});
@@ -431,6 +436,9 @@
 							console.log("meron na");
 							HomeService.UpdateArtist(artistid, tempartist)
 								.then(function (data){
+									$scope.allartists=data;
+									$scope.addtoArtistSongs(artistsong);
+
 							});
 						}else{ //if not make new album
 							console.log("wala pa");
@@ -442,27 +450,39 @@
 					}
 
 				}
+				$scope.addtoArtistSongs=function (artistsong){
+					HomeService.AddtoArtistSongs(artistsong)
+						.then(function (data){
+						// $scope.allsonginartist=data;
+					});
+				}
 				$scope.addtoAlbumSongs=function (albumsong){
 					HomeService.AddtoAlbumSongs(albumsong)
 						.then(function (data){
-						$scope.allsonginalbums=data;
+						// $scope.allsonginalbums=data;
 					});
 				}
 				$scope.getSongsAlbum=function (album_id){
+					console.log(album_id);
 					HomeService.GetSongsAlbum(album_id)
 						.then(function (data){
 						$scope.currentsonginalbum=data;
 					});
 				}
-    	  $scope.removefromSongs =function(song){
+				$scope.getSongsArtist=function (artist_id){
+					console.log(artist_id);
 
+					HomeService.GetSongsArtist(artist_id)
+						.then(function (data){
+						$scope.currentsonginartist=data;
+					});
+				}
+    	  $scope.removefromSongs =function(song){
 	    	  	HomeService.RemovefromSongs(song.song_id)
 	        		.then(function (data){
 	        			console.log("removed!");
 	        			var index = $scope.allsongs.indexOf(song);
-	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
-    					// $scope.degreePrograms.splice(index,1);
-    							$scope.allsongs.splice(index,1);
+	  						$scope.allsongs.splice(index,1);
 							});
 
     	  }
