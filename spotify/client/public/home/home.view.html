@@ -9,11 +9,11 @@
       <div class="modal-body">
       	<span>Select playlist: </span>
       	<div class="dropdown">
-				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    Playlist <span class="caret"></span>
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				  {{ selectedPlaylist }}<span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				    <li ng-repeat="playlist in playlists"> <a ng-click="getselected(playlist)">{{ playlist.playlist_name}} </a> </li>
+				    <li ng-repeat="playlist in playlists"> <a ng-click="getselectedPlist(playlist)">{{ playlist.playlist_name}} </a> </li>
 				  </ul>
 				</div>
       	<span>Selected playlist: {{selectedPlaylist}} </span>
@@ -39,7 +39,7 @@
       </div>
       <div class="modal-body">
       	<span>Add song details</span>
-      	<form class="login"  ng-model="newsong" action="" method="post" role="form">
+      	<form class="login"  ng-model="newsong"  role="form">
       	<span> Song Title: &nbsp;</span>
 	        <input type="" ng-model="newsong.song_title" name="" id="" placeholder=""  value=""  required autofocus>
 	        <br />
@@ -49,6 +49,14 @@
 		      	<div ng-show="isShown('Album')">
 			      <span > Song Album:
 			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+              <!-- <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown" >
+      				  {{ selectedAlbum }}<span class="caret"></span>
+      				  </button>
+      				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      				    <li ng-repeat="album in allalbums"> <a ng-click="getselectedAlbum(album)">{{ album.album_title}} </a> </li>
+      				  </ul>
+      				</div> -->
 			     	</span>
 		      </div>
 			    </div>
@@ -237,8 +245,6 @@
 					</div>
 					<div id="playlistsongs">
 					<h4> {{ currentplaylistTitle }}</h4>
-
-
 						<table class="table">
 								<thead>
 									<tr>
@@ -299,7 +305,7 @@
 										<td ng-click=""> {{ song.song_genre}} </td>
 										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
 										<input type="button" value="Remove" ng-click="removefromSongs(song)">
-										<input type="button" value="Play" ng-click="">
+										<input type="button" value="Play" ng-click="playSong(song)">
 										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
 
 
@@ -401,7 +407,7 @@
                 </table>
       </div>
 			</div>
-      <div id="rec_msc_div" ng-hide="artist">
+      <div id="rec_msc_div" ng-hide="recmsc">
         <div id="songs_in_artist">
           <table class="table">
                 <thead>
@@ -414,6 +420,7 @@
                 </thead>
                 <tbody>
                   <tr ng-repeat="song in currentsonginartist">
+                    <!-- add to songs from recommended music -->
                     <td ng-click=""> {{ song.song_title}} </td>
                     <td ng-click=""> {{ song.song_artist}} </td>
                     <td ng-click=""> {{ song.song_album}} </td>

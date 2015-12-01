@@ -13,7 +13,8 @@
 		$scope.album = true;
 		$scope.artist = true;
 		$scope.songlist = true;
-		$scope.saved=false;
+		$scope.recmsc = true;
+
 		$scope.editplaylisttextbox=true;
 		$scope.editplaylistnametext=false;
 		var user = {};
@@ -166,38 +167,61 @@
 
         $scope.toggleCustom = function() {
             $scope.custom = $scope.custom === false ? true: false;
+						$scope.recmsc = true;
         };
         $scope.toggleArtist = function() {
             $scope.artist = $scope.artist === false ? true: false;
             $scope.album = true;
 						$scope.playlist = true;
 						$scope.songlist = true;
+						$scope.recmsc= true;
         };
         $scope.togglePlaylist = function() {
             $scope.playlist = $scope.playlist === false ? true: false;
             $scope.album = true;
 						$scope.artist = true;
 						$scope.songlist = true;
-
+						$scope.recmsc = true;
         };
         $scope.toggleAlbum = function() {
             $scope.album = $scope.album === false ? true: false;
 						$scope.artist = true;
 						$scope.playlist = true;
+						$scope.recmsc = true;
 						$scope.songlist = true;
-
         };
         $scope.toggleSongs = function() {
             $scope.songlist = $scope.songlist === false ? true: false;
 						$scope.artist = true;
             $scope.album = true;
 						$scope.playlist = true;
-
+						$scope.recmsc = true;
         };
+				$scope.toggleRecMsc = function() {
+						$scope.recmsc = $scope.recmsc === false ? true: false;
+            $scope.songlist = true;
+						$scope.artist = true;
+            $scope.album = true;
+						$scope.playlist = true;
+        };
+
        $scope.shownewplist = function (){
         	// $scope.createplist= false;
           $scope.createplist = $scope.createplist === false ? true: false;
         }
+				$scope.playSong = function (song){
+					HomeService.Inctimesplayed(song.song_id)
+        		.then(function (data){
+        			// console.log("hiiiiii"); //not working but it adds
+        			console.log(data);
+							$scope.playlists=data;
+        			$scope.newplaylist={};
+							// $scope.playlists.push(tempplist);
+					}).catch(function() {
+						console.log('unable to play song');
+					});
+
+				}
         // toggle tabs
 
     	  // playlist // playlist // playlist // playlist // playlist
@@ -209,7 +233,6 @@
 						playlist_name: $scope.newplaylist.playlist_name,
 						user_id: user.user_id
 					};
-					console.log(tempplist);
         	HomeService.MakenewPlaylist(tempplist)
         		.then(function (data){
         			// console.log("hiiiiii"); //not working but it adds
@@ -217,6 +240,9 @@
 							$scope.playlists=data;
         			$scope.newplaylist={};
 							// $scope.playlists.push(tempplist);
+					}).catch(function() {
+						console.log('unable to add  new plist to scope');
+						alert("new plist not added to scope!");
 					});
         }
 
@@ -256,15 +282,18 @@
 
 					});
         }
-				$scope.removeSongfromPlaylist =  function(){
-        	HomeService.RemoveSongfromPlaylist($scope.curreditplist.playlist_id, $scope.editedplist, user.user_id)
+				$scope.removeSongfromPlaylist =  function(song){
+					console.log($scope.currplist_id);
+        	HomeService.RemoveSongfromPlaylist($scope.currplist_id,song.song_id)
         		.then(function (data){
-
+							$scope.currentplaylist = data;
         		$scope.editedplist={};
         		$scope.curreditplist={};
+						$scope.currplist_id=0;
 
 					});
         }
+				$scope.currplist_id=0;
         $scope.getplaylist= function(playlist){
         	console.log(playlist.playlist_name);
         	console.log(playlist.playlist_id);
@@ -272,28 +301,10 @@
         	$scope.currentplaylist = {};
         	HomeService.Getsongsforplaylist(playlist.playlist_id)
         		.then(function (all_playlist){
-						//
-        		// 	var temp = [];
-						// 	$scope.temp_all_playlist=all_playlist;
-      			// var temp_song_id;
-						// 		$.each( $scope.temp_all_playlist, function( index, item ) {
-				  	// 	if (item.playlist_id == playlist.playlist_id){
-				  	// 		temp_song_id = item.song_id;
-				  	// 		// console.log( item.song_id );
-						//
-						// 				$.each( $scope.allsongs, function( index, song ) {
-			   	// 				if( temp_song_id == song.song_id){
-			 		// 				temp_playlist.push(song);
-			   	// 				}
-						// 		});
-						// 			}
-						// });
+
 						$scope.currentplaylist = all_playlist;
 						$scope.currentplaylistTitle = playlist.playlist_name;
-
-						// $scope.temp_all_songs= [];
-						// $scope.temp_all_playlist= [];
-						// temp_playlist=[];
+						$scope.currplist_id= playlist.playlist_id;
 
 
 				console.log($scope.currentplaylist);
@@ -327,23 +338,28 @@
 	    	  	song_genre: "",
 	    	  	song_artist: ""
     	  }
-    	  $scope.getselected = function(playlist){
+    	  $scope.getselectedPlist = function(playlist){
 
     	  	console.log(playlist.playlist_name);
     	  	$scope.selectedPlaylist= playlist.playlist_name;
     	  	$scope.selectedPlaylistid= playlist.playlist_id;
     	  	console.log($scope.selectedPlaylistid);
+
     	  }
+
     	  $scope.addsongtoPlaylist = function(){
-	    	  $scope.plistsong={
+	    	  var plistsong={
 	    	  	playlist_id : $scope.selectedPlaylistid,
 	    	  	song_id: $scope.selectedSongid,
 						user_id : user.user_id
-	    	  }
-    	  	HomeService.AddsongtoPlaylist($scope.plistsong)
+	    	  };
+    	  	HomeService.AddsongtoPlaylist(plistsong)
         		.then(function (data){
-							$scope.updatePlistnoofSongs($scope.plistsong);
-						});
+							$scope.updatePlistnoofSongs(plistsong);
+
+						}).catch(function() {
+							alert("Song not added to playlist!");
+					  });;
 	    	  $scope.selectedSongid =0;
     	  	$scope.selectedPlaylistid=0;
     	  }
@@ -377,7 +393,7 @@
 						song_genre : $scope.newsong.song_genre,
 						song_artist : $scope.newsong.song_artist,
 						user_id : user.user_id
-					}
+					};
 					$scope.allsongsniuser = {};
 					console.log("FUCK YOU very");
 

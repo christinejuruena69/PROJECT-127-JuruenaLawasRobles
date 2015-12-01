@@ -19,6 +19,7 @@
 		var resultsUrl="http://localhost:3000/api/v1/search";
 
 		var service={};			//should be an object,
+		service.GetAllLahatSongs = GetAllLahatSongs;
 		service.GetAllPlaylists = GetAllPlaylists;
 		service.GetallUserSongs = GetallUserSongs;
 		service.GetUserPlaylists = GetUserPlaylists;
@@ -96,7 +97,14 @@
 		}//end of GetAlbums
 		/*===========================Leensey's Search Functionalities end here===========================*/
 
-
+		function GetAllLahatSongs(){
+			var deferred = $q.defer();
+			$http.get(allSongs)
+				.success(function(data){
+					deferred.resolve(data);
+				});
+				return deferred.promise;
+		}
 		function GetAllPlaylists(){
 			var deferred = $q.defer();
 			$http.get(plistUrl)
@@ -105,6 +113,7 @@
 				});
 				return deferred.promise;
 		}
+
 		function GetUserPlaylists(user_id){
 			var deferred = $q.defer();
 			$http.get(plistUrl+'/'+user_id)
@@ -120,7 +129,9 @@
 			$http.post( plistUrl , newplaylist)
 				.success(function(data){
 					deferred.resolve(data);
+					console.log("playlist added");
 				}).error(function () {
+					console.log("playlist not added");
 	        deferred.reject();
 	      });
 				return deferred.promise;
@@ -177,10 +188,34 @@
 					deferred.reject();
 				});
 		}
-		function DeletePlaylist(playlist_id){
+		function Inctimesplayed (song_id){////////////////////////
+			playlist_id = plistsong.playlist_id;
+			var deferred = $q.defer();
+			console.log(plistsong);
+			$http.put( plistUrl+'/'+playlist_id, plistsong)
+				.success(function(data){
+					deferred.resolve(data);
+				}).error(function () {
+					deferred.reject();
+				});
+		}
+
+
+		function UpdatePlistnoofSongs (plistsong){
+			playlist_id = plistsong.playlist_id;
+			var deferred = $q.defer();
+			console.log(plistsong);
+			$http.put( plistUrl+'/'+playlist_id, plistsong)
+				.success(function(data){
+					deferred.resolve(data);
+				}).error(function () {
+					deferred.reject();
+				});
+		}
+		function DeletePlaylist(playlist_id,song_id){
 			var deferred = $q.defer();
 			// $http.delete(allSongs , {params: {song_id: songid}})
-			$http.delete(plistUrl +"/"+ playlist_id)
+			$http.delete(plistUrl +"/"+ playlist_id +"/"+ song_id)
 				.success(function(data){
 					console.log(data);
 					deferred.resolve(data);
@@ -204,15 +239,19 @@
 
 				return deferred.promise;
 		}
-		function RemoveSongfromPlaylist(){
+		function RemoveSongfromPlaylist(playlist_id, song_id){
 			var deferred = $q.defer();
-			$http.delete(plist_songsUrl +"/"+ songid)
+			$http.delete(plist_songsUrl +"/"+ playlist_id+"/"+ song_id)
 				.success(function(data){
 					console.log(data);
 					deferred.resolve(data);
+					console.log("success remove from plist");
 				}).error(function () {
+					console.log("failed remove from plist");
 	        deferred.reject();
 	      });
+				return deferred.promise;
+
 
 		}
 

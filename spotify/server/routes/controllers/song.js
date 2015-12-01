@@ -81,7 +81,7 @@ exports.insertNewSong = function(req, res) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-       client.query("INSERT INTO song(song_title, song_album, song_genre, song_artist) values( $1, $2, $3, $4)",
+       client.query("INSERT INTO song(song_title, song_album, song_genre, song_artist, Song_no_of_times_played) values( $1, $2, $3, $4, 0)",
             [ data.song_title,
               data.song_album,
               data.song_genre,

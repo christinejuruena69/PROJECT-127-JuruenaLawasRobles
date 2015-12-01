@@ -5,7 +5,7 @@
 		.module("app")
 		.factory("AdminService", AdminService);
 	AdminService.$inject=["$http", "$q"];
-	
+
 	function AdminService($http, $q){
 		var pathname = "/api/v1/todos/";
 		var service = {};
