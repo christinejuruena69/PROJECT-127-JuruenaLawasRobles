@@ -156,7 +156,7 @@
 					console.log(tempplist);
         	HomeService.MakenewPlaylist(tempplist)
         		.then(function (data){
-        			console.log("hiiiiii");
+        			// console.log("hiiiiii"); //not working but it adds
         			console.log(data);
 							$scope.playlists=data;
         			$scope.newplaylist={};
