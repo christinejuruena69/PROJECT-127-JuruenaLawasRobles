@@ -15,6 +15,7 @@
 		var plist_songsUrl="http://localhost:3000/api/v1/plist-songs";
 		var albumsUrl="http://localhost:3000/api/v1/albums";
 		var artistUrl="http://localhost:3000/api/v1/artist";
+		var resultsUrl="http://localhost:3000/api/v1/search";
 
 		var service={};			//should be an object,
 		service.GetAllPlaylists = GetAllPlaylists;
@@ -40,7 +41,57 @@
 		service.UpdateAlbum=UpdateAlbum;
 		service.UpdateArtist=UpdateArtist;
 		service.AddNewArtist=AddNewArtist;
+
+		//for search functionalities
+		service.GetSongs = GetSongs;			
+		service.GetArtists= GetArtists;			
+		service.GetAlbums=GetAlbums;
+
 		return service;
+
+		/*===========================Leensey's Search Functionalities start here===========================*/
+		function GetSongs(converted, songs){
+			console.log('getsongs:', converted);
+			var deferred = $q.defer();
+			$http.get(resultsUrl+'/'+songs+'/'+converted)
+				.success(function(searchdata){
+					console.log(searchdata);
+					deferred.resolve(searchdata);
+				})
+				.error(function () {
+	        		deferred.reject();
+	      		});
+				return deferred.promise;
+		}//end of GetSongs()
+
+		function GetArtists(converted, artists){
+			console.log('getartists:', converted);
+			var deferred = $q.defer();
+			$http.get(resultsUrl+'/'+artists+'/'+converted)
+				.success(function(searchdata){
+					console.log(searchdata);
+					deferred.resolve(searchdata);
+				})
+				.error(function () {
+	        		deferred.reject();
+	      		});
+				return deferred.promise;
+		}//end of GetArtists()
+
+		function GetAlbums(converted, albums){
+			console.log('getalbums:', converted);
+			var deferred = $q.defer();
+			$http.get(resultsUrl+'/'+albums+'/'+converted)
+				.success(function(searchdata){
+					console.log(searchdata);
+					deferred.resolve(searchdata);
+				})
+				.error(function () {
+	        		deferred.reject();
+	      		});
+				return deferred.promise;
+		}//end of GetAlbums
+		/*===========================Leensey's Search Functionalities end here===========================*/
 
 
 		function GetAllPlaylists(){

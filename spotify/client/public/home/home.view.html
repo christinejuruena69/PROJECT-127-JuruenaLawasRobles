@@ -131,9 +131,34 @@
 				  <span class="input-group-addon">
 				    <span class="glyphicon glyphicon-search"></span>
 				  </span>
-				  <input class="form-control" type="text" placeholder="Search" id="search_box">
+				  <!-- <input class="form-control" type="text" placeholder="Search" id="search_box"> -->
+				  <form class="search_bar"  ng-submit="" data-ng-model="searchdata"  role="form" >
+				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>		 			
 				</div>
+				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song 
+	   			<input type="radio" name="searchtype" id="searchtype" value="artist" ng-model="searchdata.searchtype" required autofocus> artist
+	    		<input type="radio" name="searchtype" id="searchtype" value="album" ng-model="searchdata.searchtype" required autofocus> album
+				<input type="submit" ng-click="SearchFxn(searchdata)" value="Search" class="btn btn-success btn-sm"/>
+				</form>				
 			</div>
+			<br/><br/><br/>
+
+			<h1>Results</h1>
+
+			<h3>songs</h3>
+			<ul ng-repeat="song in song_results">
+				<li>{{ song.song_title }}</li>
+			</ul>
+
+			<h3>artists</h3>
+			<ul ng-repeat="artist in artist_results">	
+				<li>{{ artist.artist_name }}</li>
+			</ul>
+
+			<h3>albums</h3>
+			<ul ng-repeat="album in album_results">	
+				<li>{{ album.album_title }}</li>
+			</ul>
 
 		</div>
 		<div id="elements">

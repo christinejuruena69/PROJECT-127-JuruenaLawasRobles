@@ -27,16 +27,15 @@
 				$('body').css('display', '');
 		});
 
-
 		$scope.createStudent = function(){
+			console.log($scope.formData);
 			MainService.Create($scope.formData)
 			.then(function (data){
 				$scope.formData={};
-				$scope.formData.UserName="";
-				$scope.accounts = data;
-				$scope.users.push(data);
-				goLogin();
+			console.log($scope.accounts);
+			goLogin();				
 			});
+
 		}
 
 		function traverse(){
