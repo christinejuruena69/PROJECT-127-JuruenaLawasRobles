@@ -34,6 +34,7 @@
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
 
+<<<<<<< HEAD
     	/*===========================Leensey's Search Functionalities start here===========================*/
 
     	$scope.song_results = {};
@@ -91,8 +92,10 @@
     	/*===========================Leensey's Search Functionalities end here===========================*/
 
 	   	// $scope.editedSong=[];
+=======
+>>>>>>> spotify-pj
 		isLoggedIn();
-		console.log(user.user_id);
+		console.log(user.user_id+' '+user.user_role);
 		HomeService.GetallUserSongs(user.user_id)
 			.then(function(data){
 				$scope.displayUsersongs=data;
@@ -213,7 +216,7 @@
 					console.log(tempplist);
         	HomeService.MakenewPlaylist(tempplist)
         		.then(function (data){
-        			console.log("hiiiiii");
+        			// console.log("hiiiiii"); //not working but it adds
         			console.log(data);
 							$scope.playlists=data;
         			$scope.newplaylist={};
@@ -575,6 +578,7 @@
 		}
 
 		function isLoggedIn(){
+			$('body').css('display', 'none');
 			try{
 				user = $.parseJSON(document.cookie.substring(5));
 				console.log(user);
@@ -586,16 +590,20 @@
 						if(user.user_role == 1){
 							//alert("Standard");
 							goLoginHome();
+							$('body').css('display', '');
 						} else {
 							//alert("Admin");
 							goLoginAdmin();
+							$('body').css('display', '');
 						}
 					} else if(user=="" && pathname[1]=="/sign-up"){
 						document.cookie = "user=\"\"";
 						goSignUp();
+						$('body').css('display', '');
 					} else if(user==""){
 						document.cookie = "user=\"\"";
 						goLogin();
+						$('body').css('display', '');
 					} else {
 						alert("Unauthorized user");
 						document.cookie = "user=\"\"";
