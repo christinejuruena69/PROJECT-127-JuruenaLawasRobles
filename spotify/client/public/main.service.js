@@ -13,8 +13,7 @@
 		return service;
 
 		function GetAll(){
-			var deferred = $q.defer();
-			//defer muna yung value na nirereturn ng GetAll
+			var deferred = $q.defer();//defer muna yung value na nirereturn ng GetAll
 			$http.get('/api/v1/todos')
 				.success(function(data){
 					deferred.resolve(data);
@@ -27,6 +26,7 @@
 			$http.post('/api/v1/todos', formData)
 				.success(function(data){
 					deferred.resolve(data);
+					alert('Successfully registered');
 
 				})
 				.error(function(data){

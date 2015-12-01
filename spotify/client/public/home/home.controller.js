@@ -8,6 +8,7 @@
 
 
 	function HomeCtrl($scope, $location, HomeService){
+
 		$scope.custom = true;
 		$scope.album = true;
 		$scope.artist = true;
@@ -16,14 +17,14 @@
 		$scope.editplaylisttextbox=true;
 		$scope.editplaylistnametext=false;
 		var user = {};
-	  $scope.newp= false;
-    $scope.createplist= true;
+	  	$scope.newp= false;
+    	$scope.createplist= true;
 
 		$scope.allalbums={};
-     $scope.curreditedSong={};
-     $scope.curreditplist={};
+     	$scope.curreditedSong={};
+    	$scope.curreditplist={};
 
-			$scope.allsongsofUser={};
+		$scope.allsongsofUser={};
 	    $scope.playlists={};
 	    $scope.currentplaylist={};
 	    $scope.allalbums={};
@@ -32,6 +33,62 @@
 	   	$scope.song_filename='';
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
+
+    	/*===========================Leensey's Search Functionalities start here===========================*/
+
+    	$scope.song_results = {};
+		$scope.artist_results = {};
+		$scope.album_results = {};		
+
+		$scope.SearchFxn = function(searchdata){	
+
+			var searchtype = searchdata.searchtype;
+			var wordtobesearched = searchdata.searchthis;			
+			console.log('wordtobesearched: ', wordtobesearched);
+			console.log('searchtype: ', searchtype);
+
+			if(searchtype=='song'){
+				HomeService.GetSongs(wordtobesearched, searchtype)	
+				.then(function (data){
+					console.log(data);
+					if(data.length==0){data.push({"song_title":"No song match found."})}
+					$scope.song_results=data;
+
+				}).catch(function() {
+					console.log('Error at HomeService.GetSongs(), home.controller.js');				
+				 });//end of HomeService.GetSongs
+			}
+
+			else if(searchtype=='artist'){
+				HomeService.GetArtists(wordtobesearched, searchtype)
+				.then(function (data){
+					console.log(data);
+					if(data.length==0){data.push({"artist_name":"No artist match found."})}
+					$scope.artist_results=data;
+				}).catch(function() {
+					console.log('Error at HomeService.GetArtists(), home.controller.js');				
+				});//end of HomeService.GetArtists
+			}
+
+			else if(searchtype=='album'){
+				HomeService.GetAlbums(wordtobesearched, searchtype)
+				.then(function (data){
+					console.log(data);
+					if(data.length==0){data.push({"album_title":"No album match found."})}
+					$scope.album_results=data;
+				}).catch(function() {
+					console.log('Error at HomeService.GetAlbums(), home.controller.js');				
+				});//end of HomeService.GetAlbums
+			}
+
+			else{
+				console.log('Error: no value for searchtype');
+				alert('choose a search type');
+			}	
+			
+		}//end of $scope.SearchFxn
+
+    	/*===========================Leensey's Search Functionalities end here===========================*/
 
 	   	// $scope.editedSong=[];
 		isLoggedIn();
