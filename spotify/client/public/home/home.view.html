@@ -329,7 +329,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="album in allalbums">
-										<td ng-click="getSongsAlbum()"> {{ album.album_title}} </td>
+										<td ng-click="getSongsAlbum(album.album_id)"> {{ album.album_title}} </td>
 										<td ng-click=""> {{ album.album_no_of_albums}} </td>
 										<td ng-click=""> {{ album.Year_released}} </td>
 										</td>
@@ -348,7 +348,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="song in allsonginalbums">
+                  <tr ng-repeat="song in currentsonginalbum">
                     <td ng-click=""> {{ song.song_title}} </td>
                     <td ng-click=""> {{ song.song_artist}} </td>
                     <td ng-click=""> {{ song.song_album}} </td>
