@@ -68,7 +68,7 @@
 			$location.url("/sign-up");
 			console.log($location);
 		}
-<<<<<<< HEAD
+
 		
 		$scope.ValidateUser =function (SignIndata){
 			MainService.Check($scope.SignIndata.user_id)
@@ -78,11 +78,11 @@
 					// console.log(data);
 					console.log(SignIndata);
 				});
-=======
+
 		function goLogin(){
 			$location.url("/sign-in");
 			console.log($location);
->>>>>>> 3dd0ee715e8f6aeb6dec01c4cbace1b8061934ec
+
 		}
 
 		function goLoginHome(){
@@ -134,5 +134,6 @@
 				goLogin();
 			}
 		}
+	}
 	}
 })();

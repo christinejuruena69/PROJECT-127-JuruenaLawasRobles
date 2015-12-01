@@ -22,6 +22,8 @@
 			.when("/search", {
 				"controller": "SearchCtrl",
 				"templateUrl": "search/search.view.html"})
+			.otherwise({ 
+				"redirectTo": "/home"});
 			.when("/admin", {
 				"controller": "AdminCtrl",
 				"templateUrl": "admin/admin.view.html"});
