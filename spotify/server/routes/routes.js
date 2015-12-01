@@ -9,6 +9,7 @@ var uspath = "/api/v1/user-songs";
 var playlist = "/api/v1/plist";
 var playlistPerUser = "/api/v1/user-plist";
 var playlistWithSongs = '/api/v1/plist-songs'
+var albumWithSong = '/api/v1/album-songs'
 var albums = '/api/v1/albums';
 var songs = '/api/v1/songs';
 var artist = '/api/v1/artist';
@@ -28,7 +29,7 @@ module.exports = function(router) {
     .get(userSong.getUserSongs)
     .post(userSong.insertSongtoUser);
 
-  router.route(uspath+'/:id')
+  router.route(uspath+'/:user_id')
     .get(userSong.getUserAdded);
 
   router.route(songs)
@@ -49,17 +50,20 @@ router.route(playlistPerUser)
     .get(plController.getallPlaylist)
     .post(plController.addNewPlaylist);
 
+
+  router.route(playlist+'/:user_id')
+  .get(plController.getUserOwnedPlaylist);
+
   router.route(playlist+'/:playlist_id')
-    // .post(plController.newPlaylist)
-    // .get(plController.getUserOwnedPlaylist)
-    .put(plController.updatePlaylistNoofSongs)
-    .delete(plController.updateToDecPlaylistNoofSongs);
-    // .get(plController.getPlaylistSongs);
+  .delete(plController.deletePlaylist)
+  .put(plController.updatePlaylistName);
+  // .put(plController.updatePlistNoofSongs);
+
 
 //playlist_songs
   router.route(playlistWithSongs)
     .post(plController.addSongToPlaylist)
-    .get(plController.getAllPlaylistSongs);
+    .get(plController.getPlaylistSongs);
 
     router.route(playlistWithSongs+'/:playlist_id')
       .get(plController.getPlaylistSongs);
@@ -73,6 +77,10 @@ router.route(playlistPerUser)
   router.route(albums+'/:album_id')
     .get(albumController.getOneAlbum)
     .put(albumController.updateAlbumNoofSongs);
+
+    router.route(albumWithSong)
+      .get(albumController.GetallSongsinAlbum)
+      .post(albumController.AddSongtoAlbum);
 
 //artist
  router.route(artist)

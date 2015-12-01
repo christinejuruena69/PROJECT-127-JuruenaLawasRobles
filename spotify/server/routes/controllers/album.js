@@ -77,6 +77,51 @@ exports.addNewAlbum= function(req, res) {
     });
 };
 
+exports.GetallSongsinAlbum= function(req, res) {
+    var results = [];
+
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+          var query = client.query("SELECT * FROM album_song ORDER BY album_id ASC");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
+exports.AddSongtoAlbum= function(req, res) {
+    var results = [];
+    var data = {
+          album_id : req.body.album_id,
+          song_id: req.body.song_id
+    };
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+        client.query("INSERT INTO album_song(album_id, Song_id) values( $1, $2)", //ayusin ito
+             [ data.album_id,
+               data.song_id
+             ]);
+            var query = client.query("SELECT * FROM album_song ORDER BY album_id ASC");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
 exports.updateAlbumNoofSongs= function(req, res) {
 
     var results = [];

@@ -34,6 +34,8 @@ exports.getUserSongs = function(req,res){
 
 exports.getUserAdded = function(req,res){
 	var results = [];
+	console.log("this");
+	console.log(req.params.user_id);
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
@@ -43,7 +45,7 @@ exports.getUserAdded = function(req,res){
           return res.status(500).json({ success: false, data: err});
         }
         // SQL Query > Select Data
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us, account a, song s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.id]);
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us,account a, song s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.user_id]);
         // Stream results back one row at a time
         query.on('row', function(row) {
         		console.log(row);

@@ -197,25 +197,16 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="playlist in playlists">
-
-
 										<td ng-click="getplaylist(playlist)"> <h6 ng-hide="editplaylistnametext"> {{ playlist.playlist_name}}  </h6>
-
-
-
 										</td>
 										<td>
 										<a> <span  class="glyphicon glyphicon-remove" ng-click="deletePlaylist(playlist)" > </span> </a>
 										<a> <span  class="glyphicon glyphicon-pencil" ng-click="geteditPlaylist(playlist)" > </span> </a>
 										 </a>
 										</td>
-
 									</tr>
-
 								</tbody>
-
 								</table>
-
 						</div>
 					</div>
 					<div id="playlistsongs">
@@ -273,7 +264,7 @@
 
 								</thead>
 								<tbody>
-									<tr ng-repeat="song in displayUsersongs">
+									<tr ng-repeat="song in allsongs">
 
 
 										<td ng-click=""> {{ song.song_title}} </td>
@@ -302,32 +293,46 @@
 
 				</div>
 				<div id="album_div" ng-hide="album">
+          <div id="album_stuff">
 					<table class="table">
 								<thead>
 									<tr>
 										<th> Album Title </th>
 										<th> Number of Songs </th>
-										<!-- <th> Record Label</th> -->
 										<th>Year Released</th>
-
 									</tr>
-
 								</thead>
 								<tbody>
 									<tr ng-repeat="album in allalbums">
-
-
-										<td ng-click=""> {{ album.album_title}} </td>
+										<td ng-click="getSongsAlbum()"> {{ album.album_title}} </td>
 										<td ng-click=""> {{ album.album_no_of_albums}} </td>
 										<td ng-click=""> {{ album.Year_released}} </td>
 										</td>
-
 									</tr>
-
 								</tbody>
-
-								</table>
+						</table>
 				</div>
+        <div id="songs_in_album">
+          <table class="table">
+                <thead>
+                  <tr>
+                    <th> Track </th>
+                    <th>Artist</th>
+                    <th> Album </th>
+                    <th> Genre </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="song in allsonginalbums">
+                    <td ng-click=""> {{ song.song_title}} </td>
+                    <td ng-click=""> {{ song.song_artist}} </td>
+                    <td ng-click=""> {{ song.song_album}} </td>
+                    <td ng-click=""> {{ song.song_genre}} </td>
+                  </tr>
+                </tbody>
+                </table>
+      </div>
+      </div>
 				<div id="artist_div" ng-hide="artist">
 					<table class="table">
 								<thead>
