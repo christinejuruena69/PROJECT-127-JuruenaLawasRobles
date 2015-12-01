@@ -33,9 +33,8 @@
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
 
-	   	// $scope.editedSong=[];
 		isLoggedIn();
-		console.log(user.user_id);
+		console.log(user.user_id+' '+user.user_role);
 		HomeService.GetallUserSongs(user.user_id)
 			.then(function(data){
 				$scope.displayUsersongs=data;
@@ -518,6 +517,7 @@
 		}
 
 		function isLoggedIn(){
+			$('body').css('display', 'none');
 			try{
 				user = $.parseJSON(document.cookie.substring(5));
 				console.log(user);
@@ -529,16 +529,20 @@
 						if(user.user_role == 1){
 							//alert("Standard");
 							goLoginHome();
+							$('body').css('display', '');
 						} else {
 							//alert("Admin");
 							goLoginAdmin();
+							$('body').css('display', '');
 						}
 					} else if(user=="" && pathname[1]=="/sign-up"){
 						document.cookie = "user=\"\"";
 						goSignUp();
+						$('body').css('display', '');
 					} else if(user==""){
 						document.cookie = "user=\"\"";
 						goLogin();
+						$('body').css('display', '');
 					} else {
 						alert("Unauthorized user");
 						document.cookie = "user=\"\"";
