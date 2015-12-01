@@ -32,9 +32,12 @@
 			MainService.Create($scope.formData)
 			.then(function (data){
 				$scope.formData={};
-
+<<<<<<< HEAD
+			console.log($scope.accounts);				
+=======
 			console.log($scope.accounts);
-			goLogin();
+			goLogin();				
+>>>>>>> 3dd0ee715e8f6aeb6dec01c4cbace1b8061934ec
 			});
 
 		}

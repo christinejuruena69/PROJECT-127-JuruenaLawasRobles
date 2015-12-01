@@ -13,22 +13,30 @@
             	<div id="signin">
 	                <p class="form-title"> Sign In</p>
 	                <form class="login"  ng-model="SignIndata" ng-submit="ValidateUser()" role="form">
+	                
 
-
-	                	<input type="text" ng-model="SignIndata.Username" name="username" id="username" placeholder="Username"  value=""   required autofocus>
+	                	<input type="text" ng-model="SignIndata.Username" name="username" id="username" placeholder="Username"  value=""   required autofocus>                   
                     <br />
                   	<input type="password" ng-model="SignIndata.Password" name="password" id="password" placeholder="Password"  value=""   required autofocus>
-                    <br />
+                    <br />                    
                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                     <label for="remember"> Remember Me</label>
                     <br/>
-
+                  	
                   	<input type="submit" value="Sign In" class="btn btn-success btn-sm"/>
 
 
 
 	                <div class="remember-forgot">
 	                    <div class="row">
+	                        <div class="col-md-6">
+	                            <div class="checkbox">
+	                                <label>
+	                                    <input type="checkbox" />
+	                                    Remember Me
+	                                </label>
+	                            </div>
+	                        </div>
 	                        <div class="col-md-6 forgot-pass-content">
 	                            <a href="#" class="forgot-pass">Forgot Password?</a>
 	                            <p>  <a href="#/sign-up" class="div-toggle" >Don't have an account? Sign-up  </a> </p>
@@ -39,7 +47,7 @@
 	                </div>
 	                </form>
 	            </div>
-
+            	                    
 	            </div>
             </div>
         </div>

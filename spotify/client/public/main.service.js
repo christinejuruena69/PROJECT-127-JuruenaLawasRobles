@@ -7,43 +7,35 @@
 	MainService.$inject=["$http", "$q"]; //modules dependencies
 	function MainService($http, $q){
 		var apiUrl="localhost:3000/api/v1/todos";
-		var service={};			//should be an object, 		
+		var service={};			//should be an object,
 		service.GetAll = GetAll;	//bibigyan ng methodssssssss
 		service.Create = Create;	//bibigyan ng methodssssssss
-		service.Check = Check;	//bibigyan ng methodssssssss
 		return service;
 
 		function GetAll(){
-			var deferred = $q.defer();
-			//defer muna yung value na nirereturn ng GetAll
+			var deferred = $q.defer();//defer muna yung value na nirereturn ng GetAll
 			$http.get('/api/v1/todos')
 				.success(function(data){
 					deferred.resolve(data);
 				});
 				return deferred.promise;
-			
+
 		}
 		function Create(formData){
 			var deferred = $q.defer();
 			$http.post('/api/v1/todos', formData)
 				.success(function(data){
 					deferred.resolve(data);
-				});
-				return deferred.promise;				
-		}	
-		function Check(user_id){
-			var deferred = $q.defer();
-			$http.get('/api/v1/todos/'+ user_id)
-				.success(function(data){
+					alert('Successfully registered');
+
+				})
+				.error(function(data){
 					deferred.resolve(data);
+					alert('Username already taken');
 				});
 				return deferred.promise;
-
 		}
-
-
-
 	}
-	
+
 })();
-// Anonymouse function
+// Anonymous function

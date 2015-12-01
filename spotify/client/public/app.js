@@ -2,7 +2,7 @@
 
 (function(){
 	angular
-		.module("app",[ 'ngRoute'])
+		.module("app",[ 'ngRoute','ui.bootstrap'])
 		//app gagamit ng routeprovider
 		.config(config);
 
@@ -24,5 +24,10 @@
 				"templateUrl": "search/search.view.html"})
 			.otherwise({ 
 				"redirectTo": "/home"});
+			.when("/admin", {
+				"controller": "AdminCtrl",
+				"templateUrl": "admin/admin.view.html"});
+			// .otherwise({
+			// 	"redirectTo": "/sign-in"});
 	}
 })();

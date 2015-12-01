@@ -3,8 +3,8 @@
         <div class="col-md-12">    
             <div class="wrap">        	        
             	<div id="signup" >
-            		<p class="form-title" >  Sign Up</p>
-	              <!-- <form class="login"  role="form" > -->
+
+            		<p class="form-title" >  Sign Up</p>	              
 	              <form class="login"  ng-submit="createStudent(formData)" data-ng-model="formData"  role="form" >
 
 		              
@@ -16,10 +16,6 @@
 	                		<input type="text" name="LastName" id="LastName" placeholder="Last Name"  value="" ng-model="formData.LName"   required autofocus>
 		                	<br />
 
-		                	<!--
-								Attempt to add this action/functionality to form below
-								onchange="angular.element(this).scope().usernameChanged(this)" 
-		                	-->
 	                    	<input type="text" name="username" id="username" placeholder="Username"  value="" ng-model="formData.UserName" required autofocus>
 	                    	<br />
 
@@ -39,12 +35,7 @@
 	                    
 		                	<br />
 
-	                   		<!-- <input type="submit"  value="Sign Up" class="btn btn-success btn-sm" /> -->
-	                   			<!-- or this, click lang yung nag iba -->
 	                   		<input type="submit" ng-click="" value="Sign Up" class="btn btn-success btn-sm" />
-
-
-	                  <!-- </div> -->
 										<a href="#/sign-in" class="div-toggle"   >Already have an account? Signin</a>
 	            		</form>
 		          	</div>	   
