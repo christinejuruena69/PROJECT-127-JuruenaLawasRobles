@@ -297,7 +297,7 @@
   	  $scope.fileNameChanged = function(input){
     	  	var filename=input.value;
     	  	var temparr=filename.split('\\');
-    	  	filename=temparr[2];
+    	  	filename=temparr[temparr.length-1];
     	  	var filenametemp = filename.split('.');
     	  	$scope.newsong.song_title=filenametemp[0];
     	  	console.log($scope.newsong.song_title);
