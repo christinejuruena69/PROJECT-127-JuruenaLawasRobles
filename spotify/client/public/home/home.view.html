@@ -133,13 +133,13 @@
 				  </span>
 				  <!-- <input class="form-control" type="text" placeholder="Search" id="search_box"> -->
 				  <form class="search_bar"  ng-submit="" data-ng-model="searchdata"  role="form" >
-				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>		 			
+				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>
 				</div>
-				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song 
+				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song
 	   			<input type="radio" name="searchtype" id="searchtype" value="artist" ng-model="searchdata.searchtype" required autofocus> artist
 	    		<input type="radio" name="searchtype" id="searchtype" value="album" ng-model="searchdata.searchtype" required autofocus> album
 				<input type="submit" ng-click="SearchFxn(searchdata)" value="Search" class="btn btn-success btn-sm"/>
-				</form>				
+				</form>
 			</div>
 			<br/><br/><br/>
 
@@ -151,12 +151,12 @@
 			</ul>
 
 			<h3>artists</h3>
-			<ul ng-repeat="artist in artist_results">	
+			<ul ng-repeat="artist in artist_results">
 				<li>{{ artist.artist_name }}</li>
 			</ul>
 
 			<h3>albums</h3>
-			<ul ng-repeat="album in album_results">	
+			<ul ng-repeat="album in album_results">
 				<li>{{ album.album_title }}</li>
 			</ul>
 
@@ -330,7 +330,7 @@
 								<tbody>
 									<tr ng-repeat="album in allalbums">
 										<td ng-click="getSongsAlbum(album.album_id)"> {{ album.album_title}} </td>
-										<td ng-click=""> {{ album.album_no_of_albums}} </td>
+										<td ng-click=""> {{ album.album_no_of_songs}} </td>
 										<td ng-click=""> {{ album.Year_released}} </td>
 										</td>
 									</tr>

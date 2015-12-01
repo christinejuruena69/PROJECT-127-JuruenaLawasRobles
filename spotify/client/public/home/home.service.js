@@ -15,7 +15,7 @@
 		var plist_songsUrl="http://localhost:3000/api/v1/plist-songs";
 		var albumsUrl="http://localhost:3000/api/v1/albums";
 		var artistUrl="http://localhost:3000/api/v1/artist";
-		var artistSongUrl="http://localhost:3000/api/v1/artist-song";
+		var artistSongUrl="http://localhost:3000/api/v1/artist-songs";
 		var resultsUrl="http://localhost:3000/api/v1/search";
 
 		var service={};			//should be an object,
@@ -300,7 +300,7 @@
 		}
 		function GetSongsArtist(artist_id){
 			var deferred = $q.defer();
-			$http.get(albumSongsUrl+"/"+ artist_id)
+			$http.get(artistSongUrl+"/"+ artist_id)
 				.success(function(data){
 					deferred.resolve(data);
 					console.log(data);
@@ -356,6 +356,7 @@
 			$http.put(albumsUrl +"/"+ albumid, tempalbum)
 				.success(function(data){
 					deferred.resolve(data);
+					console.log(data);
 				});
 				return deferred.promise;
 		}

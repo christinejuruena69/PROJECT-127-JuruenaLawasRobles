@@ -465,7 +465,20 @@
 							HomeService.AddNewAlbum(tempalbum)
 								.then(function (data){
 								$scope.allalbums=data;
-								// $scope.addtoAlbumSongs(albumsong); /////////////////////////////////////////////////////
+
+								$.each( $scope.allalbums, function( index, item ) {
+									if( tempnewsong.song_album == item.album_title){
+										albumid=item.album_id;
+										console.log("album exists");
+										albumsong = {
+											album_id: albumid,
+											song_id: song_id
+										}
+										return false;
+									}
+								});
+								$scope.addtoAlbumSongs(albumsong);
+								/////////////////////////////////////////////////////
 							});
 						}
 
@@ -500,8 +513,19 @@
 							console.log("wala pa");
 							HomeService.AddNewArtist(tempartist)
 								.then(function (data){
-								$scope.allartists=data;
-							});
+									$scope.allartists=data;
+									$.each( $scope.allartists, function( index, item ) {
+										if( tempnewsong.song_artist == item.artist_name){
+											artistid=item.artist_id;
+											artistsong = {
+												artist_id: artistid,
+												song_id: song_id
+											}
+										return false;
+										}
+									});
+									$scope.addtoArtistSongs(artistsong);
+								});
 						}
 					}
 
