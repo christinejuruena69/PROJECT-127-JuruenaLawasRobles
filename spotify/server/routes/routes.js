@@ -3,6 +3,7 @@ userSong = require('./controllers/song');
 plController = require('./controllers/playlist');
 albumController = require('./controllers/album');
 artistController = require('./controllers/artist');
+searchController = require('./controllers/search');
 
 var pathname = "/api/v1/todos";
 var uspath = "/api/v1/user-songs";
@@ -14,6 +15,10 @@ var albums = '/api/v1/albums';
 var songs = '/api/v1/songs';
 var artist = '/api/v1/artist';
 var artistWithSong = '/api/v1/artist-songs';
+var searchSong = '/api/v1/search/song';
+var searchArtist = '/api/v1/search/artist';
+var searchAlbum = '/api/v1/search/album';
+
 
 module.exports = function(router) {
 //accounts
@@ -24,6 +29,16 @@ module.exports = function(router) {
   router.route(pathname+'/:id')
     .put(user.updateRole)
     .get(user.getOneAccount);
+
+//search
+  router.route(searchSong+'/:searchthis')
+    .get(searchController.song);
+
+  router.route(searchArtist+'/:searchthis')
+    .get(searchController.artist);
+
+  router.route(searchAlbum+'/:searchthis')
+    .get(searchController.album);
 
 //songs
   router.route(uspath)
