@@ -23,6 +23,27 @@ exports.getOneArtist= function(req, res) {
     });
 };
 
+// exports.GetallSongsPerArtist = function(req, res){
+// 	var results = [];
+// 		pg.connect(connectionString, function(err, client, done) {
+// 				if(err) {
+// 					done();
+// 					console.log(err);
+// 					return res.status(500).json({ success: false, data: err});
+// 				}
+//         console.log(req.params.album_id);
+//         var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song art song s where sa.album_id=($1) and a.album_id=($1) and s.song_id=sa.song_id;", [req.params.album_id]);
+//         query.on('row', function(row) {
+// 						console.log(row);
+// 						 results.push(row);
+// 				 });
+// 				 query.on('end', function() {
+// 						 done();
+// 						 return res.json(results);
+// 				 });
+// 		});
+// };
+
 exports.addNewArtist= function(req, res) {
     var results = [];
 
