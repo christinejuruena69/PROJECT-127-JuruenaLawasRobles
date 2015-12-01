@@ -18,13 +18,11 @@
 		var user = {};
 
 		MainService.GetAll().then(function(data){
-				$('body').css('display', 'none');
 				$scope.accounts = data;
 				$scope.users = data;
 				isLoggedIn();
 				// console.log("Logged in");
 				// alert("Loggedin");
-				$('body').css('display', '');
 		});
 
 		$scope.createStudent = function(){
@@ -97,11 +95,8 @@
 			console.log($location);
 		}
 
-		function load_songs(){
-			console.log(user);
-		}
-
 		function isLoggedIn(){
+			$('body').css('display', 'none');
 			try{
 				user = $.parseJSON(document.cookie.substring(5));
 				console.log(user);
@@ -112,18 +107,21 @@
 					if(user.user_role != null){
 						if(user.user_role == 1){
 							//alert("Standard");
-							load_songs();
 							goLoginHome();
+							$('body').css('display', '');
 						} else {
 							//alert("Admin");
 							goLoginAdmin();
+							$('body').css('display', '');
 						}
 					} else if(user=="" && pathname[1]=="/sign-up"){
 						document.cookie = "user=\"\"";
 						goSignUp();
+						$('body').css('display', '');
 					} else if(user==""){
 						document.cookie = "user=\"\"";
 						goLogin();
+						$('body').css('display', '');
 					} else {
 						alert("Unauthorized user");
 						document.cookie = "user=\"\"";
