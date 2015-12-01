@@ -32,7 +32,7 @@ exports.GetallSongsPerArtist = function(req, res){
 					return res.status(500).json({ success: false, data: err});
 				}
         console.log(req.params.artist_id);
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song artsong, song s where artsong.artist_id=($1) and a.artist_id=($1) and s.song_id=sa.song_id;",
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song artsong, song s where artsong.artist_id=($1) and a.artist_id=($1) and s.song_id=artsong.song_id;",
          [req.params.artist_id]);
         query.on('row', function(row) {
 						console.log(row);

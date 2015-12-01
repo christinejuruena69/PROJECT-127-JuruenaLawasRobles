@@ -167,7 +167,8 @@
 					<a class="playlist" ng-click="togglePlaylist()"> PLAYLISTS </a>
 					<a  class="songs" ng-click="toggleSongs()" >SONGS </a>
 					<a  ng-click="toggleAlbum()" class="albums"> ALBUMS</a>
-					<a class="artist" ng-click="toggleArtist()"> ARTIST</a>
+          <a class="artist" ng-click="toggleArtist()"> ARTIST</a>
+					<a class="artist" ng-click="toggleRecMsc()"> RECOMMENDED</a>
           <a class="artist" ng-click="logout()"> Logout</a>
 				</div>
 				<div id="playlist_div"  ng-hide="playlist">
@@ -400,6 +401,28 @@
                 </table>
       </div>
 			</div>
+      <div id="rec_msc_div" ng-hide="artist">
+        <div id="songs_in_artist">
+          <table class="table">
+                <thead>
+                  <tr>
+                    <th> Track </th>
+                    <th>Artist</th>
+                    <th> Album </th>
+                    <th> Genre </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="song in currentsonginartist">
+                    <td ng-click=""> {{ song.song_title}} </td>
+                    <td ng-click=""> {{ song.song_artist}} </td>
+                    <td ng-click=""> {{ song.song_album}} </td>
+                    <td ng-click=""> {{ song.song_genre}} </td>
+                  </tr>
+                </tbody>
+                </table>
+      </div>
+    </div>
 			<div id="darkLayer" class="darkClass" style="display:none"></div>
 
 			<div id="profile">
