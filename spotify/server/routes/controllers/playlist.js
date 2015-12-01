@@ -137,7 +137,7 @@ exports.getPlaylistSongs = function(req, res){
 				// var query = client.query("select s.song_id, s.song_title,        s.song_genre, s.song_artist from playlist p, playlist_song us,        account a, song s where a.user_id=$1 and p.user_id=a.user_id and us.playlist_id=p.playlist_id and s.song_id=us.song_id;",
         // [req.params.id]);
 
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, playlist_song ps, song s where ps.playlist_id=($1) p.playlist_id=($1)  and s.song_id=us.song_id;",
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, playlist_song ps, song s where ps.playlist_id=($1) and p.playlist_id=($1)  and s.song_id=ps.song_id;",
         [req.params.playlist_id]);
 
 				query.on('row', function(row) {

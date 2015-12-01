@@ -86,7 +86,8 @@ exports.GetallSongsinAlbum= function(req, res) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-          var query = client.query("SELECT * FROM album_song ORDER BY album_id ASC");
+
+          var query = client.query("SELECT * FROM album_song ORDER BY album_id ASC;");
             query.on('row', function(row) {
                 results.push(row);
             });
@@ -96,6 +97,34 @@ exports.GetallSongsinAlbum= function(req, res) {
             });
     });
 };
+
+exports.GetallSongsPerAlbum = function(req, res){
+	var results = [];
+		pg.connect(connectionString, function(err, client, done) {
+				if(err) {
+					done();
+					console.log(err);
+					return res.status(500).json({ success: false, data: err});
+				}
+        console.log(req.params.album_id);
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, album_song sa, song s where sa.album_id=($1) and a.album_id=($1) and s.song_id=sa.song_id;", [req.params.album_id]);
+
+        // var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, playlist_song ps, song s where ps.playlist_id=($1) and p.playlist_id=($1)  and s.song_id=ps.song_id;",
+        // [req.params.playlist_id]);
+
+        // var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, playlist_song ps, song s where ps.playlist_id=($1) and p.playlist_id=($1)  and s.song_id=ps.song_id;",
+
+        query.on('row', function(row) {
+						console.log(row);
+						 results.push(row);
+				 });
+				 query.on('end', function() {
+						 done();
+						 return res.json(results);
+				 });
+		});
+};
+
 exports.AddSongtoAlbum= function(req, res) {
     var results = [];
     var data = {
