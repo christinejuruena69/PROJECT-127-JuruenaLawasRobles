@@ -34,29 +34,28 @@
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
 
-<<<<<<< HEAD
     	/*===========================Leensey's Search Functionalities start here===========================*/
 
     	$scope.song_results = {};
 		$scope.artist_results = {};
-		$scope.album_results = {};		
+		$scope.album_results = {};
 
-		$scope.SearchFxn = function(searchdata){	
+		$scope.SearchFxn = function(searchdata){
 
 			var searchtype = searchdata.searchtype;
-			var wordtobesearched = searchdata.searchthis;			
+			var wordtobesearched = searchdata.searchthis;
 			console.log('wordtobesearched: ', wordtobesearched);
 			console.log('searchtype: ', searchtype);
 
 			if(searchtype=='song'){
-				HomeService.GetSongs(wordtobesearched, searchtype)	
+				HomeService.GetSongs(wordtobesearched, searchtype)
 				.then(function (data){
 					console.log(data);
 					if(data.length==0){data.push({"song_title":"No song match found."})}
 					$scope.song_results=data;
 
 				}).catch(function() {
-					console.log('Error at HomeService.GetSongs(), home.controller.js');				
+					console.log('Error at HomeService.GetSongs(), home.controller.js');
 				 });//end of HomeService.GetSongs
 			}
 
@@ -67,7 +66,7 @@
 					if(data.length==0){data.push({"artist_name":"No artist match found."})}
 					$scope.artist_results=data;
 				}).catch(function() {
-					console.log('Error at HomeService.GetArtists(), home.controller.js');				
+					console.log('Error at HomeService.GetArtists(), home.controller.js');
 				});//end of HomeService.GetArtists
 			}
 
@@ -78,22 +77,19 @@
 					if(data.length==0){data.push({"album_title":"No album match found."})}
 					$scope.album_results=data;
 				}).catch(function() {
-					console.log('Error at HomeService.GetAlbums(), home.controller.js');				
+					console.log('Error at HomeService.GetAlbums(), home.controller.js');
 				});//end of HomeService.GetAlbums
 			}
 
 			else{
 				console.log('Error: no value for searchtype');
 				alert('choose a search type');
-			}	
-			
+			}
+
 		}//end of $scope.SearchFxn
 
     	/*===========================Leensey's Search Functionalities end here===========================*/
 
-	   	// $scope.editedSong=[];
-=======
->>>>>>> spotify-pj
 		isLoggedIn();
 		console.log(user.user_id+' '+user.user_role);
 		HomeService.GetallUserSongs(user.user_id)
