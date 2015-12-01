@@ -20,6 +20,7 @@
 		service.GetAllPlaylists = GetAllPlaylists;
 		service.GetallUserSongs = GetallUserSongs;
 		service.GetUserPlaylists = GetUserPlaylists;
+		service.GetSongsAlbum = GetSongsAlbum;
 		service.AddtoAlbumSongs = AddtoAlbumSongs;
 		service.Getsongsforplaylist = Getsongsforplaylist;
 		service.GetAllSongs = GetAllSongs;
@@ -218,9 +219,17 @@
 					console.log(data);
 					deferred.resolve(data);
 				});
+				return deferred.promise;
+		}
+		function GetSongsAlbum(album_id){
+			var deferred = $q.defer();
+			$http.get(albumSongsUrl+"/"+ album_id)
+				.success(function(data){
+					deferred.resolve(data);
+					console.log(data);
+				});
 
 				return deferred.promise;
-
 		}
 		function GetOneSong(song_id){
 			var deferred = $q.defer();
