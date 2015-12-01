@@ -82,6 +82,9 @@ router.route(playlistPerUser)
       .get(albumController.GetallSongsinAlbum)
       .post(albumController.AddSongtoAlbum);
 
+    router.route(albumWithSong+'/:album_id')
+        .get(albumController.GetallSongsPerAlbum);
+
 //artist
  router.route(artist)
     .get(artistController.getAllArtist)

@@ -232,7 +232,7 @@
 						// 		});
 						// 			}
 						// });
-						$scope.currentplaylist = data;
+						$scope.currentplaylist = all_playlist;
 						$scope.currentplaylistTitle = playlist.playlist_name;
 
 						// $scope.temp_all_songs= [];
@@ -446,6 +446,12 @@
 					HomeService.AddtoAlbumSongs(albumsong)
 						.then(function (data){
 						$scope.allsonginalbums=data;
+					});
+				}
+				$scope.getSongsAlbum=function (album_id){
+					HomeService.GetSongsAlbum(album_id)
+						.then(function (data){
+						$scope.currentsonginalbum=data;
 					});
 				}
     	  $scope.removefromSongs =function(song){
