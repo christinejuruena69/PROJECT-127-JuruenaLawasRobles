@@ -134,7 +134,7 @@
 				<span class=""> </span>
 				<a class="link-blue" href="" ng-click="toggleBrowse()"></i>Browse</a>
 				<span class=""> </span>
-				<a class="link-yellow selected" href="#your_music"></i>Your Music</a>
+				<a class="link-yellow" ng-click="toggleUrmsc()"></i>Your Music</a>
 				<span class=""> </span>
         <a class="link-green" href="" ng-click="toggleProfile()"></i>Profile</a>
 				<a class="link-red" href="" ng-click="logout()"></i>Logout</a>
@@ -178,7 +178,7 @@
 
 		</div>
 		<div id="elements">
-			<div id="your_music">
+			<div id="your_music" ng-hide="your_music">
 				<div id="urmsc_nav" class="urmsc_nav_links" >
 					<a class="playlist" ng-click="togglePlaylist()" href=""> PLAYLISTS </a>
 					<a  class="songs" ng-click="toggleSongs()"  href="">SONGS </a>

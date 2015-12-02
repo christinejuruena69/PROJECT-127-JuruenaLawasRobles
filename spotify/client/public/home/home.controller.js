@@ -14,7 +14,7 @@
 		$scope.artist = true;
 		$scope.songlist = true;
 		$scope.recmsc = true;
-
+		$scope.your_music = false;
 		$scope.editplaylisttextbox=true;
 		$scope.editplaylistnametext=false;
 		$scope.user={};
@@ -248,7 +248,10 @@
 					});
         }
 				$scope.playSong = function (song){
-					console.log(song.song_id);
+					$scope.current.song = 'http://localhost:8000/music/'+song.song_title+'.mp3';
+					var audioplayer = $("#audioplayer")[0];
+					$("#audioplayer").attr("src", $scope.current.song);
+					audioplayer.play();
 					HomeService.Inctimesplayed(song)
         		.then(function (data){
 							$scope.getallUserSongs();
@@ -453,11 +456,6 @@
     	  	console.log($scope.newsong.song_title);
     	  }
 				$scope.allsongstemp={};
-
-				// $scope.playSong = function(song){
-				// 	$scope.current.song = '../../../../music/'+song.song_title+'.mp3';
-				// 	$("#audioplayer").attr("src", $scope.current.song);
-				// }
 
     	  $scope.addsonganddetails = function(){
 					var tempnewsong= {
