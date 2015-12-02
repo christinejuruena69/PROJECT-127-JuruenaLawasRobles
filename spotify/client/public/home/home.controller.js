@@ -34,7 +34,7 @@
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
 
-<<<<<<< HEAD
+
     	/*===========================Leensey's Search Functionalities start here===========================*/
 
     	$scope.song_results = {};
@@ -92,8 +92,7 @@
     	/*===========================Leensey's Search Functionalities end here===========================*/
 
 	   	// $scope.editedSong=[];
-=======
->>>>>>> spotify-pj
+
 		isLoggedIn();
 		console.log(user.user_id+' '+user.user_role);
 		HomeService.GetallUserSongs(user.user_id)
