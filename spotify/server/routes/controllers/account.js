@@ -159,3 +159,48 @@ exports.updateRole = function(req, res) {
          });
      });
  };
+
+ exports.updateProfile = function(req, res) {
+ 		   var results = [];
+
+ 		  // Grab data from http request
+ 		  var data = {
+ 		      UserName: req.body.UserName,
+ 		      Name: req.body.Name,
+ 		      Password: req.body.Password,
+ 		      Sex: req.body.Sex,
+ 		      Email_Address: req.body.Email_Address
+ 		  };
+
+ 		   // Get a Postgres client from the connection pool
+ 		   pg.connect(connectionString, function(err, client, done) {
+ 		       // Handle connection errors
+ 		       if(err) {
+ 		         done();
+ 		         console.log(err);
+ 		         return res.status(500).send(json({ success: false, data: err}));
+ 		       }
+
+ 		       console.log("req body: ",req.body);
+ 		       // SQL Query > Update Data
+ 		      client.query("UPDATE account SET name=($1), password=($2), sex=($3), email_address=($4) WHERE username=($5)",
+ 		          [data.Name,
+ 		          data.Password,
+ 		          data.Sex,
+ 		          data.Email_Address,
+ 		          data.UserName
+ 		          ]);
+
+ 		      var query = client.query('select * from account where UserName=($1)', [data.UserName]);
+
+ 		      query.on('row', function(row) {
+ 		           results.push(row);
+ 		           console.log(row);
+ 		      });
+
+ 		      query.on('end', function() {
+ 		           done();
+ 		           return res.json(results);
+ 		       });
+ 		   });
+ 	 };

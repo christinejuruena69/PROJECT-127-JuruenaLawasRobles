@@ -500,21 +500,26 @@
             </tbody>
             </table>
     </div>
+    
     <div id="PROFILE_div" ng-hide="profile">
-      {{  user.user_id}}
-
-
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-      <h1> HI </h1>
-
-
+      <p class="form-title" >Edit Profile</p>
+      <form class="login"  ng-submit="" data-ng-model="formData"  role="form">
+        <input readonly type="text" name="Name" id="Name" placeholder="{{ Name }}"  value="" ng-model="formData.Name">
+      	<br />
+        <input readonly type="text" name="Username" id="UserName" placeholder="{{ UserName }}"  value="" ng-model="formData.UserName"> <em>cannot change</em>
+      	<br />
+	      <input readonly type="radio" name="sex" id="sex" value="male" ng-model="formData.Sex" required autofocus> Male
+      	<input type="radio" name="sex" id="sex" value="female" ng-model="formData.Sex" required autofocus>Female
+	      <br />
+	      <input ng-hide='passphrase' type="password" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
+      	<br />
+	      <input readonly type="email" name="EmailAddress" id="EmailAddress" placeholder="Email Address"  value=""  ng-model="formData.Email_Address" required autofocus>
+	      <br />
+	      <input type="submit" ng-hide='updatebtn' ng-click="updateProfile(formData)" value="Update" class="btn btn-success btn-sm" />
+	      <br />
+	      <input type="button" ng-hide='cancelbtn' ng-click="cancelProfile()" value="Cancel" class="btn btn-success btn-sm" />
+        <input type="button" ng-hide='updater' ng-click="editProfile()" value="Edit Profile" class="btn btn-success btn-sm" />
+    	</form>
     </div>
 
 		</div>

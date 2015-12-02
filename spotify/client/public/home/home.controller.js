@@ -19,6 +19,10 @@
 		$scope.editplaylistnametext=false;
 		$scope.user={};
 		var user = {};
+		$scope.updater = false;
+		$scope.updatebtn = true;
+		$scope.cancelbtn = true;
+		$scope.passphrase = true;
 	  	$scope.newp= false;
     	$scope.createplist= true;
 			$scope.browsediv=true;
@@ -45,6 +49,36 @@
     $scope.song_results = {};
 		$scope.artist_results = {};
 		$scope.album_results = {};
+
+		$scope.editProfile=function(){
+    		$scope.passphrase = false;
+    		$scope.updater = true;
+				$scope.updatebtn = false;
+				$scope.cancelbtn = false;
+				$('#Name').attr("readonly", false);
+				$('#EmailAddress').attr("readonly", false);
+    	}
+
+    	$scope.cancelProfile=function(){
+    		$scope.passphrase = true;
+    		$scope.updater = false;
+				$scope.updatebtn = true;
+				$scope.cancelbtn = true;
+				$('#Name').attr("readonly", true);
+				$('#EmailAddress').attr("readonly", true);
+    	}
+
+    	$scope.updateProfile=function(formData){
+    		formData.UserName = user.username;
+    		HomeService.UpdateProfile(formData)
+    		.then(function(data){
+    			console.log(data);
+    			alert("Profile successfully updated!");
+    		}).catch(function() {
+					console.log('Error updating profile!');
+				});
+    	}
+
 
 		$scope.SearchFxn = function(searchdata){
 
