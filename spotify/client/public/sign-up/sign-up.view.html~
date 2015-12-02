@@ -1,0 +1,48 @@
+<div ng-app class="container">
+    <div class="row">
+        <div class="col-md-12">    
+            <div class="wrap">        	        
+            	<div id="signup" >
+            		<p class="form-title" >  Sign Up</p>
+	              <!-- <form class="login"  role="form" > -->
+	              <form class="login"  ng-submit="createStudent()" data-ng-model="formData" role="form" >
+
+		              
+		                	<input type="text" name="FirstName" id="FirstName" placeholder="First Name"  value="" ng-model="formData.FName"   required autofocus>
+		                	<br />
+		                	<input type="text" name="MiddleName" id="MiddleName" placeholder="Middle Name"  value="" ng-model="formData.MName"  required autofocus>
+		                	<br />
+
+	                		<input type="text" name="LastName" id="LastName" placeholder="Last Name"  value="" ng-model="formData.LName"   required autofocus>
+		                	<br />
+
+	                    	<input type="text" name="username" id="username" placeholder="Username"  value=""   ng-model="formData.UserName" required autofocus>
+	                    	<br />
+	                    	<input type="text" name="sex" id="sex" placeholder="Sex"  value=""   ng-model="formData.Sex" required autofocus>
+		                	<br />
+
+	                    	<input type="text" name="password" id="password" placeholder="Password"  value=""   ng-model="formData.Password"  required autofocus>
+		                	<br />
+
+	                    	<input type="text" name="EmailAddress" id="EmailAddress" placeholder="Email Address"  value=""  ng-model="formData.Email_Address"  required autofocus>                   
+		                	<br />
+
+	                    	<input type="text" name="Birthday" id="Birthday" placeholder="Birthday (YYYY-MM-DD"  value=""  ng-model="formData.Birthday"  required autofocus> 
+		                	<br />
+
+	                    	<input type="text" name="Age" id="Age" placeholder="Age"  value=""  ng-model="formData.Age"  required autofocus>
+		                	<br />
+
+	                   		<!-- <input type="submit"  value="Sign Up" class="btn btn-success btn-sm" /> -->
+	                   			<!-- or this, click lang yung nag iba -->
+	                   		<input type="submit" ng-click="" value="Sign Up" class="btn btn-success btn-sm" />
+
+
+	                  <!-- </div> -->
+										<a href="#/sign-in" class="div-toggle">Already have an account? Signin</a>
+	            		</form>
+		          	</div>	   
+		          </div>                 
+	            </div>
+            </div>
+        </div>
