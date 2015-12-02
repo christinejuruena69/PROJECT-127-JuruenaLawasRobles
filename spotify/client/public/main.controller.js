@@ -21,8 +21,6 @@
 				$scope.accounts = data;
 				$scope.users = data;
 				isLoggedIn();
-				// console.log("Logged in");
-				// alert("Loggedin");
 		});
 
 		$scope.createStudent = function(){
@@ -38,8 +36,6 @@
 
 		function traverse(){
 			for(var i=0;i<$scope.users.length;i++){
-				console.log($scope.SignIndata.Password);
-				console.log($scope.users[i].password);
 				if($scope.users[i].username === $scope.SignIndata.Username){
 					if($scope.SignIndata.Password === $scope.users[i].password){
 						$scope.SignIndata = $scope.users[i];
@@ -57,7 +53,6 @@
 			var x = traverse();
 			console.log(x);
 			if(x != null && x>-1){
-				console.log($scope.SignIndata);
 				document.cookie = "user="+JSON.stringify($scope.SignIndata);
 				goLoginHome();
 			}
@@ -65,21 +60,17 @@
 
 		function goSignUp(){
 			$location.url("/sign-up");
-			console.log($location);
 		}
 		function goLogin(){
 			$location.url("/sign-in");
-			console.log($location);
 		}
 
 		function goLoginHome(){
 			$location.url("/home");
-			console.log($location);
 		}
 
 		function goLoginAdmin(){
 			$location.url("/admin");
-			console.log($location);
 		}
 
 		function isLoggedIn(){

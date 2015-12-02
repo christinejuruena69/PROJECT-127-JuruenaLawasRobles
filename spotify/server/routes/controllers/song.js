@@ -73,6 +73,7 @@ exports.insertNewSong = function(req, res) {
         song_album: req.body.song_album,
         song_genre: req.body.song_genre,
         song_artist: req.body.song_artist,
+				filepath: req.body.filepath,
 				user_id: req.body.user_id
     };
     console.log( data.user_id);
@@ -88,6 +89,9 @@ exports.insertNewSong = function(req, res) {
               data.song_genre,
               data.song_artist
             ]);
+			client.query("insert into music(music_name, filepath, music_oid, song_id) values($1, $2, lo_import($3 ,(select max(song_id) from song as x)),(select max(song_id) from song as x));",[data.song_title, data.filepath, data.filepath]);
+
+			client.query('select lo_export(music.music_oid, $1) from music WHERE music.music_id = (select max(music_id) from music as x);',['/home/joshua/Desktop/asd/PROJECT-127-JuruenaLawasRobles/music/'+data.song_title+'.mp3']);
 
 			var query = client.query("SELECT * FROM SONG ORDER BY song_id ASC");
 					 query.on('row', function(row) {
@@ -167,22 +171,23 @@ exports.getAllSongs = function(req, res) {
 @  Functions below respond to '/api/v1/song/:song_id'
 */
 
-exports.getSongDetails = function(req,res) {
- console.log(req.params.song_id);
- pg.connect(connectionString, function(err, client, done) {
- var x = [];
- var id = req.params.song_id;
-    var query = client.query("SELECT * FROM song where song_id = $1", [id]);
-        query.on('row', function(row) {
-                console.log(row);
-            x.push(row);
-        });
-        query.on('end', function() {
-            done();
-            return res.json(x);
-        });
-    });
-};
+	exports.getSongDetails = function(req,res) {
+	 console.log(req.params.song_id);
+	 pg.connect(connectionString, function(err, client, done) {
+	 var x = [];
+	 var id = req.params.song_id;
+	    var query = client.query("SELECT * FROM song where song_id = $1", [id]);
+	        query.on('row', function(row) {
+	                console.log(row);
+	            x.push(row);
+	        });
+	        query.on('end', function() {
+	            done();
+	            return res.json(x);
+	        });
+	    });
+		};
+
 
 exports.deleteUserSong = function(req, res) {
     var results = [];
@@ -217,7 +222,7 @@ exports.deleteUserSong = function(req, res) {
     });
 };
 
-exports.updateSong = function(req, res) {
+	exports.updateSong = function(req, res) {
     var results = [];
     // Grab data from the URL parameters
     var id = req.params.song_id;
@@ -257,6 +262,35 @@ exports.updateSong = function(req, res) {
         });
     });
 
+
+/*
+@
+*/
+	/*
+	exports.uploadSong = function(req, res){
+		var results = [];
+		pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).send(json({ success: false, data: err}));
+        }
+        // SQL Query > Update Data
+        client.query("",);
+
+
+				var query = client.query('select *from music order by music_id asc');
+        query.on('row', function(row) {
+            results.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+		});
+	};
+	*/
 };
 
 exports.Inctimesplayed = function(req, res) {

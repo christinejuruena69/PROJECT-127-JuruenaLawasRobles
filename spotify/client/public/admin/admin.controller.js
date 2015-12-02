@@ -160,24 +160,21 @@
 	//login and riderecting
 		function goSignUp(){
 			$location.url("/sign-up");
-			console.log($location);
 		}
 		function goLogin(){
 			$location.url("/sign-in");
-			console.log($location);
 		}
 
 		function goLoginHome(){
 			$location.url("/home");
-			console.log($location);
 		}
 
 		function goLoginAdmin(){
 			$location.url("/admin");
-			console.log($location);
 		}
 
 		function isLoggedIn(){
+			$('body').css('display', 'none');
 			try{
 				user = $.parseJSON(document.cookie.substring(5));
 				console.log(user);
@@ -189,16 +186,20 @@
 						if(user.user_role == 1){
 							//alert("Standard");
 							goLoginHome();
+							$('body').css('display', '');
 						} else {
 							//alert("Admin");
 							goLoginAdmin();
+							$('body').css('display', '');
 						}
 					} else if(user=="" && pathname[1]=="/sign-up"){
 						document.cookie = "user=\"\"";
 						goSignUp();
+						$('body').css('display', '');
 					} else if(user==""){
 						document.cookie = "user=\"\"";
 						goLogin();
+						$('body').css('display', '');
 					} else {
 						alert("Unauthorized user");
 						document.cookie = "user=\"\"";
@@ -207,7 +208,6 @@
 
 			}catch(err){
 				//alert("No user is logged in");
-				//alert(err.message); //this thing works
 				document.cookie = "user=\"\"";
 				goLogin();
 			}

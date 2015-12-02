@@ -17,6 +17,7 @@
 		var artistUrl="http://localhost:3000/api/v1/artist";
 		var artistSongUrl="http://localhost:3000/api/v1/artist-songs";
 		var resultsUrl="http://localhost:3000/api/v1/search";
+		var uploadUrl='http://localhost:3000/api/v1/upload';
 
 		var service={};			//should be an object,
 		service.GetAllLahatSongs = GetAllLahatSongs;
@@ -47,7 +48,6 @@
 		service.UpdateAlbum=UpdateAlbum;
 		service.UpdateArtist=UpdateArtist;
 		service.AddNewArtist=AddNewArtist;
-
 		//for search functionalities
 		service.GetSongs = GetSongs;
 		service.GetArtists= GetArtists;
@@ -279,18 +279,21 @@
 				});
 				return deferred.promise;
 		}
+
 		function AddSong(newsong){
 			var deferred = $q.defer();
 			$http.post(allSongs , newsong)
 				.success(function(data){
 					deferred.resolve(data);
+					alert("Song added!");
 				}).error(function () {
 	        deferred.reject();
-					alert("cannot insert to songs!");
+					alert("Invalid | Song not added");
 	      });
 				console.log(deferred.promise.$$state.status); // 0
 				return deferred.promise;
 		}
+
 		function AddtoAlbumSongs(albumsong){
 			var deferred = $q.defer();
 			$http.post(albumSongsUrl, albumsong)
