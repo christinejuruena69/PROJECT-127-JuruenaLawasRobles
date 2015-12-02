@@ -30,9 +30,8 @@
 			MainService.Create($scope.formData)
 			.then(function (data){
 				$scope.formData={};
-
 			console.log($scope.accounts);
-			goLogin();
+			goLogin();				
 			});
 
 		}
@@ -68,21 +67,9 @@
 			$location.url("/sign-up");
 			console.log($location);
 		}
-
-		
-		$scope.ValidateUser =function (SignIndata){
-			MainService.Check($scope.SignIndata.user_id)
-				.then(function (data){
-					$scope.SignIndata=data;
- 
-					// console.log(data);
-					console.log(SignIndata);
-				});
-
 		function goLogin(){
 			$location.url("/sign-in");
 			console.log($location);
-
 		}
 
 		function goLoginHome(){
@@ -134,6 +121,5 @@
 				goLogin();
 			}
 		}
-	}
 	}
 })();

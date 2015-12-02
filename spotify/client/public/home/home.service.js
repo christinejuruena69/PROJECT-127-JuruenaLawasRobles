@@ -15,7 +15,6 @@
 		var plist_songsUrl="http://localhost:3000/api/v1/plist-songs";
 		var albumsUrl="http://localhost:3000/api/v1/albums";
 		var artistUrl="http://localhost:3000/api/v1/artist";
-		var artistSongUrl="http://localhost:3000/api/v1/artist-song";
 		var resultsUrl="http://localhost:3000/api/v1/search";
 
 		var service={};			//should be an object,
@@ -23,9 +22,7 @@
 		service.GetallUserSongs = GetallUserSongs;
 		service.GetUserPlaylists = GetUserPlaylists;
 		service.GetSongsAlbum = GetSongsAlbum;
-		service.GetSongsArtist = GetSongsArtist;
 		service.AddtoAlbumSongs = AddtoAlbumSongs;
-		service.AddtoArtistSongs = AddtoArtistSongs;
 		service.Getsongsforplaylist = Getsongsforplaylist;
 		service.GetAllSongs = GetAllSongs;
 		service.MakenewPlaylist = MakenewPlaylist;
@@ -46,8 +43,8 @@
 		service.AddNewArtist=AddNewArtist;
 
 		//for search functionalities
-		service.GetSongs = GetSongs;
-		service.GetArtists= GetArtists;
+		service.GetSongs = GetSongs;			
+		service.GetArtists= GetArtists;			
 		service.GetAlbums=GetAlbums;
 
 		return service;
@@ -245,21 +242,7 @@
 					deferred.resolve(data);
 				}).error(function () {
 	        deferred.reject();
-					console.log("cannot insert to album-songs!");
-	      });
-				console.log(deferred.promise.$$state.status); // 0
-				return deferred.promise;
-
-		}
-		function AddtoArtistSongs(albumsong){
-			var deferred = $q.defer();
-			$http.post(artistSongUrl, albumsong)
-				.success(function(data){
-					deferred.resolve(data);
-				}).error(function () {
-	        deferred.reject();
-					console.log("cannot insert to artist-songs!");
-
+					alert("cannot insert to songs!");
 	      });
 				console.log(deferred.promise.$$state.status); // 0
 				return deferred.promise;
@@ -292,15 +275,6 @@
 		function GetSongsAlbum(album_id){
 			var deferred = $q.defer();
 			$http.get(albumSongsUrl+"/"+ album_id)
-				.success(function(data){
-					deferred.resolve(data);
-					console.log(data);
-				});
-				return deferred.promise;
-		}
-		function GetSongsArtist(artist_id){
-			var deferred = $q.defer();
-			$http.get(albumSongsUrl+"/"+ artist_id)
 				.success(function(data){
 					deferred.resolve(data);
 					console.log(data);

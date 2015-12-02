@@ -34,28 +34,29 @@
 	   	$scope.selectedPlaylistid=0;
     	$scope.selectedSongid = 0;
 
+
     	/*===========================Leensey's Search Functionalities start here===========================*/
 
     	$scope.song_results = {};
 		$scope.artist_results = {};
-		$scope.album_results = {};
+		$scope.album_results = {};		
 
-		$scope.SearchFxn = function(searchdata){
+		$scope.SearchFxn = function(searchdata){	
 
 			var searchtype = searchdata.searchtype;
-			var wordtobesearched = searchdata.searchthis;
+			var wordtobesearched = searchdata.searchthis;			
 			console.log('wordtobesearched: ', wordtobesearched);
 			console.log('searchtype: ', searchtype);
 
 			if(searchtype=='song'){
-				HomeService.GetSongs(wordtobesearched, searchtype)
+				HomeService.GetSongs(wordtobesearched, searchtype)	
 				.then(function (data){
 					console.log(data);
 					if(data.length==0){data.push({"song_title":"No song match found."})}
 					$scope.song_results=data;
 
 				}).catch(function() {
-					console.log('Error at HomeService.GetSongs(), home.controller.js');
+					console.log('Error at HomeService.GetSongs(), home.controller.js');				
 				 });//end of HomeService.GetSongs
 			}
 
@@ -66,7 +67,7 @@
 					if(data.length==0){data.push({"artist_name":"No artist match found."})}
 					$scope.artist_results=data;
 				}).catch(function() {
-					console.log('Error at HomeService.GetArtists(), home.controller.js');
+					console.log('Error at HomeService.GetArtists(), home.controller.js');				
 				});//end of HomeService.GetArtists
 			}
 
@@ -77,19 +78,18 @@
 					if(data.length==0){data.push({"album_title":"No album match found."})}
 					$scope.album_results=data;
 				}).catch(function() {
-					console.log('Error at HomeService.GetAlbums(), home.controller.js');
+					console.log('Error at HomeService.GetAlbums(), home.controller.js');				
 				});//end of HomeService.GetAlbums
 			}
 
 			else{
 				console.log('Error: no value for searchtype');
 				alert('choose a search type');
-			}
-
+			}	
+			
 		}//end of $scope.SearchFxn
 
     	/*===========================Leensey's Search Functionalities end here===========================*/
-
 
 	   	// $scope.editedSong=[];
 
@@ -478,16 +478,11 @@
 							artist_name: tempnewsong.song_artist,
 							album_name: tempnewsong.song_album
 						}
-						var artistsong = {};
 						var artistid=0;
 						console.log($scope.allartists);
 						$.each( $scope.allartists, function( index, item ) {
 							if( tempnewsong.song_artist == item.artist_name){
 								artistid=item.artist_id;
-								artistsong = {
-									artist_id: artistid,
-									song_id: song_id
-								}
 							return false;
 							}
 						});
@@ -495,9 +490,6 @@
 							console.log("meron na");
 							HomeService.UpdateArtist(artistid, tempartist)
 								.then(function (data){
-									$scope.allartists=data;
-									$scope.addtoArtistSongs(artistsong);
-
 							});
 						}else{ //if not make new album
 							console.log("wala pa");
@@ -509,39 +501,27 @@
 					}
 
 				}
-				$scope.addtoArtistSongs=function (artistsong){
-					HomeService.AddtoArtistSongs(artistsong)
-						.then(function (data){
-						// $scope.allsonginartist=data;
-					});
-				}
 				$scope.addtoAlbumSongs=function (albumsong){
 					HomeService.AddtoAlbumSongs(albumsong)
 						.then(function (data){
-						// $scope.allsonginalbums=data;
+						$scope.allsonginalbums=data;
 					});
 				}
 				$scope.getSongsAlbum=function (album_id){
-					console.log(album_id);
 					HomeService.GetSongsAlbum(album_id)
 						.then(function (data){
 						$scope.currentsonginalbum=data;
 					});
 				}
-				$scope.getSongsArtist=function (artist_id){
-					console.log(artist_id);
-
-					HomeService.GetSongsArtist(artist_id)
-						.then(function (data){
-						$scope.currentsonginartist=data;
-					});
-				}
     	  $scope.removefromSongs =function(song){
+
 	    	  	HomeService.RemovefromSongs(song.song_id)
 	        		.then(function (data){
 	        			console.log("removed!");
 	        			var index = $scope.allsongs.indexOf(song);
-	  						$scope.allsongs.splice(index,1);
+	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
+    					// $scope.degreePrograms.splice(index,1);
+    							$scope.allsongs.splice(index,1);
 							});
 
     	  }

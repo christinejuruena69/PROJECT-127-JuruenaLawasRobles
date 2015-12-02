@@ -359,46 +359,35 @@
       </div>
       </div>
 				<div id="artist_div" ng-hide="artist">
-          <div id="artist_stuff">
 					<table class="table">
 								<thead>
 									<tr>
+
 										<th> Artist_name </th>
 										<!-- <th> Number of Songs </th> -->
 										<th> Artist_no_of_songs</th>
 										<th>No_of_albums</th>
+
 									</tr>
+
 								</thead>
 								<tbody>
-									<tr ng-repeat="artist in allartists">
-										<td ng-click="getSongsArtist(artist.artist_id)"> {{ artist.artist_name}} </td>
-										<td ng-click=""> {{ artist.artist_no_of_songs}} </td>
-										<td ng-click=""> {{ artist.artist_no_of_albums}} </td>
+									<tr ng-repeat="artist1 in allartists">
+
+
+										<td ng-click=""> {{ artist1.artist_name}} </td>
+										<td ng-click=""> {{ artist1.artist_no_of_songs}} </td>
+										<td ng-click=""> {{ artist1.artist_no_of_albums}} </td>
 										</td>
+
 									</tr>
+
 								</tbody>
+
 						</table>
 				</div>
-        <div id="songs_in_artist">
-          <table class="table">
-                <thead>
-                  <tr>
-                    <th> Track </th>
-                    <th>Artist</th>
-                    <th> Album </th>
-                    <th> Genre </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="song in currentsonginartist">
-                    <td ng-click=""> {{ song.song_title}} </td>
-                    <td ng-click=""> {{ song.song_artist}} </td>
-                    <td ng-click=""> {{ song.song_album}} </td>
-                    <td ng-click=""> {{ song.song_genre}} </td>
-                  </tr>
-                </tbody>
-                </table>
-      </div>
+
+
 			</div>
 			<div id="darkLayer" class="darkClass" style="display:none"></div>
 

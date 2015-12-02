@@ -19,9 +19,6 @@
 			.when("/home", {
 				"controller": "HomeCtrl",
 				"templateUrl": "home/home.view.html"})
-			.when("/search", {
-				"controller": "SearchCtrl",
-				"templateUrl": "search/search.view.html"})
 			.when("/admin", {
 				"controller": "AdminCtrl",
 				"templateUrl": "admin/admin.view.html"});

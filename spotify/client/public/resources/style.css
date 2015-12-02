@@ -421,18 +421,7 @@ div #your_music div#album_div{
     /*display: none;*/
     /*margin-left: -5px;*/
 }
-div #your_music div#artist_div div#artist_stuff{
-  width: 350px;
-   height: 100%;
-   float: left;
 
-}
-div #your_music div#artist_div div#songs_in_artist{
-  width: 650px;
-   height: 100%;
-   float: left;
-   background-color: #fff;
-}
 div #your_music div#artist_div{
    width: 1000px;
     height: 650px;

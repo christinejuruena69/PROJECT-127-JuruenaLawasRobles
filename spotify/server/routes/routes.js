@@ -14,7 +14,6 @@ var albumWithSong = '/api/v1/album-songs'
 var albums = '/api/v1/albums';
 var songs = '/api/v1/songs';
 var artist = '/api/v1/artist';
-var artistWithSong = '/api/v1/artist-songs';
 var searchSong = '/api/v1/search/song';
 var searchArtist = '/api/v1/search/artist';
 var searchAlbum = '/api/v1/search/album';
@@ -31,13 +30,13 @@ module.exports = function(router) {
     .get(user.getOneAccount);
 
 //search
-  router.route(searchSong+'/:searchthis')
+  router.route(searchSong+'/:searchthis')    
     .get(searchController.song);
 
-  router.route(searchArtist+'/:searchthis')
+  router.route(searchArtist+'/:searchthis')    
     .get(searchController.artist);
 
-  router.route(searchAlbum+'/:searchthis')
+  router.route(searchAlbum+'/:searchthis')    
     .get(searchController.album);
 
 //songs
@@ -109,16 +108,6 @@ router.route(playlistPerUser)
   router.route(artist+'/:artist_id')
     .get(artistController.getOneArtist)
     .put(artistController.updateArtistNofSongs);
-
-  router.route(artistWithSong)
-    .get(artistController.GetallartistSong)
-    .post(artistController.AddSongtoArtist);
-
-
-  router.route(artistWithSong+'/:artist_id')
-    .get(artistController.GetallSongsPerArtist);
-
-
 
   return router;
 };
