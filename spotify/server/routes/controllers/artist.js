@@ -124,7 +124,7 @@ exports.AddSongtoArtist= function(req, res) {
 exports.updateArtistNofSongs= function(req, res) {
     var results = [];
     // Grab data from the URL parameters
-    var id = req.params.artist;
+    var id = req.params.artist_id;
       var data = {
         artist_name : req.body.artist_name
     };

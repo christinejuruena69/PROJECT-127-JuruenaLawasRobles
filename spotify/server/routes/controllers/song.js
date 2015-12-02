@@ -32,7 +32,7 @@ exports.getUserSongs = function(req,res){
     });
 };
 
-exports.getUserAdded = function(req,res){
+exports.GetallUserSongs = function(req,res){
 	var results = [];
 	console.log("this");
 	console.log(req.params.user_id);
@@ -45,7 +45,8 @@ exports.getUserAdded = function(req,res){
           return res.status(500).json({ success: false, data: err});
         }
         // SQL Query > Select Data
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from user_song us,account a, song s where a.user_id=$1 and us.user_id=a.user_id and s.song_id=us.song_id;",[req.params.user_id]);
+				console.log("here here");
+        var query = client.query("select distinct s.song_id, s.song_title, s.song_genre, s.song_album, s.song_artist, s.song_no_of_times_played from user_song us,account a, song s where us.user_id=($1) and s.song_id=us.song_id;",[req.params.user_id]);
         // Stream results back one row at a time
         query.on('row', function(row) {
         		console.log(row);
@@ -183,10 +184,10 @@ exports.getSongDetails = function(req,res) {
     });
 };
 
-exports.deleteSong = function(req, res) {
+exports.deleteUserSong = function(req, res) {
     var results = [];
     // Grab data from the URL parameters
-    var id = req.params.song_id;
+
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
@@ -196,9 +197,12 @@ exports.deleteSong = function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
         // SQL Query > Delete Data
-				client.query("DELETE FROM song WHERE song_id=($1)", [id]);
+				// client.query("DELETE FROM song WHERE song_id=($1)", [id]);
 
-				client.query("DELETE FROM user_song WHERE song_id=($1)", [id]);
+				client.query("DELETE FROM user_song WHERE song_id=($1) and user_id=($2)", [req.params.song_id, req.params.user_id]);
+				client.query("DELETE FROM PLAYLIST_SONG where song_id=$1 ", [req.params.song_id]);
+
+
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM song ORDER BY song_id ASC");
         // Stream results back one row at a time
@@ -243,6 +247,40 @@ exports.updateSong = function(req, res) {
             data.song_artist,
             data.song_id
         ]);
+        var query = client.query("SELECT * FROM song ORDER BY song_id ASC");
+        query.on('row', function(row) {
+            results.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
+
+};
+
+exports.Inctimesplayed = function(req, res) {
+    var results = [];
+    // Grab data from the URL parameters
+		var id = req.params.song_idplayed;
+    var id2 = req.params.song_id;
+
+    var data = {
+        song_id: req.body.song_id,
+        song_title: req.body.song_title
+    };
+    console.log(data);
+
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).send(json({ success: false, data: err}));
+        }
+        client.query("UPDATE song SET Song_no_of_times_played=(Song_no_of_times_played+1) WHERE song_id=($1)",
+         [ id ]);
+				 console.log("in song played");
         var query = client.query("SELECT * FROM song ORDER BY song_id ASC");
         query.on('row', function(row) {
             results.push(row);

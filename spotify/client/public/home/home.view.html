@@ -244,7 +244,7 @@
 						</div>
 					</div>
 					<div id="playlistsongs">
-					<h4> {{ currentplaylistTitle }}</h4>
+					<h4> {{ currentselectedplaylist.playlist_name }} {{ currentselectedplaylist.playlist_no_of_songs }} </h4>
 						<table class="table">
 								<thead>
 									<tr>
@@ -291,19 +291,19 @@
 										<th>Artist</th>
 										<th> Album </th>
 										<th> Genre </th>
-										<th> Action </th>
+										<th> No of times played | Action </th>
 									</tr>
 
 								</thead>
 								<tbody>
-									<tr ng-repeat="song in allsongs">
+									<tr ng-repeat="song in allusersongs">
 
 
 										<td ng-click=""> {{ song.song_title}} </td>
 										<td ng-click=""> {{ song.song_artist}} </td>
 										<td ng-click=""> {{ song.song_album}} </td>
 										<td ng-click=""> {{ song.song_genre}} </td>
-										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
+										<td ng-click=""> {{ song.song_no_of_times_played }} <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
 										<input type="button" value="Remove" ng-click="removefromSongs(song)">
 										<input type="button" value="Play" ng-click="playSong(song)">
 										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">

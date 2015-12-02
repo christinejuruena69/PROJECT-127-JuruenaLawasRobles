@@ -46,7 +46,12 @@ module.exports = function(router) {
     .post(userSong.insertSongtoUser);
 
   router.route(uspath+'/:user_id')
-    .get(userSong.getUserAdded);
+    .get(userSong.GetallUserSongs);
+
+  router.route(uspath+'/:song_id/:user_id')
+      .delete(userSong.deleteUserSong);
+
+
 
   router.route(songs)
     .post(userSong.insertNewSong)
@@ -54,8 +59,13 @@ module.exports = function(router) {
 
   router.route(songs+'/:song_id')
     .put(userSong.updateSong)
-    .delete(userSong.deleteSong)
     .get(userSong.getSongDetails);
+
+
+
+  router.route(songs+'/:song_idplayed/:song_id')
+      .put(userSong.Inctimesplayed);
+
 
 //playlist
 router.route(playlistPerUser)

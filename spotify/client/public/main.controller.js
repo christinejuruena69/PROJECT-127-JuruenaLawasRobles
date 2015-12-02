@@ -31,7 +31,7 @@
 			.then(function (data){
 				$scope.formData={};
 			console.log($scope.accounts);
-			goLogin();				
+			goLogin();
 			});
 
 		}

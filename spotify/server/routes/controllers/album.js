@@ -161,10 +161,14 @@ exports.updateAlbumNoofSongs= function(req, res) {
           console.log(err);
           return res.status(500).send(json({ success: false, data: err}));
         }
-        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1), Album_title=($2) WHERE Album_id=($1)",
-          [ id,
-          data.album_title
-          ]);
+        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1) WHERE Album_id=($1)",
+          [ id ]);
+
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
         var query = client.query("SELECT * FROM ALBUM ORDER BY Album_id ASC");
 
         query.on('row', function(row) {
