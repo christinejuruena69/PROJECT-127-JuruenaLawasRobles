@@ -108,12 +108,6 @@ exports.GetallSongsPerAlbum = function(req, res){
 				}
         console.log(req.params.album_id);
         var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, album_song sa, song s where sa.album_id=($1) and a.album_id=($1) and s.song_id=sa.song_id;", [req.params.album_id]);
-
-        // var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, playlist_song ps, song s where ps.playlist_id=($1) and p.playlist_id=($1)  and s.song_id=ps.song_id;",
-        // [req.params.playlist_id]);
-
-        // var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from playlist p, playlist_song ps, song s where ps.playlist_id=($1) and p.playlist_id=($1)  and s.song_id=ps.song_id;",
-
         query.on('row', function(row) {
 						console.log(row);
 						 results.push(row);
