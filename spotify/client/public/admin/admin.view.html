@@ -37,25 +37,30 @@
 					<a class="artist" ng-click="toggleArtist()"> ARTIST</a>
 					<a class="artist" ng-click="logout()"> Logout</a>
 				</div>
-				<div id="playlist_div"  ng-hide="playlist">
+				<div id="account_div"  ng-hide="playlist">
+					<div id="user_details">
+						
+
+					</div>
 					<div id="user_list">
 
-					<table class="table table-hover table-striped">
-					<tdead>
-					<tr class="info">
-					  <th>Username</th>
-					  <th>User Role</th>
-					  <th></th>
-					  <th></th>
-					</tr>
-					<tdead>
+					<table class="table table-hover table-striped user-table">
+						<thead>
+						<tr class="info">
+						  <th>Username</th>
+						  <th>User Role</th>
+
+						</tr>
+					</thead>
 					<tbody>
-					<tr ng-repeat = "account in accounts"> <!-- loop-->
-					  <td>{{account.username}}</td> <!-- use expression -->
+					<tr ng-repeat = "account in accounts" > <!-- loop-->
+					  <td ng-click="getaccount(account)">{{account.username}}</td> <!-- use expression -->
 					  <td>{{account.user_role}}</td>
-					  <td><button class="btn btn-primary" type="button" ng-click="makeAdmin(account)">Make Admin</button></td>
-					  <td><button class="btn btn-success" type="button"  ng-click="approveUser(account)">Approve User</button></td>
-					  <td><button class="btn btn-danger" type="button" ng-click="unauthorizeUser(account)">Unauthorize User</button></td>
+					  <!-- <td>
+							<button ng-hide="admin" class="btn btn-primary btn-sm" type="button" ng-click="makeAdmin(account)">Make Admin</button>
+						  <button ng-hide="approve" class="btn btn-success btn-sm" type="button"  ng-click="approveUser(account)">Approve User</button>
+						  <button ng-hide="reject" class="btn btn-danger btn-sm" type="button" ng-click="unauthorizeUser(account)">Unauthorize User</button>
+						</td> -->
 					</tr>
 
 					</tbody>
@@ -188,37 +193,5 @@
 
 			</div>
 		</div>
-
-		<div id="player">
-			<div id="player_artist_square">
-
-			</div>
-			<div id="player_label">
-
-			</div>
-			<div id="player_ctrl">
-				<div id="status">
-
-				</div>
-				<div id="main_ctrl">
-
-		          <i class="glyphicon glyphicon-step-backward"></i>
-		          <i class="glyphicon glyphicon-play-circle"></i>
-		          <i class="glyphicon glyphicon-step-forward"></i>
-		          <br />
-		          <br />
-		          <br />
-
-		           <i class="glyphicon glyphicon-list" ></i>
-		          <i class="glyphicon glyphicon-random"></i>
-		          <i class="glyphicon glyphicon-retweet"></i>
-		          <i class="glyphicon glyphicon-volume"></i>
-
-				</div>
-			</div>
-
-
-		</div>
-
 
 </div>

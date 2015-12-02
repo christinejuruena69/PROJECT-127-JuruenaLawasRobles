@@ -20,6 +20,8 @@
 		var user = {};
 	  	$scope.newp= false;
     	$scope.createplist= true;
+			$scope.browsediv=true;
+			$scope.profile=true;
 
 		$scope.allalbums={};
      	$scope.curreditedSong={};
@@ -137,6 +139,29 @@
 
 
 			// $scope.playlist = true;
+			$scope.toggleBrowse = function() {
+				$scope.browsediv = $scope.browsediv === false ? true: false;
+				$scope.profile =true;
+				$scope.your_music = true;
+
+					// $scope.recmsc = true;
+			};
+			$scope.toggleProfile = function() {
+				$scope.profile = $scope.profile=== false ? true: false;
+
+				$scope.your_music = true;
+				$scope.browsediv  = true;
+
+					// $scope.recmsc = true;
+			};
+			$scope.toggleUrmsc = function() {
+				$scope.your_music = $scope.your_music === false ? true: false;
+				$scope.browsediv=true;
+				$scope.profile =true;
+				
+					// $scope.recmsc = true;
+			};
+
 
         $scope.toggleCustom = function() {
             $scope.custom = $scope.custom === false ? true: false;

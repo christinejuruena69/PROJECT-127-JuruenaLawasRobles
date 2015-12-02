@@ -16,6 +16,20 @@
 		$scope.artist = true;
 		$scope.songlist = true;
 		$scope.apptoveuserbtn= false;
+
+		$scope.admin = false;
+		$scope.approve= false;
+		$scope.reject = false;
+
+		// hidebuttons();
+		function hidebuttons(){
+			if ($scope.account.user_role = 2){
+				$scope.admin = true;
+			}
+		}
+
+
+
 		$scope.allsongs={};
 		$scope.allalbums={};
 		$scope.allartists={};
@@ -112,6 +126,7 @@
 		}
 
 		$scope.makeAdmin = function(account){
+
 			account.user_role = 2;
 			AdminService.update(account)
 					.then(function(data){
@@ -197,6 +212,19 @@
 				goLogin();
 			}
 		}
+
+
+
+
+		// /tin stuff
+
+		$scope.getaccount = function(account){
+			// console.log(account);
+			console.log(account.account_id);
+
+
+		}
+
 	}
 })();
 // Anonymous function
