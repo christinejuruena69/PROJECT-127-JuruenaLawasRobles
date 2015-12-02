@@ -3,7 +3,7 @@
 		<aside class="sidebar-left">
 
 			<!-- <a class="company-logo" href="#">Logo</a> -->
-            <img src="images/sp.png" class="company-logo" width="100px" height="100px;">
+            <img src="http://localhost:8000/images/sp.png" class="company-logo" width="100px" height="100px;">
 
 			<div class="sidebar-links">
 				<span class="glyphicon glyphicon-search"> </span>
@@ -39,23 +39,28 @@
 				</div>
 				<div id="account_div"  ng-hide="playlist">
 					<div id="user_details">
-						
+
 
 					</div>
 					<div id="user_list">
 
-					<table class="table table-hover table-striped user-table">
+					<h1>{{userDisplay.user_id}}{{userDisplay.username}}{{userDisplay.user_role}}</h1>
+					<button ng-hide='approvebtn' class='btn btn-success' type ='button' ng-click='approveUser(userDisplay)'>Approve User</button>
+					<button ng-hide='unauthbtn' class='btn btn-danger' type ='button' ng-click='unauthorizeUser(userDisplay)'>Unauthorize User</button>
+
+					<table class="table table-hover user-table">
 						<thead>
 						<tr class="info">
 						  <th>Username</th>
 						  <th>User Role</th>
-
+							<th>Date Approved</th>
 						</tr>
 					</thead>
 					<tbody>
 					<tr ng-repeat = "account in accounts" > <!-- loop-->
 					  <td ng-click="getaccount(account)">{{account.username}}</td> <!-- use expression -->
 					  <td>{{account.user_role}}</td>
+						<td>{{account.date_joined}}</td>
 					  <!-- <td>
 							<button ng-hide="admin" class="btn btn-primary btn-sm" type="button" ng-click="makeAdmin(account)">Make Admin</button>
 						  <button ng-hide="approve" class="btn btn-success btn-sm" type="button"  ng-click="approveUser(account)">Approve User</button>
@@ -67,7 +72,6 @@
 					</table>
 
 					</div>
-
 				</div>
 
 

@@ -1,4 +1,4 @@
-'use strict';
+	'use strict';
 
 (function(){
 	angular
@@ -23,9 +23,9 @@
 				return deferred.promise;
 		}
 
-		function GetOne(){
+		function GetOne(id){
 			var deferred = $q.defer();
-			$http.get(pathname+'/:id')
+			$http.get(pathname+id)
 				.success(function(data){
 					deferred.resolve(data);
 				});

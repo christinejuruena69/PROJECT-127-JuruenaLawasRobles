@@ -5,7 +5,7 @@ var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 var client = new pg.Client(connectionString);
 client.connect();
 
-client.query('CREATE TABLE IF NOT EXISTS ACCOUNT(User_id SERIAL PRIMARY KEY, Username VARCHAR(20) not null UNIQUE, Password VARCHAR(100) not null, Name VARCHAR(40) not null, Sex VARCHAR(10) not null, Email_Address VARCHAR(40) not null, Birthday date not null, Age INT not null, User_role int, Date_Joined date not null)');
+client.query('CREATE TABLE IF NOT EXISTS ACCOUNT(User_id SERIAL PRIMARY KEY, Username VARCHAR(20) not null UNIQUE, Password VARCHAR(100) not null, Name VARCHAR(40) not null, Sex VARCHAR(10) not null, Email_Address VARCHAR(40) not null, Birthday date not null, Age INT not null, User_role int, Date_Joined date)');
 
 client.query('CREATE TABLE IF NOT EXISTS SONG( Song_id SERIAL PRIMARY KEY, Song_title VARCHAR(40) not null,  Song_artist  VARCHAR(40) not null, Song_album VARCHAR(50), Song_genre VARCHAR(50), Song_no_of_times_played INT)');
 
