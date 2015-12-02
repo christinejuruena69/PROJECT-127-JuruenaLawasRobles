@@ -350,7 +350,7 @@ div#profile{
     height: 35px;
     color: #A7FDFA;
     /*background-color: red;*/
-    border-bottom: 1px #A7FDFA gray;
+    border-bottom: 1px #A7FDFA solid;
 }
 #urmsc_nav a {
     font-size: 1.2em;
@@ -393,6 +393,10 @@ div#profile{
 div.playlist_side_links a:hover{
   color: #FFD6DF;
 
+}
+
+div.modal{
+  color: black;
 }
 div #your_music div#playlist_div{
     width: 1200px;
@@ -458,30 +462,8 @@ div #your_music div#album_div div#songs_in_album{
 
 }
 
-div #your_music div#account_div{
-  background-color: gray;
-
-}
-div #your_music div#account_div div#user_list{
-  width: 300px;
-  background-color: blue;
-  float: left;
-}
-div #your_music div#account_div div#user_list table.user-table{
-  width: 300px;
-  height: 100%;
-  float: left;
 
 
-
-}
-div #your_music div#account_div div#user_details{
-  width: 300px;
-  background-color:#031634;
-
-  float: left;
-
-}
 div #your_music div#album_div{
    width: 1000px;
     height: 625px;
@@ -707,4 +689,39 @@ div#player{
 }
 .sidebar-left .sidebar-links a.link-green i.fa {
     color: #86be2e;
+}
+
+
+
+/*//admin stuff*/
+
+
+div#elements div#account_div div#user_details{
+  width: 500px;
+  background-color: blue;
+  margin-left: 5px;
+
+}
+div#elements div#account_div{
+  background-color: #031635;
+
+}
+div#elements div#account_div div#user_list{
+  width: 450px;
+  height: 700px;
+  background-color:#031634;
+  border: 1px #A7FDFA solid;
+  float: left;
+
+}
+div#elements div#account_div div#user_list table.user-table{
+  width: 300px;
+  /*height: 100%;*/
+  float: left;
+}
+div #your_music div#account_div div#user_details{
+  width: 550px;
+  background-color:#031635;
+  float: left;
+  border-radius:
 }

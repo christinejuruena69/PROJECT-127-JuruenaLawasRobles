@@ -44,11 +44,10 @@
 					</div>
 					<div id="user_list">
 
-					<h1>{{userDisplay.user_id}}{{userDisplay.username}}{{userDisplay.user_role}}</h1>
 					<button ng-hide='approvebtn' class='btn btn-success' type ='button' ng-click='approveUser(userDisplay)'>Approve User</button>
 					<button ng-hide='unauthbtn' class='btn btn-danger' type ='button' ng-click='unauthorizeUser(userDisplay)'>Unauthorize User</button>
 
-					<table class="table table-hover user-table">
+					<table class="table user-table">
 						<thead>
 						<tr class="info">
 						  <th>Username</th>
@@ -60,14 +59,50 @@
 					<tr ng-repeat = "account in accounts" > <!-- loop-->
 					  <td ng-click="getaccount(account)">{{account.username}}</td> <!-- use expression -->
 					  <td>{{account.user_role}}</td>
-					  <td>
 						<td>{{account.date_joined}}</td>
 					</tr>
-
 					</tbody>
 					</table>
-
 					</div>
+
+					<!-- <h1>{{userDisplay.user_id}}{{userDisplay.username}}{{userDisplay.user_role}}</h1> -->
+
+							<div id="user_details">
+								<table class="table table-user-information">
+									<tbody>
+										<tr>
+											<td>Name:</td>
+											<td>{{userDisplay.name}}</td>
+										</tr>
+										<tr>
+											<td>Username:</td>
+											<td>{{userDisplay.username}}</td>
+										</tr>
+										<tr>
+											<td>Age:</td>
+											<td>{{userDisplay.age}}</td>
+										</tr>
+										<tr>
+											<td>Date Approved:</td>
+											<td>{{userDisplay.date_joined}}</td>
+										</tr>
+										<tr>
+											<td>Date of Birthday</td>
+											<td>{{userDisplay.birthday}}</td>
+										</tr>
+											 <tr>
+												 <tr>
+											<td>Sex</td>
+											<td>{{userDisplay.sex}}</td>
+										</tr>
+											<tr>
+											<td>Email Address</td>
+											<td>{{userDisplay.email_address}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
 				</div>
 
 

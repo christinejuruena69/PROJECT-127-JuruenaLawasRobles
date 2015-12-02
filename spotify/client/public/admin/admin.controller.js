@@ -29,12 +29,7 @@
 				joindate:'',
 				fullname:''
 		};
-		// hidebuttons();
-		function hidebuttons(){
-			if ($scope.account.user_role = 2){
-				$scope.admin = true;
-			}
-		}
+
 
 
 
@@ -232,10 +227,27 @@
 				.then(function(data){
 					console.log(data);
 					$scope.userDisplay = data[0];
-					$scope.approvebtn = false;
+					// $scope.approvebtn = false;
 					$scope.unauthbtn = false;
+
+					if (account.user_role == null){
+						$scope.approvebtn = false;
+					}else{
+						$scope.approvebtn = true;
+
+					}
 				});
 		}
+
+		//approve user stuff
+		// function hidebuttons(){
+		//
+		// }
+
+
+
+
+
 	}
 })();
 // Anonymous function
