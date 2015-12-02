@@ -18,6 +18,7 @@
 		var artistSongUrl="http://localhost:3000/api/v1/artist-songs";
 		var resultsUrl="http://localhost:3000/api/v1/search";
 		var uploadUrl='http://localhost:3000/api/v1/upload';
+		var updateProfileUrl='http://localhost:3000/api/v1/edit';
 
 		var service={};			//should be an object,
 		service.GetAllLahatSongs = GetAllLahatSongs;
@@ -97,7 +98,7 @@
 				});
 			return deferred.promise;
 		}
-		
+
 		function GetAlbums(converted, albums){
 			console.log('getalbums:', converted);
 			var deferred = $q.defer();

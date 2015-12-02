@@ -134,9 +134,9 @@
 		<div id="search_sidebar" ng-hide="custom">
 			<div id="search_box_div">
 				<div class="input-group input-group-md">
-				  <span class="input-group-addon">
+				  <!-- <span class="input-group-addon">
 				    <span class="glyphicon glyphicon-search"></span>
-				  </span>
+				  </span> -->
 				  <!-- <input class="form-control" type="text" placeholder="Search" id="search_box"> -->
 				  <form class="search_bar"  ng-submit="" data-ng-model="searchdata"  role="form" >
 				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>
@@ -197,17 +197,7 @@
 								</tr>
 							</table>
 						</div>
-						<div class="playlist_side_links">
-							<table  class="pl_tbl2">
-								<tr>
-									<td> <span  class="glyphicon glyphicon-star" > </span> </td>
-									<td>  <h6> Most Played </h6> </td>
-									<td> </td>
-									<td> </td>
-									<td> </td>
-								</tr>
-							</table>
-						</div>
+
 
 						<div id="playlists_for_real">
 						<div ng-hide="editplaylisttextbox">
@@ -241,7 +231,7 @@
 					</div>
 					<div id="playlistsongs">
 					<h4> {{ currentselectedplaylist.playlist_name }} </h4>
-          <h6> number of songs: {{ currentselectedplaylist.playlist_no_of_songs }} </h6>
+          <!-- <h6> number of songs: {{ currentselectedplaylist.playlist_no_of_songs }} </h6> -->
 						<table class="table">
 								<thead>
 									<tr>
@@ -263,8 +253,10 @@
 										<td ng-click=""> {{ song.song_genre}} </td>
 										<td ng-click="">
 										<a> <span  class="glyphicon glyphicon-remove" ng-click="removeSongfromPlaylist(song)" > </span> </a>
+                    <a ng-click="playSong(song)">
+  										<span class="glyphicon glyphicon-play songglyph" > </span>
+                    </a>
 
-										<input type="submit"  ng-click="" value="Remove" class="btn btn-success" />
 										</td>
 									</tr>
 
@@ -503,7 +495,7 @@
 
     <div id="profile_div" ng-hide="profile">
       <p class="form-title" >Edit Profile</p>
-      <form class="login"  ng-submit="" data-ng-model="formData"  role="form">
+      <form class=""  ng-submit="" data-ng-model="formData"  role="form">
         <input readonly type="text" name="Name" id="Name" placeholder="{{ Name }}"  value="" ng-model="formData.Name">
       	<br />
         <input readonly type="text" name="Username" id="UserName" placeholder="{{ UserName }}"  value="" ng-model="formData.UserName"> <em>cannot change</em>

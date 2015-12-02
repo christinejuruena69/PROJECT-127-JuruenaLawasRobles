@@ -19,6 +19,7 @@
 		$scope.editplaylistnametext=false;
 		$scope.user={};
 		var user = {};
+		$scope.formData = {};
 		$scope.updater = false;
 		$scope.updatebtn = true;
 		$scope.cancelbtn = true;
@@ -97,6 +98,7 @@
 				}).catch(function() {
 					console.log('Error at HomeService.GetSongs(), home.controller.js');
 				 });//end of HomeService.GetSongs
+
 			}
 
 			else if(searchtype=='artist'){
@@ -208,9 +210,12 @@
 			};
 			$scope.toggleProfile = function() {
 				$scope.profile = $scope.profile=== false ? true: false;
-
+				console.log(user.name);
 				$scope.your_music = true;
 				$scope.browsediv  = true;
+				$scope.formData.Name = user.name;
+				$scope.formData.UserName = user.username;
+				$scope.formData.Email_Address = user.email_address;
 
 					// $scope.recmsc = true;
 			};

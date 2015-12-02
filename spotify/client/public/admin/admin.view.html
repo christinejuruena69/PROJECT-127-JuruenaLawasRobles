@@ -6,14 +6,15 @@
             <img src="http://localhost:8000/images/sp.png" class="company-logo" width="100px" height="100px;">
 
 			<div class="sidebar-links">
-				<span class="glyphicon glyphicon-search"> </span>
-				<a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a>
+				<!-- <span class="glyphicon glyphicon-search"> </span> -->
+				<!-- <a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a> -->
 				<span class=""> </span>
-				<a class="link-red" href="#"></i>Browse</a>
+				<!-- <a class="link-red" href="#"></i>Browse</a> -->
 				<span class=""> </span>
-				<a class="link-yellow selected" href="#your_music"></i>Your Music</a>
+				<a class="link-yellow " ></i>Admin Page</a>
+				<a class="link-red " ng-click="logout()" ></i>Logout</a>
 				<span class=""> </span>
-				<a class="link-green" href="#profile"></i>Profile</a>
+				<!-- <a class="link-green" href="#profile"></i>Profile</a> -->
 			</div>
 
 		</aside>
@@ -35,7 +36,7 @@
 					<a  class="songs" ng-click="toggleSongs()" >SONGS </a>
 					<a  ng-click="toggleAlbum()" class="albums"> ALBUMS</a>
 					<a class="artist" ng-click="toggleArtist()"> ARTIST</a>
-					<a class="artist" ng-click="logout()"> Logout</a>
+					<!-- <a class="artist" ng-click="logout()"> Logout</a> -->
 				</div>
 				<div id="account_div"  ng-hide="playlist">
 					<div id="user_details">
