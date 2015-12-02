@@ -247,6 +247,10 @@
 					});
         }
 				$scope.playSong = function (song){
+					$scope.current.song = 'http://localhost:8000/music/'+song.song_title+'.mp3';
+					var audioplayer = $("#audioplayer")[0];
+					$("#audioplayer").attr("src", $scope.current.song);
+					audioplayer.play();
 					console.log(song.song_id);
 					HomeService.Inctimesplayed(song)
         		.then(function (data){
@@ -446,11 +450,6 @@
     	  	console.log($scope.newsong.song_title);
     	  }
 				$scope.allsongstemp={};
-
-				$scope.playSong = function(song){
-					$scope.current.song = '../../../../music/'+song.song_title+'.mp3';
-					$("#audioplayer").attr("src", $scope.current.song);
-				}
 
     	  $scope.addsonganddetails = function(){
 					var tempnewsong= {
