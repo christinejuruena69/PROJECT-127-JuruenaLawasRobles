@@ -8,23 +8,26 @@
 
 
 	function HomeCtrl($scope, $location, HomeService){
-
+		$scope.current = {};
 		$scope.custom = true;
 		$scope.album = true;
 		$scope.artist = true;
 		$scope.songlist = true;
-		$scope.saved=false;
+		$scope.recmsc = true;
+
 		$scope.editplaylisttextbox=true;
 		$scope.editplaylistnametext=false;
 		var user = {};
 	  	$scope.newp= false;
     	$scope.createplist= true;
+			$scope.browsediv=true;
+			$scope.profile=true;
 
 		$scope.allalbums={};
      	$scope.curreditedSong={};
     	$scope.curreditplist={};
 
-		$scope.allsongsofUser={};
+		$scope.allusersongs={};
 	    $scope.playlists={};
 	    $scope.currentplaylist={};
 	    $scope.allalbums={};
@@ -37,7 +40,7 @@
 
     	/*===========================Leensey's Search Functionalities start here===========================*/
 
-    	$scope.song_results = {};
+    $scope.song_results = {};
 		$scope.artist_results = {};
 		$scope.album_results = {};		
 
@@ -94,12 +97,21 @@
 	   	// $scope.editedSong=[];
 
 		isLoggedIn();
-		console.log(user.user_id+' '+user.user_role);
 		HomeService.GetallUserSongs(user.user_id)
 			.then(function(data){
 				$scope.displayUsersongs=data;
 				// $scope.allsongsofUser=data;
 		});
+		console.log(user.user_id+' '+user.user_role);
+		$scope.getallUserSongs = function(){
+			HomeService.GetallUserSongs(user.user_id)
+				.then(function(data){
+					console.log(data);
+					$scope.allusersongs=data;
+					// $scope.allusersongs=data;
+			});
+		}
+		$scope.getallUserSongs();
 		HomeService.GetAllSongs()
 			.then(function(data){
     	$scope.allsongs=data;
@@ -109,36 +121,22 @@
 		.then(function(data){
 			$scope.playlists=data;
 
-			// console.log("all plist");
-			// console.log(data);
-			// $scope.tempplists = data;
-			// var playlists = [];
-			// console.log($scope.tempplists);
-			// $.each( $scope.tempplists, function( index, item ) {
-			// 	if( user.user_id == item.user_id){
-			// 	playlists.push(item);
-			// 	}
-			// });
-			// $scope.playlists=playlists;
 		});
-		$scope.refreshsongs = function (){
-			console.log("refresh yeay");
 
+		$scope.refreshsongs = function (){
 			console.log( "allsongs");
 			console.log(	$scope.allsongs);
 			console.log("allsongsofUser");
 			console.log(	$scope.allsongsofUser);
 				var songid;
-				//kita naman niya ang allsongsofUser and allsongs
 				var tempallsongs =[];
 				$.each( $scope.allsongsofUser, function( index, item ) {
 					if (item.user_id == user.user_id){
 						songid = item.song_id;
 						$.each( $scope.allsongs, function( index, song ) {
 							if (song.song_id == songid){
-								console.log(song);
+							console.log(song);
 							tempallsongs.push(song);
-
 							}
 						});
 					}
@@ -165,65 +163,82 @@
 			isLoggedIn();
 		}
 
+
 			// $scope.playlist = true;
+			$scope.toggleBrowse = function() {
+				$scope.browsediv = $scope.browsediv === false ? true: false;
+				$scope.profile =true;
+				$scope.your_music = true;
+
+					// $scope.recmsc = true;
+			};
+			$scope.toggleProfile = function() {
+				$scope.profile = $scope.profile=== false ? true: false;
+
+				$scope.your_music = true;
+				$scope.browsediv  = true;
+
+					// $scope.recmsc = true;
+			};
+			$scope.toggleUrmsc = function() {
+				$scope.your_music = $scope.your_music === false ? true: false;
+				$scope.browsediv=true;
+				$scope.profile =true;
+
+					// $scope.recmsc = true;
+			};
+
 
         $scope.toggleCustom = function() {
             $scope.custom = $scope.custom === false ? true: false;
+						$scope.recmsc = true;
         };
+
         $scope.toggleArtist = function() {
             $scope.artist = $scope.artist === false ? true: false;
             $scope.album = true;
 						$scope.playlist = true;
 						$scope.songlist = true;
+						$scope.recmsc= true;
         };
+
         $scope.togglePlaylist = function() {
             $scope.playlist = $scope.playlist === false ? true: false;
             $scope.album = true;
 						$scope.artist = true;
 						$scope.songlist = true;
-
+						$scope.recmsc = true;
         };
+
         $scope.toggleAlbum = function() {
             $scope.album = $scope.album === false ? true: false;
 						$scope.artist = true;
 						$scope.playlist = true;
+						$scope.recmsc = true;
 						$scope.songlist = true;
-
         };
+
         $scope.toggleSongs = function() {
             $scope.songlist = $scope.songlist === false ? true: false;
 						$scope.artist = true;
             $scope.album = true;
 						$scope.playlist = true;
-
+						$scope.recmsc = true;
         };
+				$scope.toggleRecMsc = function() {
+						$scope.recmsc = $scope.recmsc === false ? true: false;
+            $scope.songlist = true;
+						$scope.artist = true;
+            $scope.album = true;
+						$scope.playlist = true;
+        };
+
        $scope.shownewplist = function (){
         	// $scope.createplist= false;
           $scope.createplist = $scope.createplist === false ? true: false;
         }
-        // toggle tabs
 
-    	  // playlist // playlist // playlist // playlist // playlist
-
-        $scope.newPlaylist= function(){
-					console.log(user.user_id);
-
-					var tempplist = {
-						playlist_name: $scope.newplaylist.playlist_name,
-						user_id: user.user_id
-					};
-					console.log(tempplist);
-        	HomeService.MakenewPlaylist(tempplist)
-        		.then(function (data){
-        			// console.log("hiiiiii"); //not working but it adds
-        			console.log(data);
-							$scope.playlists=data;
-        			$scope.newplaylist={};
-							// $scope.playlists.push(tempplist);
-					});
-        }
-
-        $scope.deletePlaylist = function(playlist){
+				$scope.deletePlaylist = function(playlist){
         	HomeService.DeletePlaylist(playlist.playlist_id)
         		.then(function (data){
         			var index = $scope.playlists.indexOf(playlist);
@@ -232,20 +247,62 @@
     					$scope.playlists.splice(index,1);
 					});
         }
+				$scope.playSong = function (song){
+					console.log(song.song_id);
+					HomeService.Inctimesplayed(song)
+        		.then(function (data){
+							$scope.getallUserSongs();
+        			// $scope.allusersongs=data;
+
+							console.log('inc no of times played');
+
+					}).catch(function() {
+						console.log('unable to inc no of times played');
+					});
+
+				}
+        // toggle tabs
+
+    	  // playlist // playlist // playlist // playlist // playlist
+
+        $scope.newPlaylist= function(){
+					console.log(user.user_id);
+					var tempplist = {
+						playlist_name: $scope.newplaylist.playlist_name,
+						user_id: user.user_id
+					};
+        	HomeService.MakenewPlaylist(tempplist)
+        		.then(function (data){
+        			console.log(data);
+							$scope.playlists=data;
+        			$scope.newplaylist={};
+							// $scope.playlists.push(tempplist);
+					}).catch(function() {
+						console.log('unable to add  new plist to scope');
+						alert("new plist not added to scope!");
+					});
+        }
+
+        $scope.deletePlaylist = function(playlist){
+        	HomeService.DeletePlaylist(playlist.playlist_id)
+        		.then(function (data){
+        			var index = $scope.playlists.indexOf(playlist);
+    					$scope.playlists.splice(index,1);
+					});
+        }
+
         $scope.canceleditPlaylist = function (){
            $scope.editplaylisttextbox = $scope.editplaylisttextbox === false ? true: false;
             $scope.editedplist = {};
         }
-        $scope.geteditPlaylist = function(playlist){
-        	// $scope.editplaylistnametext=true;
-           // $scope.editplaylisttextbox = $scope.editplaylisttextbox === false ? true: false;
-           $scope.editplaylisttextbox=false;
 
+        $scope.geteditPlaylist = function(playlist){
+          $scope.editplaylisttextbox=false;
         	console.log(playlist.playlist_id);
         	$scope.editedplist= playlist;
         	$scope.curreditplist=playlist;
-
         }
+
         $scope.editPlaylist = function(playlist){
         	// $scope.editplaylistnametext=true;
         	console.log($scope.curreditplist.playlist_id);
@@ -259,15 +316,40 @@
 
 					});
         }
+
 				$scope.removeSongfromPlaylist =  function(){
         	HomeService.RemoveSongfromPlaylist($scope.curreditplist.playlist_id, $scope.editedplist, user.user_id)
         		.then(function (data){
-
         		$scope.editedplist={};
         		$scope.curreditplist={};
+					});
+        }
+
+        $scope.getplaylist= function(playlist){
+        console.log(playlist.playlist_name);
+        console.log(playlist.playlist_id);
+
+        $scope.currentplaylist = {};
+        HomeService.Getsongsforplaylist(playlist.playlist_id)
+        	.then(function (all_playlist){
+					$scope.currentplaylist = all_playlist;
+					$scope.currentplaylistTitle = playlist.playlist_name;
+					console.log($scope.currentplaylist);
+							});
+				}
+
+				$scope.removeSongfromPlaylist =  function(song){
+					console.log($scope.currplist_id);
+        	HomeService.RemoveSongfromPlaylist($scope.currplist_id,song.song_id)
+        		.then(function (data){
+							$scope.currentplaylist = data;
+        		$scope.editedplist={};
+        		$scope.curreditplist={};
+						$scope.currplist_id=0;
 
 					});
         }
+				$scope.currplist_id=0;
         $scope.getplaylist= function(playlist){
         	console.log(playlist.playlist_name);
         	console.log(playlist.playlist_id);
@@ -275,28 +357,11 @@
         	$scope.currentplaylist = {};
         	HomeService.Getsongsforplaylist(playlist.playlist_id)
         		.then(function (all_playlist){
-						//
-        		// 	var temp = [];
-						// 	$scope.temp_all_playlist=all_playlist;
-      			// var temp_song_id;
-						// 		$.each( $scope.temp_all_playlist, function( index, item ) {
-				  	// 	if (item.playlist_id == playlist.playlist_id){
-				  	// 		temp_song_id = item.song_id;
-				  	// 		// console.log( item.song_id );
-						//
-						// 				$.each( $scope.allsongs, function( index, song ) {
-			   	// 				if( temp_song_id == song.song_id){
-			 		// 				temp_playlist.push(song);
-			   	// 				}
-						// 		});
-						// 			}
-						// });
-						$scope.currentplaylist = all_playlist;
-						$scope.currentplaylistTitle = playlist.playlist_name;
 
-						// $scope.temp_all_songs= [];
-						// $scope.temp_all_playlist= [];
-						// temp_playlist=[];
+						$scope.currentplaylist = all_playlist;
+						$scope.currentselectedplaylist = playlist;
+						$scope.currentselectedplaylist.playlist_no_of_songs=($scope.currentplaylist.length);
+						$scope.currplist_id= playlist.playlist_id;
 
 
 				console.log($scope.currentplaylist);
@@ -328,50 +393,65 @@
 	    	  	song_title : "",
 	    	  	song_album: "",
 	    	  	song_genre: "",
-	    	  	song_artist: ""
+	    	  	song_artist: "",
+						filepath: ""
     	  }
-    	  $scope.getselected = function(playlist){
+    	  $scope.getselectedPlist = function(playlist){
 
     	  	console.log(playlist.playlist_name);
     	  	$scope.selectedPlaylist= playlist.playlist_name;
     	  	$scope.selectedPlaylistid= playlist.playlist_id;
     	  	console.log($scope.selectedPlaylistid);
+
     	  }
+
     	  $scope.addsongtoPlaylist = function(){
-	    	  $scope.plistsong={
+	    	  var plistsong={
 	    	  	playlist_id : $scope.selectedPlaylistid,
 	    	  	song_id: $scope.selectedSongid,
 						user_id : user.user_id
-	    	  }
-    	  	HomeService.AddsongtoPlaylist($scope.plistsong)
+	    	  };
+    	  	HomeService.AddsongtoPlaylist(plistsong)
         		.then(function (data){
-							$scope.updatePlistnoofSongs($scope.plistsong);
-						});
+							$scope.updatePlistnoofSongs(plistsong);
+							alert("Song added to playlist!");
+
+						}).catch(function() {
+							alert("Song not added to playlist!");
+					  });;
 	    	  $scope.selectedSongid =0;
     	  	$scope.selectedPlaylistid=0;
     	  }
 				$scope.updatePlistnoofSongs = function (plistsong){
-					HomeService.UpdatePlistnoofSongs(plistsong)
-        		.then(function (data){
-
-						});
+					// HomeService.UpdatePlistnoofSongs(plistsong)
+        	// 	.then(function (data){
+					// 		$scope.allartists=data;
+					// 	});
 
 				}
-
-      // playlist // playlist // playlist // playlist // playlist
-
-			// songsssssss // songsssssss // songsssssss // songsssssss
-
+				/* get temporary url
+				$('#i_file').change( function(event) {
+					var tmppath = URL.createObjectURL(event.target.files[0]);
+					$("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+					$("#disp_tmp_path").html("<strong>"+tmppath+"</strong>");
+				});
+				*/
   	  $scope.fileNameChanged = function(input){
     	  	var filename=input.value;
+					console.log(filename);
     	  	var temparr=filename.split('\\');
-    	  	filename=temparr[temparr.length-1];
-    	  	var filenametemp = filename.split('.');
+    	  	var filename2=temparr[temparr.length-1];
+    	  	var filenametemp = filename2.split('.');
     	  	$scope.newsong.song_title=filenametemp[0];
+					$scope.newsong.filepath=filename;
     	  	console.log($scope.newsong.song_title);
-
     	  }
 				$scope.allsongstemp={};
+
+				$scope.playSong = function(song){
+					$scope.current.song = '../../../../music/'+song.song_title+'.mp3';
+					$("#audioplayer").attr("src", $scope.current.song);
+				}
 
     	  $scope.addsonganddetails = function(){
 					var tempnewsong= {
@@ -379,27 +459,30 @@
 						song_album : $scope.newsong.song_album,
 						song_genre : $scope.newsong.song_genre,
 						song_artist : $scope.newsong.song_artist,
+						filepath: $scope.newsong.filepath,
 						user_id : user.user_id
 					}
 					$scope.allsongsniuser = {};
-					console.log("FUCK YOU very");
 
     	  	HomeService.AddSong(tempnewsong)
     	  		.then(function (data){
 							$scope.allsongs=data;
+							// $scope.allusersongs=data;
+							// $scope.getallUserSongs();
 							$scope.newsong={};
 							$scope.addtoUserSong(tempnewsong);
 							$scope.AddArtistandAlbum(tempnewsong);
-							alert("Song added!");
-
 						}).catch(function() {
-					    console.log('unable to get the poneys');
-							alert("Song not added!");
+							$scope.allsongs=data;
+							$scope.newsong={};
+							$scope.addtoUserSong(tempnewsong);
+							$scope.AddArtistandAlbum(tempnewsong);
 					  });
     	  }
+
 				$scope.addtoUserSong = function (tempnewsong){
 					var usersong ={};
-					$.each( $scope.allsongstemp, function( index, item ) {
+					$.each( $scope.allsongs, function( index, item ) {
 						if( tempnewsong.song_title == item.song_title ){
 							usersong = {
 								song_id : item.song_id,
@@ -410,13 +493,12 @@
 					});
 					HomeService.AddSongtoUser(usersong)
 						.then(function (data){
-						$scope.allsongsofUser=data;
+						$scope.getallUserSongs();
+							// $scope.allusersongs=data;
 						}).catch(function() {
 					    console.log('unable to get the poneys');
 							alert("Song not added!");
 					  });
-
-
 				}
 
 
@@ -468,7 +550,20 @@
 							HomeService.AddNewAlbum(tempalbum)
 								.then(function (data){
 								$scope.allalbums=data;
-								// $scope.addtoAlbumSongs(albumsong); /////////////////////////////////////////////////////
+
+								$.each( $scope.allalbums, function( index, item ) {
+									if( tempnewsong.song_album == item.album_title){
+										albumid=item.album_id;
+										console.log("album exists");
+										albumsong = {
+											album_id: albumid,
+											song_id: song_id
+										}
+										return false;
+									}
+								});
+								$scope.addtoAlbumSongs(albumsong);
+								/////////////////////////////////////////////////////
 							});
 						}
 
@@ -495,8 +590,19 @@
 							console.log("wala pa");
 							HomeService.AddNewArtist(tempartist)
 								.then(function (data){
-								$scope.allartists=data;
-							});
+									$scope.allartists=data;
+									$.each( $scope.allartists, function( index, item ) {
+										if( tempnewsong.song_artist == item.artist_name){
+											artistid=item.artist_id;
+											artistsong = {
+												artist_id: artistid,
+												song_id: song_id
+											}
+										return false;
+										}
+									});
+									$scope.addtoArtistSongs(artistsong);
+								});
 						}
 					}
 
@@ -505,6 +611,8 @@
 					HomeService.AddtoAlbumSongs(albumsong)
 						.then(function (data){
 						$scope.allsonginalbums=data;
+
+						// $scope.allsonginalbums=data;
 					});
 				}
 				$scope.getSongsAlbum=function (album_id){
@@ -522,6 +630,11 @@
 	        // 			var index = $scope.degreePrograms.indexOf(degreeProgram);
     					// $scope.degreePrograms.splice(index,1);
     							$scope.allsongs.splice(index,1);
+	    	  	HomeService.RemovefromUserSongs(song.song_id, user.user_id)
+	        		.then(function (data){
+	        			console.log("removed!");
+	        			var index = $scope.allusersongs.indexOf(song);
+	  						$scope.allusersongs.splice(index,1);
 							});
 
     	  }
@@ -529,21 +642,14 @@
     	// $scope.editSong = function
     	$scope.getoneSong = function (song, editedSong){
     		$scope.editedSong = song;
-
-    // 		HomeService.GetOneSong(song.song_id)
-    // 			.then(function (data){
-    // 				console.log(data);
-				// 	// $scope.editedSong=data;
-				// 	$scope.curreditedSong=data;
-				// 	// console.log($scope.editedSong);
-				// 	// $scope.editedSong.song_title=data.song_title;
-				// });
     	}
+
     	$scope.updateSong = function (){
     		console.log($scope.editedSong.song_id);
     		var song_id= $scope.editedSong.song_id;
     		HomeService.UpdateSong(song_id, $scope.editedSong)
 	        .then(function (data){
+						$scope.getallUserSongs();
 	        	$scope.editedSong={};
 	        	console.log("edited!");
 	        	$scope.saved=true;
@@ -559,21 +665,17 @@
 			//user stuff //user stuff //user stuff //user stuff
 		function goSignUp(){
 			$location.url("/sign-up");
-			console.log($location);
 		}
 		function goLogin(){
 			$location.url("/sign-in");
-			console.log($location);
 		}
 
 		function goLoginHome(){
 			$location.url("/home");
-			console.log($location);
 		}
 
 		function goLoginAdmin(){
 			$location.url("/admin");
-			console.log($location);
 		}
 
 		function isLoggedIn(){

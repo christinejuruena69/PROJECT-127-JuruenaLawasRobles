@@ -3,7 +3,7 @@
 (function(){
 	angular
 		.module("app")
-		.controller("AdminCtrl", AdminCtrl); //this is a part of a module called app (yung nasa taas)
+		.controller("AdminCtrl", AdminCtrl) //this is a part of a module called app (yung nasa taas)
 	AdminCtrl.$inject = ["$scope", "$location", "AdminService", "HomeService" ]; // angularjs na property
 	//HomeCtrl may dependencies or gagamit ng other modules/services
 	//angularsj construct
@@ -16,6 +16,20 @@
 		$scope.artist = true;
 		$scope.songlist = true;
 		$scope.apptoveuserbtn= false;
+
+		$scope.admin = false;
+		$scope.approve= false;
+		$scope.reject = false;
+
+		// hidebuttons();
+		function hidebuttons(){
+			if ($scope.account.user_role = 2){
+				$scope.admin = true;
+			}
+		}
+
+
+
 		$scope.allsongs={};
 		$scope.allalbums={};
 		$scope.allartists={};
@@ -57,8 +71,8 @@
 		};
 
 
-		HomeService.GetAllSongs().then(function(data){
-			$scope.allsongs=data;
+		HomeService.GetAllLahatSongs().then(function(data){
+			$scope.alllahatsongs=data;
 		});
 
 		HomeService.GetAllAlbums().then(function(data){
@@ -68,6 +82,28 @@
 		HomeService.GetAllArtist().then(function(data){
 			$scope.allartists=data;
 		});
+
+		$scope.getSongsAlbum=function (album_id){
+			console.log(album_id);
+			HomeService.GetSongsAlbum(album_id)
+				.then(function (data){
+				$scope.currentsonginalbum=data;
+			});
+		}
+		$scope.getSongsArtist=function (artist_id){
+			console.log(artist_id);
+
+			HomeService.GetSongsArtist(artist_id)
+				.then(function (data){
+				$scope.currentsonginartist=data;
+			});
+		}
+
+
+		//see all songs by artist
+		//see all songs by artist
+
+		//see all songs by artist
 
 		var user = {};
 		$scope.users = [];
@@ -90,6 +126,7 @@
 		}
 
 		$scope.makeAdmin = function(account){
+
 			account.user_role = 2;
 			AdminService.update(account)
 					.then(function(data){
@@ -123,24 +160,21 @@
 	//login and riderecting
 		function goSignUp(){
 			$location.url("/sign-up");
-			console.log($location);
 		}
 		function goLogin(){
 			$location.url("/sign-in");
-			console.log($location);
 		}
 
 		function goLoginHome(){
 			$location.url("/home");
-			console.log($location);
 		}
 
 		function goLoginAdmin(){
 			$location.url("/admin");
-			console.log($location);
 		}
 
 		function isLoggedIn(){
+			$('body').css('display', 'none');
 			try{
 				user = $.parseJSON(document.cookie.substring(5));
 				console.log(user);
@@ -152,16 +186,20 @@
 						if(user.user_role == 1){
 							//alert("Standard");
 							goLoginHome();
+							$('body').css('display', '');
 						} else {
 							//alert("Admin");
 							goLoginAdmin();
+							$('body').css('display', '');
 						}
 					} else if(user=="" && pathname[1]=="/sign-up"){
 						document.cookie = "user=\"\"";
 						goSignUp();
+						$('body').css('display', '');
 					} else if(user==""){
 						document.cookie = "user=\"\"";
 						goLogin();
+						$('body').css('display', '');
 					} else {
 						alert("Unauthorized user");
 						document.cookie = "user=\"\"";
@@ -170,11 +208,23 @@
 
 			}catch(err){
 				//alert("No user is logged in");
-				//alert(err.message); //this thing works
 				document.cookie = "user=\"\"";
 				goLogin();
 			}
 		}
+
+
+
+
+		// /tin stuff
+
+		$scope.getaccount = function(account){
+			// console.log(account);
+			console.log(account.account_id);
+
+
+		}
+
 	}
 })();
 // Anonymous function

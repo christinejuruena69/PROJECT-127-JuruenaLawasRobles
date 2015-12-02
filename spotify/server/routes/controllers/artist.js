@@ -23,6 +23,49 @@ exports.getOneArtist= function(req, res) {
     });
 };
 
+exports.GetallSongsPerArtist = function(req, res){
+	var results = [];
+		pg.connect(connectionString, function(err, client, done) {
+				if(err) {
+					done();
+					console.log(err);
+					return res.status(500).json({ success: false, data: err});
+				}
+        console.log(req.params.artist_id);
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from artist a, artist_song artsong, song s where artsong.artist_id=($1) and a.artist_id=($1) and s.song_id=artsong.song_id;",
+         [req.params.artist_id]);
+        query.on('row', function(row) {
+						console.log(row);
+						 results.push(row);
+				 });
+				 query.on('end', function() {
+						 done();
+						 return res.json(results);
+				 });
+		});
+};
+
+exports.GetallartistSong= function(req, res) {
+    var results = [];
+
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+          var query = client.query("SELECT * FROM artist_song ORDER BY artist_id ASC;");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
+
 exports.addNewArtist= function(req, res) {
     var results = [];
 
@@ -54,10 +97,37 @@ exports.addNewArtist= function(req, res) {
     });
 };
 
+exports.AddSongtoArtist= function(req, res) {
+    var results = [];
+    var data = {
+          artist_id : req.body.artist_id,
+          song_id: req.body.song_id
+    };
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+        client.query("INSERT INTO artist_song(artist_id, Song_id) values( $1, $2)", //ayusin ito
+             [ data.artist_id,
+               data.song_id
+             ]);
+            var query = client.query("SELECT * FROM artist_song ORDER BY artist_id ASC");
+            query.on('row', function(row) {
+                results.push(row);
+            });
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    });
+};
+
 exports.updateArtistNofSongs= function(req, res) {
     var results = [];
     // Grab data from the URL parameters
-    var id = req.params.artist;
+    var id = req.params.artist_id;
       var data = {
         artist_name : req.body.artist_name
     };
@@ -71,7 +141,7 @@ exports.updateArtistNofSongs= function(req, res) {
         }
 
         // SQL Query > Update Data
-        client.query("UPDATE ARTIST SET Artist_no_of_songs=(Artist_no_of_songs+1), artist_name=($2) WHERE Album_id=($1)",
+        client.query("UPDATE ARTIST SET Artist_no_of_songs=(Artist_no_of_songs+1), artist_name=($2) WHERE Artist_id=($1)",
           [ id,
           data.artist_name
           ]);
@@ -95,6 +165,7 @@ exports.updateArtistNofSongs= function(req, res) {
     });
 
 };
+
 exports.getAllArtist= function(req, res) {
     var results = [];
 
