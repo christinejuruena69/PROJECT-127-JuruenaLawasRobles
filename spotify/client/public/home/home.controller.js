@@ -141,8 +141,6 @@
 				$scope.displayUsersongs=tempallsongs;
 		}
 
-		});
-
 
 		HomeService.GetAllAlbums().then(function(data){
     	$scope.allalbums=data;
@@ -237,7 +235,6 @@
         // toggle tabs
 
     	  // playlist // playlist // playlist // playlist // playlist
->>>>>>> origin/Chris
 
         $scope.newPlaylist= function(){
 					console.log(user.user_id);
@@ -437,15 +434,12 @@
 						user_id : user.user_id
 					}
 					$scope.allsongsniuser = {};
-					};
-
 
     	  	HomeService.AddSong(tempnewsong)
     	  		.then(function (data){
 							$scope.allsongs=data;
 							// $scope.allusersongs=data;
 							// $scope.getallUserSongs();
-
 							$scope.newsong={};
 							$scope.addtoUserSong(tempnewsong);
 							$scope.AddArtistandAlbum(tempnewsong);
@@ -476,8 +470,6 @@
 					    console.log('unable to get the poneys');
 							alert("Song not added!");
 					  });
-
-
 				}
 
 
