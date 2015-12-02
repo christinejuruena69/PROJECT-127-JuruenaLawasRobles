@@ -1,9 +1,10 @@
 # PROJECT-127
 ```sh
-Table of contents
+A parody web-app
 ```
 -----
 - install dependencies
 - Create database `spotify` in POSTGRESQL manually
-- Change permissions for start.sh
-- Run start.sh
+- change permissions for necessary files
+- run script *start.sh*
+-----
