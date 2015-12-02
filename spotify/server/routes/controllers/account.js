@@ -12,7 +12,7 @@ var http = require('http');
 exports.init = function(req, res) {
 
     var results = [];
-        
+
     // Grab data from http request
     var data = {
         UserName: req.body.UserName, //1
@@ -27,7 +27,7 @@ exports.init = function(req, res) {
     var myDay = new Date(data.Birthday);
     var today = new Date();
     var myAge = today.getFullYear() - myDay.getFullYear();
-        
+
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
@@ -37,20 +37,20 @@ exports.init = function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-       client.query("INSERT INTO ACCOUNT ( Username,  Password , Name, Sex , Email_Address , Birthday , Age , User_role, Date_Joined ) values( $1, $2, $3, $4, $5, $6, $7, null, current_date)", 
+       client.query("INSERT INTO ACCOUNT ( Username,  Password , Name, Sex , Email_Address , Birthday , Age , User_role, Date_Joined ) values( $1, $2, $3, $4, $5, $6, $7, null, null)",
             [ data.UserName,
               data.Password,
-              data.Name,              
-              data.Sex, 
-              data.Email_Address, 
+              data.Name,
+              data.Sex,
+              data.Email_Address,
               data.Birthday,
               myAge
             ]);
-        
+
         // A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign may be part of an identifier or a dollar-quoted string constant.
 
         // SQL Query > Select Data
-            var query = client.query("SELECT * FROM ACCOUNT ORDER BY User_id ASC");
+            var query = client.query("SELECT * FROM ACCOUNT ORDER BY Date_Joined ASC");
 
             // Stream results back one row at a time
             query.on('row', function(row) {
@@ -82,7 +82,7 @@ exports.getAllAccounts = function(req, res) {
         }
 
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM ACCOUNT ORDER BY User_id ASC;");
+        var query = client.query("SELECT * FROM ACCOUNT ORDER BY Date_Joined ASC;");
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -140,8 +140,14 @@ exports.updateRole = function(req, res) {
          }
          // SQL Query > Update Data
          client.query("UPDATE account SET user_role=($1) WHERE user_id=($2)", [data.user_role, id]);
+
+         if(data.user_role != 1 && data.user_role != 2){
+           client.query("UPDATE account SET Date_Joined = null WHERE user_id=($1)", [id]);
+         } else {
+           client.query("UPDATE account SET Date_Joined = current_date WHERE user_id=($1)", [id]);
+         }
          // SQL Query > Select Data
-         var query = client.query("SELECT * FROM account ORDER BY user_id ASC");
+         var query = client.query("SELECT * FROM account ORDER BY Date_Joined ASC");
          // Stream results back one row at a time
          query.on('row', function(row) {
              results.push(row);

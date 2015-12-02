@@ -325,11 +325,14 @@
         		$scope.editedplist={};
         		$scope.curreditplist={};
 					});
+					$scope.currentselectedplaylist.playlist_no_of_songs=(	$scope.currentselectedplaylist.playlist_no_of_songs-1	);
+
+
         }
 
         $scope.getplaylist= function(playlist){
-        console.log(playlist.playlist_name);
-        console.log(playlist.playlist_id);
+	        console.log(playlist.playlist_name);
+	        console.log(playlist.playlist_id);
 
         $scope.currentplaylist = {};
         HomeService.Getsongsforplaylist(playlist.playlist_id)

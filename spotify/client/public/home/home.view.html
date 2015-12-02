@@ -122,19 +122,19 @@
 
 
 
-<div ng-app="app" class="main-content" >
+<div ng-app="app" class="main-content">
 
 		<aside class="sidebar-left">
 
 			<!-- <a class="company-logo" href="#">Logo</a> -->
-            <img ng-src="sp.png" class="company-logo" width="100px" height="100px;">
+            <img src="http://localhost:8000/images/sp.png" class="company-logo" width="100px" height="100px;">
 
 			<div class="sidebar-links">
 				<a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a>
 				<span class=""> </span>
 				<a class="link-blue" href="" ng-click="toggleBrowse()"></i>Browse</a>
 				<span class=""> </span>
-				<a class="link-yellow" href="" ng-click="toggleUrmsc()"></i>Your Music</a>
+				<a class="link-yellow selected" href="#your_music"></i>Your Music</a>
 				<span class=""> </span>
         <a class="link-green" href="" ng-click="toggleProfile()"></i>Profile</a>
 				<a class="link-red" href="" ng-click="logout()"></i>Logout</a>
@@ -143,51 +143,42 @@
 		</aside>
 		<div id="search_sidebar" ng-hide="custom">
 			<div id="search_box_div">
-
-
-          <form  tabindex="1" ng-submit="" data-ng-model="searchdata"  role="form" >
+				<div class="input-group input-group-md">
+				  <span class="input-group-addon">
+				    <span class="glyphicon glyphicon-search"></span>
+				  </span>
 				  <!-- <input class="form-control" type="text" placeholder="Search" id="search_box"> -->
-          <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-                <input type="text" class="form-control" placeholder="Search a song, artist or album"
-                  value="" ng-model="searchdata.searchthis">
-          </div><!-- /input-group -->
-
-
-    				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song
-    	   			<input type="radio" name="searchtype" id="searchtype" value="artist" ng-model="searchdata.searchtype" required autofocus> artist
-    	    		<input type="radio" name="searchtype" id="searchtype" value="album" ng-model="searchdata.searchtype" required autofocus> album
-    				<input type="submit" ng-click="SearchFxn(searchdata)" value="Search" class="btn btn-success btn-sm"/>
+				  <form class="search_bar"  ng-submit="" data-ng-model="searchdata"  role="form" >
+				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>
+				</div>
+				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song
+	   			<input type="radio" name="searchtype" id="searchtype" value="artist" ng-model="searchdata.searchtype" required autofocus> artist
+	    		<input type="radio" name="searchtype" id="searchtype" value="album" ng-model="searchdata.searchtype" required autofocus> album
+				<input type="submit" ng-click="SearchFxn(searchdata)" value="Search" class="btn btn-success btn-sm"/>
 				</form>
 			</div>
 			<br/><br/><br/>
-      <div class="search_result_div">
-        <h1>Results</h1>
 
-  			<h3>songs</h3>
-  			<ul ng-repeat="song in song_results">
-  				<li>{{ song.song_title }}</li>
-  			</ul>
+			<h1>Results</h1>
 
-  			<h3>artists</h3>
-  			<ul ng-repeat="artist in artist_results">
-  				<li>{{ artist.artist_name }}</li>
-  			</ul>
+			<h3>songs</h3>
+			<ul ng-repeat="song in song_results">
+				<li>{{ song.song_title }}</li>
+			</ul>
 
-  			<h3>albums</h3>
-  			<ul ng-repeat="album in album_results">
-  				<li>{{ album.album_title }}</li>
-  			</ul>
+			<h3>artists</h3>
+			<ul ng-repeat="artist in artist_results">
+				<li>{{ artist.artist_name }}</li>
+			</ul>
 
-
-      </div>
-
+			<h3>albums</h3>
+			<ul ng-repeat="album in album_results">
+				<li>{{ album.album_title }}</li>
+			</ul>
 
 		</div>
 		<div id="elements">
-			<div id="your_music" ng-hide="your_music">
+			<div id="your_music">
 				<div id="urmsc_nav" class="urmsc_nav_links" >
 					<a class="playlist" ng-click="togglePlaylist()" href=""> PLAYLISTS </a>
 					<a  class="songs" ng-click="toggleSongs()"  href="">SONGS </a>
@@ -196,7 +187,7 @@
           </div>
 				<div id="playlist_div"  ng-hide="playlist">
 					<div id="playlist_sidebarlinks">
-					<div class="" ng-hide="createplist">
+  					<div class="" ng-hide="createplist">
 						<input type="text" name="createplaylist" id="newplaylist" placeholder="Playlist"  ng-model="newplaylist.playlist_name" value=""   required autofocus>
 						<br/>
 					  <input type="submit"  ng-click="newPlaylist()"value="Create" class="btn btn-success btn-sm" />
@@ -206,7 +197,7 @@
 							<table class="pl_tbl1">
 								<tr>
 									<td> <span  class="glyphicon glyphicon-plus" > </span> </td>
-									<td>  <a  href=""><h6 ng-click="shownewplist()"> New Playlist  </h6></a>
+									<td>  <h6 ng-click="shownewplist()"> New Playlist  </h6>
 
 
 									</td>
@@ -216,9 +207,17 @@
 								</tr>
 							</table>
 						</div>
-						<!-- <div class="playlist_side_links"> -->
-
-						<!-- </div> -->
+						<div class="playlist_side_links">
+							<table  class="pl_tbl2">
+								<tr>
+									<td> <span  class="glyphicon glyphicon-star" > </span> </td>
+									<td>  <h6> Most Played </h6> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</table>
+						</div>
 
 						<div id="playlists_for_real">
 						<div ng-hide="editplaylisttextbox">
@@ -476,7 +475,6 @@
 
 
 			</div>
-
 		</div>
 
 
@@ -539,5 +537,4 @@
 		</div>
 
 
-</div>
 </div>

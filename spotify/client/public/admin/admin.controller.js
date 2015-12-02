@@ -16,11 +16,19 @@
 		$scope.artist = true;
 		$scope.songlist = true;
 		$scope.apptoveuserbtn= false;
-
 		$scope.admin = false;
 		$scope.approve= false;
 		$scope.reject = false;
+		$scope.approvebtn = true;
+		$scope.unauthbtn = true;
 
+		$scope.userDisplay = {
+				user_role:'',
+				username:'',
+				user_id:'',
+				joindate:'',
+				fullname:''
+		};
 		// hidebuttons();
 		function hidebuttons(){
 			if ($scope.account.user_role = 2){
@@ -219,12 +227,15 @@
 		// /tin stuff
 
 		$scope.getaccount = function(account){
-			// console.log(account);
-			console.log(account.account_id);
-
-
+			console.log(account);
+			AdminService.GetOne(account.user_id)
+				.then(function(data){
+					console.log(data);
+					$scope.userDisplay = data[0];
+					$scope.approvebtn = false;
+					$scope.unauthbtn = false;
+				});
 		}
-
 	}
 })();
 // Anonymous function

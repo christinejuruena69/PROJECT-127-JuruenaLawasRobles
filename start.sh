@@ -1,3 +1,5 @@
 nodejs spotify/server/models/database.js
-cd spotify
+http-server -p 8000
+chmod 777 *
+cd ../spotify
 npm start
