@@ -46,7 +46,12 @@ module.exports = function(router) {
     .post(userSong.insertSongtoUser);
 
   router.route(uspath+'/:user_id')
-    .get(userSong.getUserAdded);
+    .get(userSong.GetallUserSongs);
+
+  router.route(uspath+'/:song_id/:user_id')
+      .delete(userSong.deleteUserSong);
+
+
 
   router.route(songs)
     .post(userSong.insertNewSong)
@@ -54,8 +59,13 @@ module.exports = function(router) {
 
   router.route(songs+'/:song_id')
     .put(userSong.updateSong)
-    .delete(userSong.deleteSong)
     .get(userSong.getSongDetails);
+
+
+
+  router.route(songs+'/:song_idplayed/:song_id')
+      .put(userSong.Inctimesplayed);
+
 
 //playlist
 router.route(playlistPerUser)
@@ -66,13 +76,14 @@ router.route(playlistPerUser)
     .get(plController.getallPlaylist)
     .post(plController.addNewPlaylist);
 
-
   router.route(playlist+'/:user_id')
   .get(plController.getUserOwnedPlaylist);
 
   router.route(playlist+'/:playlist_id')
   .delete(plController.deletePlaylist)
   .put(plController.updatePlaylistName);
+
+  // router.route(playlist+'/:playlistid')
   // .put(plController.updatePlistNoofSongs);
 
 
@@ -82,6 +93,10 @@ router.route(playlistPerUser)
     .get(plController.getPlaylistSongs);
 
     router.route(playlistWithSongs+'/:playlist_id')
+      .get(plController.getPlaylistSongs);
+
+      router.route(playlistWithSongs+'/:playlist_id/:song_id')
+      .delete(plController.deleteSongfromPlaylist)
       .get(plController.getPlaylistSongs);
     // .get(plController.getSongsInUserPlaylist);
 

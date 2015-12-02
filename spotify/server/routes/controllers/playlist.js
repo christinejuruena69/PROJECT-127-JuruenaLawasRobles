@@ -111,7 +111,7 @@ exports.addSongToPlaylist = function(req, res) { //fix
             [ data.playlist_id,
               data.song_id
             ]);
-            var query = client.query("SELECT * FROM playlist_song ORDER BY User_id ASC");
+            var query = client.query("SELECT * FROM playlist_song ORDER BY Playlist_id ASC");
 
             query.on('row', function(row) {
                 results.push(row);
@@ -155,10 +155,8 @@ exports.getPlaylistSongs = function(req, res){
 
 exports.updatePlaylistNoofSongs = function(req,res){
     var results = [];
-    var id = req.params.playlist_id;
-    var data = {
-      playlist_name : req.body.playlist_name
-    };
+    var id = req.params.playlistid;
+
     console.log(data);
     pg.connect(connectionString, function(err, client, done) {
         if(err) {
@@ -167,9 +165,8 @@ exports.updatePlaylistNoofSongs = function(req,res){
           return res.status(500).send(json({ success: false, data: err}));
         }
 
-        client.query("UPDATE PLAYLIST SET playlist_name=($1), playlist_no_of_songs=(playlist_no_of_songs+1) WHERE playlist_id=($2)",
-         [  data.playlist_name, id
-        ]);
+        client.query("UPDATE PLAYLIST SET playlist_no_of_songs=(playlist_no_of_songs+1) WHERE playlist_id=($2)",
+         [ id ]);
 
         var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
         query.on('row', function(row) {
@@ -215,7 +212,6 @@ exports.updatePlaylistName = function(req,res){
 };
 exports.deletePlaylist = function(req,res){
     var results = [];
-
     var id = req.params.playlist_id;
     pg.connect(connectionString, function(err, client, done) {
         if(err) {
@@ -223,12 +219,9 @@ exports.deletePlaylist = function(req,res){
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-
         client.query("DELETE FROM PLAYLIST WHERE playlist_id=($1)", [id]);
-
         client.query("DELETE FROM PLAYLIST_SONG where playlist_id = $1", [id]);
         var query = client.query("SELECT * FROM PLAYLIST ORDER BY playlist_id ASC");
-
         query.on('row', function(row) {
             results.push(row);
         });
@@ -237,7 +230,27 @@ exports.deletePlaylist = function(req,res){
             return res.json(results);
         });
     });
+};
+exports.deleteSongfromPlaylist = function(req,res){
+    var results = [];
 
+
+    pg.connect(connectionString, function(err, client, done) {
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+        client.query("DELETE FROM PLAYLIST_SONG where playlist_id = $1 and song_id=$2 ", [req.params.playlist_id, req.params.song_id]);
+        var query = client.query("SELECT * FROM PLAYLIST_SONG ORDER BY playlist_id ASC");
+        query.on('row', function(row) {
+            results.push(row);
+        });
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+    });
 };
 
 exports.getAllPlaylistSongs = function(req,res){

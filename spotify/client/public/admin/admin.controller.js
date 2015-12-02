@@ -3,7 +3,7 @@
 (function(){
 	angular
 		.module("app")
-		.controller("AdminCtrl", AdminCtrl); //this is a part of a module called app (yung nasa taas)
+		.controller("AdminCtrl", AdminCtrl) //this is a part of a module called app (yung nasa taas)
 	AdminCtrl.$inject = ["$scope", "$location", "AdminService", "HomeService" ]; // angularjs na property
 	//HomeCtrl may dependencies or gagamit ng other modules/services
 	//angularsj construct
@@ -57,8 +57,8 @@
 		};
 
 
-		HomeService.GetAllSongs().then(function(data){
-			$scope.allsongs=data;
+		HomeService.GetAllLahatSongs().then(function(data){
+			$scope.alllahatsongs=data;
 		});
 
 		HomeService.GetAllAlbums().then(function(data){
@@ -68,6 +68,28 @@
 		HomeService.GetAllArtist().then(function(data){
 			$scope.allartists=data;
 		});
+
+		$scope.getSongsAlbum=function (album_id){
+			console.log(album_id);
+			HomeService.GetSongsAlbum(album_id)
+				.then(function (data){
+				$scope.currentsonginalbum=data;
+			});
+		}
+		$scope.getSongsArtist=function (artist_id){
+			console.log(artist_id);
+
+			HomeService.GetSongsArtist(artist_id)
+				.then(function (data){
+				$scope.currentsonginartist=data;
+			});
+		}
+
+
+		//see all songs by artist
+		//see all songs by artist
+
+		//see all songs by artist
 
 		var user = {};
 		$scope.users = [];

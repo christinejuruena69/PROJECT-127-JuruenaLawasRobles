@@ -107,7 +107,7 @@ exports.GetallSongsPerAlbum = function(req, res){
 					return res.status(500).json({ success: false, data: err});
 				}
         console.log(req.params.album_id);
-        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, album_song sa, song s where sa.album_id=($1) and a.album_id=($1) and s.song_id=sa.song_id;", [req.params.album_id]);
+        var query = client.query("select s.song_id, s.song_title, s.song_genre, s.song_artist from album a, album_song also, song s where also.album_id=($1) and a.album_id=($1) and s.song_id=also.song_id;", [req.params.album_id]);
         query.on('row', function(row) {
 						console.log(row);
 						 results.push(row);
@@ -161,10 +161,14 @@ exports.updateAlbumNoofSongs= function(req, res) {
           console.log(err);
           return res.status(500).send(json({ success: false, data: err}));
         }
-        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1), Album_title=($2) WHERE Album_id=($1)",
-          [ id,
-          data.album_title
-          ]);
+        client.query("UPDATE ALBUM SET album_no_of_songs=(album_no_of_songs+1) WHERE Album_id=($1)",
+          [ id ]);
+
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
+          console.log("yep");
         var query = client.query("SELECT * FROM ALBUM ORDER BY Album_id ASC");
 
         query.on('row', function(row) {
