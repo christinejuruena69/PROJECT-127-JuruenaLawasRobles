@@ -5,6 +5,7 @@ albumController = require('./controllers/album');
 artistController = require('./controllers/artist');
 searchController = require('./controllers/search');
 
+var edit = '/api/v1/edit';
 var pathname = "/api/v1/todos";
 var uspath = "/api/v1/user-songs";
 var playlist = "/api/v1/plist";
@@ -29,6 +30,9 @@ module.exports = function(router) {
   router.route(pathname+'/:id')
     .put(user.updateRole)
     .get(user.getOneAccount);
+
+  router.route(edit)
+    .put(user.updateProfile);
 
 //search
   router.route(searchSong+'/:searchthis')

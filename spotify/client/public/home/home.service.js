@@ -21,6 +21,7 @@
 
 		var service={};			//should be an object,
 		service.GetAllLahatSongs = GetAllLahatSongs;
+		service.UpdateProfile=UpdateProfile;
 		service.GetAllPlaylists = GetAllPlaylists;
 		service.GetallUserSongs = GetallUserSongs;
 		service.Inctimesplayed = Inctimesplayed;
@@ -84,6 +85,19 @@
 				return deferred.promise;
 		}//end of GetArtists()
 
+		function UpdateProfile(formData){
+			console.log(formData);
+			var deferred = $q.defer();
+			$http.put(updateProfileUrl, formData)
+				.success(function(data){
+					console.log("homeservice data: ",data);
+					deferred.resolve(data);
+				}).error(function(){
+					deferred.reject();
+				});
+			return deferred.promise;
+		}
+		
 		function GetAlbums(converted, albums){
 			console.log('getalbums:', converted);
 			var deferred = $q.defer();
