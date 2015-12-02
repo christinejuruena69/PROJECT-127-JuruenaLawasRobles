@@ -23,6 +23,8 @@ client.query('CREATE TABLE IF NOT EXISTS ARTIST_SONG( Artist_id INT, Song_id INT
 
 client.query('CREATE TABLE IF NOT EXISTS USER_SONG( user_id INT, Song_id INT)' );
 
+client.query('create table if not exists music(music_id serial primary key, music_name varchar(40), filepath varchar(40), music_oid oid, song_id int)');
+
 client.query("INSERT INTO ACCOUNT ( Username,  Password , Name, Sex , Email_Address , Birthday , Age , User_role,Date_Joined ) values( 'PJHRobles', 'Password', 'Paul Joshua Hao-Robles', 'Male', 'joshuahrobles@gmail.com', '1997-04-01', 18, 2, current_date)");
 
 client.query("INSERT INTO ACCOUNT (Username,  Password , Name, Sex , Email_Address , Birthday , Age , User_role,Date_Joined) values('lmlawas', 'password', 'Leensey Monteagudo Lawas', 'Female', 'leenseylawas2007@gmail.com', '1996-09-25', 19, 2, current_date)");

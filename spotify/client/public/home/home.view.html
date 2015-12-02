@@ -48,7 +48,8 @@
 			      <input type="radio" name="Album" value="Album" ng-model="albumtype" >Album
 		      	<div ng-show="isShown('Album')">
 			      <span > Song Album:
-			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>
+              <br />
 			     	</span>
 		      </div>
 			    </div>
@@ -58,10 +59,14 @@
 			  </form>
 
         <span> Song Artist: </span>
-	        <input type="" ng-model="newsong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+	        <input type="" ng-model="newsong.song_artist" name="" id="" placeholder=""  value=""  required autofocus>
+          <br />
 	      <span> Song Genre: &nbsp;</span>
 	        <input type="" ng-model="newsong.song_genre" name="" id="" placeholder=""  value=""  required autofocus>
-	        <br />
+          <br/>
+        <span> Filepath: &nbsp;</span>
+  	      <input type="" ng-model="newsong.filepath" name="" id="" placeholder=""  value=""  required autofocus>
+	        <br/>
 		   	</form>
       </div>
       <div class="modal-footer">
@@ -133,13 +138,13 @@
 				  </span>
 				  <!-- <input class="form-control" type="text" placeholder="Search" id="search_box"> -->
 				  <form class="search_bar"  ng-submit="" data-ng-model="searchdata"  role="form" >
-				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>		 			
+				  	<input class="form-control" type="text" name="searchthis" id="searchthis" placeholder="Search a song, artist or album"  value="" ng-model="searchdata.searchthis"> <br/><br/><br/>
 				</div>
-				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song 
+				<input type="radio" name="searchtype" id="searchtype" value="song" ng-model="searchdata.searchtype" required autofocus> song
 	   			<input type="radio" name="searchtype" id="searchtype" value="artist" ng-model="searchdata.searchtype" required autofocus> artist
 	    		<input type="radio" name="searchtype" id="searchtype" value="album" ng-model="searchdata.searchtype" required autofocus> album
 				<input type="submit" ng-click="SearchFxn(searchdata)" value="Search" class="btn btn-success btn-sm"/>
-				</form>				
+				</form>
 			</div>
 			<br/><br/><br/>
 
@@ -151,12 +156,12 @@
 			</ul>
 
 			<h3>artists</h3>
-			<ul ng-repeat="artist in artist_results">	
+			<ul ng-repeat="artist in artist_results">
 				<li>{{ artist.artist_name }}</li>
 			</ul>
 
 			<h3>albums</h3>
-			<ul ng-repeat="album in album_results">	
+			<ul ng-repeat="album in album_results">
 				<li>{{ album.album_title }}</li>
 			</ul>
 
@@ -273,9 +278,9 @@
 				</div>
 				<div id="songlist_div" ng-hide="songlist">
 					<form action="">
-					  <input type="file" name="pic" accept="audio/*" name="song_filename" ng-model="song_filename"
-					  onchange="angular.element(this).scope().fileNameChanged(this)"   >
-					  <input type="button" value="Upload"  data-toggle="modal" data-target="#addsongModal">
+					  <input type="file" id="i_file" name="music" accept="audio/*" name="song_filename" ng-model="song_filename"
+					  onchange="angular.element(this).scope().fileNameChanged(this)">
+					  <input type="button" value="Upload" data-toggle="modal" data-target="#addsongModal">
 					</form>
 					<table class="table">
 								<thead>
@@ -290,15 +295,13 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="song in allsongs">
-
-
 										<td ng-click=""> {{ song.song_title}} </td>
 										<td ng-click=""> {{ song.song_artist}} </td>
 										<td ng-click=""> {{ song.song_album}} </td>
 										<td ng-click=""> {{ song.song_genre}} </td>
 										<td ng-click=""> <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
 										<input type="button" value="Remove" ng-click="removefromSongs(song)">
-										<input type="button" value="Play" ng-click="">
+										<input type="button" value="Play" ng-click="playSong(song)">
 										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
 
 
@@ -409,34 +412,7 @@
 		</div>
 
 		<div id="player">
-			<div id="player_artist_square">
-
-			</div>
-			<div id="player_label">
-
-			</div>
-			<div id="player_ctrl">
-				<div id="status">
-
-				</div>
-				<div id="main_ctrl">
-
-		          <i class="glyphicon glyphicon-step-backward"></i>
-		          <i class="glyphicon glyphicon-play-circle"></i>
-		          <i class="glyphicon glyphicon-step-forward"></i>
-		          <br />
-		          <br />
-		          <br />
-
-		           <i class="glyphicon glyphicon-list" ></i>
-		          <i class="glyphicon glyphicon-random"></i>
-		          <i class="glyphicon glyphicon-retweet"></i>
-		          <i class="glyphicon glyphicon-volume"></i>
-
-				</div>
-			</div>
-
-
+			<audio controls id='audioplayer'></audio>
 		</div>
 
 
