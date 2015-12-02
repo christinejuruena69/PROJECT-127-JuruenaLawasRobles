@@ -429,20 +429,17 @@ div #your_music div#songlist_div{
     background-color:#031634;
     color: #A7FDFA;
     border: 1px #A7FDFA solid;
-
-
-
 }
 
+div #your_music div#profile_div{
+  color: #A7FDFA;
+}
 div #your_music div#album_div div#album_stuff{
   width: 300px;
    height: 100%;
    float: left;
    border: 1px #A7FDFA solid;
    color: #A7FDFA;
-
-
-
 }
 div#browse_div{
   margin-left: -95px;
@@ -719,7 +716,7 @@ div#elements div#account_div div#user_list table.user-table{
   /*height: 100%;*/
   float: left;
 }
-div #your_music div#account_div div#user_details{
+div #elements div#account_div div#user_details{
   width: 550px;
   background-color:#031635;
   float: left;
