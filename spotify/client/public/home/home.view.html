@@ -52,7 +52,7 @@
 			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>
               <br />
 
-			        <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br />
+			        <!-- <input type="" ng-model="newsong.song_album" name="" id="" placeholder=""  value=""  required autofocus>	        <br /> -->
               <!-- <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown" >
       				  {{ selectedAlbum }}<span class="caret"></span>
@@ -130,14 +130,14 @@
             <img ng-src="sp.png" class="company-logo" width="100px" height="100px;">
 
 			<div class="sidebar-links">
-				<span class="glyphicon glyphicon-search"> </span>
 				<a class="link-blue" ng-click="toggleCustom(custom)"></i>Search</a>
 				<span class=""> </span>
-				<a class="link-red" href="" ng-click="toggleBrowse()"></i>Browse</a>
+				<a class="link-blue" href="" ng-click="toggleBrowse()"></i>Browse</a>
 				<span class=""> </span>
 				<a class="link-yellow" href="" ng-click="toggleUrmsc()"></i>Your Music</a>
 				<span class=""> </span>
-				<a class="link-green" href="" ng-click="toggleProfile()""></i>Profile</a>
+        <a class="link-green" href="" ng-click="toggleProfile()"></i>Profile</a>
+				<a class="link-red" href="" ng-click="logout()"></i>Logout</a>
 			</div>
 
 		</aside>
@@ -193,8 +193,7 @@
 					<a  class="songs" ng-click="toggleSongs()"  href="">SONGS </a>
 					<a  ng-click="toggleAlbum()" class="albums"  href=""> ALBUMS</a>
           <a class="artist" ng-click="toggleArtist()"  href=""> ARTIST</a>
-          <a class="artist" ng-click="logout()"  href=""> Logout</a>
-				</div>
+          </div>
 				<div id="playlist_div"  ng-hide="playlist">
 					<div id="playlist_sidebarlinks">
 					<div class="" ng-hide="createplist">
@@ -217,17 +216,9 @@
 								</tr>
 							</table>
 						</div>
-						<div class="playlist_side_links">
-							<table  class="pl_tbl2">
-								<tr>
-									<td> <span  class="glyphicon glyphicon-star" > </span> </td>
-									<td> <a  href=""> <h6> Most Played </h6> </td> </a>
-									<td> </td>
-									<td> </td>
-									<td> </td>
-								</tr>
-							</table>
-						</div>
+						<!-- <div class="playlist_side_links"> -->
+
+						<!-- </div> -->
 
 						<div id="playlists_for_real">
 						<div ng-hide="editplaylisttextbox">
@@ -242,7 +233,7 @@
 							<table class="table">
 								<thead>
 								<tr> Playlist Name</tr>
-								<tr> Action </tr>
+								<tr>  </tr>
 
 								</thead>
 								<tbody>
@@ -260,7 +251,8 @@
 						</div>
 					</div>
 					<div id="playlistsongs">
-					<h4> {{ currentselectedplaylist.playlist_name }} {{ currentselectedplaylist.playlist_no_of_songs }} </h4>
+					<h4> {{ currentselectedplaylist.playlist_name }} </h4>
+          <h6> number of songs: {{ currentselectedplaylist.playlist_no_of_songs }} </h6>
 						<table class="table">
 								<thead>
 									<tr>
@@ -298,7 +290,7 @@
 					<form action="">
 					  <input type="file" id="i_file" name="music" accept="audio/*" name="song_filename" ng-model="song_filename"
 					  onchange="angular.element(this).scope().fileNameChanged(this)">
-					  <input type="button" value="Upload" data-toggle="modal" data-target="#addsongModal">
+					  <input type="button" class="btn btn-success" value="Upload" data-toggle="modal" data-target="#addsongModal">
 					</form>
 					<table class="table">
 								<thead>
@@ -307,7 +299,8 @@
 										<th>Artist</th>
 										<th> Album </th>
 										<th> Genre </th>
-										<th> No of times played | Action </th>
+										<th> No of times played </th>
+                    <th> Action </th>
 									</tr>
 
 								</thead>
@@ -321,19 +314,48 @@
 										<td ng-click=""> {{ song.song_artist}} </td>
 										<td ng-click=""> {{ song.song_album}} </td>
 										<td ng-click=""> {{ song.song_genre}} </td>
-										<td ng-click=""> {{ song.song_no_of_times_played }} <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
+										<td ng-click=""> {{ song.song_no_of_times_played }} </td>
+
+                      <td>
+                      <!-- <input   uib-tooltip="Enter something in this input field to disable this tooltip"
+                       tooltip-placement="top"
+                       tooltip-trigger="mouseenter"
+                      type="button" value="Add to playlist"  >
 										<input type="button" value="Remove" ng-click="removefromSongs(song)">
 										<input type="button" value="Play" ng-click="playSong(song)">
-										<input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
+										<input type="button" value="Edit" > -->
 
 
-										<button type="button" class="btn btn-link" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span  class="glyphicon glyphicon-plus" > </span> </button>
+										<a ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
+
+                       <span  uib-tooltip="Add to playlist"
+                        tooltip-placement="top"
+                        tooltip-trigger="mouseenter"
+                         class="glyphicon glyphicon-plus songglyph" > </span> </a>
+
+                        <a ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
+                         <span
+                         uib-tooltip="Edit song details"
+                          tooltip-placement="top"
+                          tooltip-trigger="mouseenter"
+                         class="glyphicon glyphicon-pencil songglyph" > </span>
+                       </a>
+
+                  <a ng-click="removefromSongs(song)">
+										<span
+                    uib-tooltip="Delete song from account"
+                     tooltip-placement="top"
+                     tooltip-trigger="mouseenter"
+                    class="glyphicon glyphicon-remove songglyph" > </span>
+                  </a>
+
+                  <a ng-click="playSong(song)">
+										<span class="glyphicon glyphicon-play songglyph" > </span>
+                  </a>
 
 
-										<a ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" > <span  class="glyphicon glyphicon-plus" > </span> </a>
-										<span  class="glyphicon glyphicon-remove" > </span>
-										<span  class="glyphicon glyphicon-play" > </span>
 										</td>
+
 
 									</tr>
 
@@ -349,14 +371,14 @@
 									<tr>
 										<th> Album Title </th>
 										<th> Number of Songs </th>
-										<th>Year Released</th>
+										<!-- <th>Year Released</th> -->
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="album in allalbums">
 										<td ng-click="getSongsAlbum(album.album_id)"> {{ album.album_title}} </td>
 										<td ng-click=""> {{ album.album_no_of_songs}} </td>
-										<td ng-click=""> {{ album.Year_released}} </td>
+										<!-- <td ng-click=""> {{ album.Year_released}} </td> -->
 										</td>
 									</tr>
 								</tbody>
@@ -458,35 +480,9 @@
 		</div>
 
 
-		<div id="player">
-			<div id="player_artist_square">
 
-			</div>
-			<div id="player_label">
-
-			</div>
-			<div id="player_ctrl">
-				<div id="status">
-
-				</div>
-				<div id="main_ctrl">
-
-		          <i class="glyphicon glyphicon-step-backward"></i>
-		          <i class="glyphicon glyphicon-play-circle"></i>
-		          <i class="glyphicon glyphicon-step-forward"></i>
-		          <br />
-		          <br />
-		          <br />
-
-		           <i class="glyphicon glyphicon-list" ></i>
-		          <i class="glyphicon glyphicon-random"></i>
-		          <i class="glyphicon glyphicon-retweet"></i>
-		          <i class="glyphicon glyphicon-volume"></i>
-
-				</div>
-			</div>
-		</div>
     <div id="browse_div" ng-hide="browsediv">
+      <h3> Recommended Songs: </h3>
 
       <table class="table">
             <thead>
@@ -495,29 +491,31 @@
                 <th>Artist</th>
                 <th> Album </th>
                 <th> Genre </th>
-                <th> No of times played | Action </th>
+                <th> No of times played </th>
+                <th> Action </th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="song in allusersongs">
+              <tr ng-repeat="song in allsongs| orderBy: song.song_id | limitTo: 5">
                 <td ng-click=""> {{ song.song_title}} </td>
                 <td ng-click=""> {{ song.song_artist}} </td>
                 <td ng-click=""> {{ song.song_album}} </td>
                 <td ng-click=""> {{ song.song_genre}} </td>
-                <td ng-click=""> {{ song.song_no_of_times_played }} <input type="button" value="Add to playlist" ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" >
-                <input type="button" value="Remove" ng-click="removefromSongs(song)">
-                <input type="button" value="Play" ng-click="playSong(song)">
-                <input type="button" value="Edit" ng-click="getoneSong(song, editedSong)" data-toggle="modal" data-target="#editsongModal">
-                <button type="button" class="btn btn-link" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span  class="glyphicon glyphicon-plus" > </span> </button>
-                <a ng-click="putsongid(song)" data-toggle="modal" data-target="#addtoplistModal" > <span  class="glyphicon glyphicon-plus" > </span> </a>
-                <span  class="glyphicon glyphicon-remove" > </span>
-                <span  class="glyphicon glyphicon-play" > </span>
+                <td ng-click=""> {{ song.song_no_of_times_played }} </td>
+                <td>
+
+                <input type="button" class="btn btn-primary" value="Add to my songs" ng-click="addtoursongs(song)" >
+
+
                 </td>
               </tr>
             </tbody>
             </table>
     </div>
     <div id="PROFILE_div" ng-hide="profile">
+      {{  user.user_id}}
+
+
       <h1> HI </h1>
       <h1> HI </h1>
       <h1> HI </h1>
@@ -531,7 +529,13 @@
 
     </div>
 
-			<audio controls id='audioplayer'></audio>
+		</div>
+    <div id="player">
+				<div id="main_ctrl">
+          <h6> Now playing: {{playedSong.song_title}}</h6>
+          <audio controls id='audioplayer'></audio>
+				</div>
+			</div>
 		</div>
 
 

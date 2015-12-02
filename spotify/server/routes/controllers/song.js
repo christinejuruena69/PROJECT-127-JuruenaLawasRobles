@@ -91,7 +91,7 @@ exports.insertNewSong = function(req, res) {
             ]);
 			client.query("insert into music(music_name, filepath, music_oid, song_id) values($1, $2, lo_import($3 ,(select max(song_id) from song as x)),(select max(song_id) from song as x));",[data.song_title, data.filepath, data.filepath]);
 
-			client.query('select lo_export(music.music_oid, $1) from music WHERE music.music_id = (select max(music_id) from music as x);',['/home/joshua/Desktop/asd/PROJECT-127-JuruenaLawasRobles/music/'+data.song_title+'.mp3']);
+			client.query('select lo_export(music.music_oid, $1) from music WHERE music.music_id = (select max(music_id) from music as x);',['/home/ryanimaytinjj/postgre/music/'+data.song_title+'.mp3']);
 
 			var query = client.query("SELECT * FROM SONG ORDER BY song_id ASC");
 					 query.on('row', function(row) {

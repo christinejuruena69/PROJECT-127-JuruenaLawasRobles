@@ -17,6 +17,7 @@
 
 		$scope.editplaylisttextbox=true;
 		$scope.editplaylistnametext=false;
+		$scope.user={};
 		var user = {};
 	  	$scope.newp= false;
     	$scope.createplist= true;
@@ -259,6 +260,8 @@
 						console.log('unable to inc no of times played');
 					});
 
+					$scope.playedSong=song;
+
 				}
         // toggle tabs
 
@@ -375,6 +378,7 @@
     	  $scope.putsongid = function (song){
 	    	  $scope.selectedSongid = song.song_id;
     	  }
+
     	  $scope.songalbum="album";
     	  $scope.songtype = function(button){
     	  	console.log(button.value);
@@ -447,10 +451,10 @@
     	  }
 				$scope.allsongstemp={};
 
-				$scope.playSong = function(song){
-					$scope.current.song = '../../../../music/'+song.song_title+'.mp3';
-					$("#audioplayer").attr("src", $scope.current.song);
-				}
+				// $scope.playSong = function(song){
+				// 	$scope.current.song = '../../../../music/'+song.song_title+'.mp3';
+				// 	$("#audioplayer").attr("src", $scope.current.song);
+				// }
 
     	  $scope.addsonganddetails = function(){
 					var tempnewsong= {
@@ -471,11 +475,9 @@
 							$scope.newsong={};
 							$scope.addtoUserSong(tempnewsong);
 							$scope.AddArtistandAlbum(tempnewsong);
+							f
 						}).catch(function() {
-							$scope.allsongs=data;
-							$scope.newsong={};
-							$scope.addtoUserSong(tempnewsong);
-							$scope.AddArtistandAlbum(tempnewsong);
+							console.log("song not added");
 					  });
     	  }
 
@@ -494,6 +496,8 @@
 						.then(function (data){
 						$scope.getallUserSongs();
 							// $scope.allusersongs=data;
+							alert("Song added!");
+
 						}).catch(function() {
 					    console.log('unable to get the poneys');
 							alert("Song not added!");
@@ -656,6 +660,13 @@
     	$scope.getoneSong = function (song, editedSong){
     		$scope.editedSong = song;
     	}
+			$scope.addtoursongs = function (song){
+				// $scope.editedSong = song;
+				$scope.addtoUserSong(song);
+				var index = $scope.allsongs.indexOf(song);
+			 		$scope.allsongs.splice(index,1);
+			}
+
 
     	$scope.updateSong = function (){
     		console.log($scope.editedSong.song_id);
@@ -723,6 +734,9 @@
 						document.cookie = "user=\"\"";
 						goLogin();
 					}
+
+					$scope.user.user_id = user.user_id;
+					console.log($scope.user.user_id + "hi");
 
 			}catch(err){
 				//alert("No user is logged in");

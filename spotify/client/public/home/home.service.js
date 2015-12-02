@@ -383,7 +383,7 @@
 					deferred.resolve(data);
 				})
 				.error(function (data, status, header, config) {
-					alert("no album found!");
+					console.log("no album found!");
 				});
 				return deferred.promise;
 		}
@@ -394,7 +394,7 @@
 					deferred.resolve(data);
 				})
 				.error(function (data, status, header, config) {
-					alert("no artist found!");
+					console.log("no artist found!");
 				});
 				return deferred.promise;
 		}

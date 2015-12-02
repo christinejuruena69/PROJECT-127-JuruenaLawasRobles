@@ -18,7 +18,7 @@ var artistWithSong = '/api/v1/artist-songs';
 var searchSong = '/api/v1/search/song';
 var searchArtist = '/api/v1/search/artist';
 var searchAlbum = '/api/v1/search/album';
-var upload = 'api/v1/upload';
+
 
 module.exports = function(router) {
 //accounts
@@ -129,8 +129,11 @@ router.route(playlistPerUser)
     .get(artistController.GetallartistSong)
     .post(artistController.AddSongtoArtist);
 
+
   router.route(artistWithSong+'/:artist_id')
     .get(artistController.GetallSongsPerArtist);
+
+
 
   return router;
 };

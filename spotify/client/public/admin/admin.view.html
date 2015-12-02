@@ -39,7 +39,7 @@
 				</div>
 				<div id="account_div"  ng-hide="playlist">
 					<div id="user_details">
-						
+
 
 					</div>
 					<div id="user_list">
@@ -56,11 +56,11 @@
 					<tr ng-repeat = "account in accounts" > <!-- loop-->
 					  <td ng-click="getaccount(account)">{{account.username}}</td> <!-- use expression -->
 					  <td>{{account.user_role}}</td>
-					  <!-- <td>
+					  <td>
 							<button ng-hide="admin" class="btn btn-primary btn-sm" type="button" ng-click="makeAdmin(account)">Make Admin</button>
 						  <button ng-hide="approve" class="btn btn-success btn-sm" type="button"  ng-click="approveUser(account)">Approve User</button>
 						  <button ng-hide="reject" class="btn btn-danger btn-sm" type="button" ng-click="unauthorizeUser(account)">Unauthorize User</button>
-						</td> -->
+						</td>
 					</tr>
 
 					</tbody>

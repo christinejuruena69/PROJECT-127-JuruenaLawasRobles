@@ -6,7 +6,8 @@ body
     /*background: url('http:/
     /farm3.staticflickr.com/2832/12303719364_c25cecdc28_b.jpg') fixed;*/
     background-size: cover;
-    color: white;
+    color: #E8DDCB;
+
     padding: 0;
     margin: 0;
      margin-top: 0px;
@@ -16,7 +17,7 @@ body
     font-family:  GothamLight, GothamExtraLight, ProximaNovaReg;
     height:100%;
     width: 100%;
-    background-color: #202020;
+    background-color: #031634;
      /*overflow-x: scroll;*/
        white-space: nowrap;
        overflow: auto;
@@ -240,7 +241,7 @@ div.main-content {
     font-family:  ProximaNovaReg, GothamBook, GothamLight, GothamExtraLight;
     margin: 0px 0px 0px 121px;
     padding: 0;
-    background-color: #202020;
+    background-color: #031634;
     float: left;
     top:0;
     left:0;
@@ -252,17 +253,17 @@ div.main-content a{
   cursor: pointer;
 }
 div.main-content a:hover{
-    color: white;
+    color: #F89484;
 }
 /*/elements container*/
 div #elements{
     top: 0;
     left: 0;
-    width: 970px;
+    width: 1100px;
     height: 100%;
     position: relative;
     float: left;
-    /*background-color: pink;*/
+    background-color: #031634;
 }
 /*/elements container*/
 
@@ -280,9 +281,9 @@ div#search_sidebar{
     margin-top: -35px;
     padding-left: 50px;
     margin-left: 120px;
-    background-color: #292c2f;
+    background-color: #033649;
     width: 255px;
-    height: 100%;
+    height: 720px;
     padding: 20px 0;
     box-shadow:  8px 0 10px -4px rgba(32, 32, 32, 0.8);
     /*display: none;*/
@@ -310,7 +311,7 @@ div#search_sidebar{
 #search_box_div .input-group input#search_box{
     /*background-color: red;*/
     border-radius: 5px;
-    color: blue;
+    color: #A7FDFA;
 }
 
 /* search */
@@ -333,8 +334,8 @@ div#profile{
     top: 0;
     /*left:-100px;*/
     margin-left: -110px;
-    background-color: #202020;
-    width: 900px;
+    background-color: #031634;
+    width: 1230px;
     height: 100%;
     padding: 20px 0;
     display: block;
@@ -348,12 +349,13 @@ div#profile{
     top: 0;
     width: 100%;
     height: 35px;
+    color: #A7FDFA;
     /*background-color: red;*/
-    border-bottom: 1px solid gray;
+    border-bottom: 1px #A7FDFA gray;
 }
 #urmsc_nav a {
     font-size: 1.2em;
-    color: gray;
+    color: #E8DDCB;
     letter-spacing: 2px;
     position: relative;
     text-decoration: none;
@@ -361,7 +363,7 @@ div#profile{
     margin-right: 35px;
 }
 #urmsc_nav a:hover{
-    color: gray;
+    color: #F89484;
 }
 #urmsc_nav a:before{
  content: "";
@@ -370,7 +372,7 @@ div#profile{
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #000;
+  background-color: #A7FDFA;
   visibility: hidden;
   -webkit-transform: scaleX(0);
   transform: scaleX(0);
@@ -389,9 +391,16 @@ div#profile{
     cursor: default;
     border-bottom: 3px #4CC339 solid;
 }
+div.playlist_side_links a:hover{
+  color: #FFD6DF;
+
+}
 div #your_music div#playlist_div{
-    width: 1000px;
+    width: 1200px;
     height: 600px;
+     cursor: pointer;
+     color: #A7FDFA;
+
     /*background-color: red;*/
     /*margin-left: -5px;*/
     /*float: left;*/
@@ -401,33 +410,53 @@ div #your_music div#playlist_div span{
 
 }
 
-div #your_music div#playlistsongs{
-     width: 1000px;
-    height: 100%;
-    background-color: pink;
-    float: left;
+div #your_music div#playlistsongs table{
+  /*width: 1200px;*/
+ }
 
-}
+ div #your_music div#songlist_div span.songglyph{
+   font-size: 20px;
 
+
+ }
 div #your_music div#songlist_div{
    width: 1000px;
-    height: 100%;
+    height: 550px;
+    overflow-y: auto;
+    background-color:#031634;
+    color: #A7FDFA;
+    border: 1px #A7FDFA solid;
 
-    background-color: pink;
-    /*display: none;*/
-    /*margin-left: -5px;*/
+
+
 }
+
 div #your_music div#album_div div#album_stuff{
-  width: 350px;
+  width: 300px;
    height: 100%;
    float: left;
+   border: 1px #A7FDFA solid;
+   color: #A7FDFA;
+
+
+
+}
+div#browse_div{
+  margin-left: -95px;
+  width: 600px;
+  height: 100%;
+  background-color:#031634;
 
 }
 div #your_music div#album_div div#songs_in_album{
   width: 630px;
    height: 100%;
    float: left;
-   background-color: #fff;
+   background-color:#031634;
+   border: 1px #A7FDFA solid;
+   color: #A7FDFA;
+
+
 }
 
 div #your_music div#account_div{
@@ -449,14 +478,17 @@ div #your_music div#account_div div#user_list table.user-table{
 }
 div #your_music div#account_div div#user_details{
   width: 300px;
-  background-color: red;
+  background-color:#031634;
+
   float: left;
 
 }
 div #your_music div#album_div{
    width: 1000px;
     height: 625px;
-    background-color: red;
+    background-color:#031634;
+    color: #A7FDFA;
+
     float: left;
     /*background-color: blue;*/
     /*display: none;*/
@@ -466,18 +498,26 @@ div #your_music div#artist_div div#artist_stuff{
   width: 350px;
    height: 100%;
    float: left;
-
-}
+   border: 1px #A7FDFA solid;
+   color: #A7FDFA;
+ }
 div #your_music div#artist_div div#songs_in_artist{
   width: 630px;
    height: 100%;
    float: left;
-   background-color: #fff;
+   background-color:#031634;
+   border: 1px #A7FDFA solid;
+   color: #A7FDFA;
+
+
 }
 div #your_music div#artist_div{
+  color: gray;
    width: 1000px;
-    height: 630px;
-    background-color: pink;
+    height: 600px;
+    /*background-color: pink;*/
+    background-color:#031634;
+    color: #A7FDFA;
 
 }
 
@@ -487,14 +527,18 @@ div #your_music div#playlist_sidebarlinks input{
 }
 div #your_music div#playlist_sidebarlinks{
     top:0;
-    left: 0;
-    margin-left: -5px;
+    /*left: 50px;*/
+    /*margin-left: 10px;*/
+    padding-left: 20px;
     height: 600px;
     width: 250px;
-    background-color: #292c2f;
-    background-color: #292c2f;
-    color: #b3bcc5;
+    /*background-color:#031634;*/
+    border: 1px #A7FDFA solid;
+    /*background-color:#031634;*/
+    /*color: #b3bcc5;*/
     float: left;
+    color: #A7FDFA;
+
     /*display: none;*/
 }
 div #your_music div#playlist_div h6,
@@ -511,52 +555,49 @@ div #your_music div#playlist_div span.glyphicon-star{
 }
 
 div #your_music div#playlist_div .playlist_side_links {
-    border-bottom: 1px gray solid;
+    border-bottom: 1px #A7FDFA solid;
     padding: 10px 5px 10px 20px;
     cursor: pointer;
 }
 div #your_music div#playlistsongs{
     height: 100%;
-    width: 500px;
+    /*color: gray;*/
+    color: #A7FDFA;
+
+       width: 700px;
+      height: 100%;
+      /*background-color:#031634;*/
+      float: left;
+      border: 1px #A7FDFA solid;
+
     /*background-color: #fff;*/
 }
 /*/MUSIC PLAYER!!!!!!!!!!!!!!!!!!!!*/
 
 /*/MUSIC PLAYER!!!!!!!!!!!!!!!!!!!!*/
+div#player div#main_ctrl{
+margin-top: -15px;
 
+}
+div#player div#main_ctrl audio{
+  display: block;
+  width: 1900px;
+  margin-left: -550px;
+
+}
 div#player{
-    top:0;
-    /*left: 50px;*/
-    height: 700px;
-    width: 250px;
-    background-color: #A0A0A0;
+    /*top:0;*/
+    left: 120px;
+    top: 600px;
+    width: 1250px;
+    height: 100px;
+    background-color: #036564;
     /*float: left;*/
-    left: 1120px;
+    /*left: 1120px;*/
     position: fixed;
     padding: 20px;
 
 }
-div#player div#player_artist_square{
-    border: 2px solid black;
-    margin:5px;
-    width: 190px;
-    height: 190px;
-    background-color: #fff;
-}
-div#player div#player_label{
-    width: 190px;
-    height: 50px;
-    background-color: #fff;
-    margin: 5px;
-}
-div#player div#player_ctrl{
-    margin: 5px;
-
-    width: 190px;
-    height: 100px;
-    background-color: #fff;
-}
-
 
 /*backdrop daw */
 .darkClass
@@ -580,7 +621,7 @@ div#player div#player_ctrl{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #292c2f;
+    background-color: #033649;
     width: 120px;
     height: 100%;
     padding: 20px 0;
@@ -615,7 +656,7 @@ div#player div#player_ctrl{
     text-decoration: none;
     margin: 0 auto 5px auto;
     padding: 20px 0;
-    background-color: #35393e;
+    background-color: #031634;
     text-align: center;
     color:  #b3bcc5;
     font-size: 12px;
@@ -628,6 +669,7 @@ div#player div#player_ctrl{
     display: block;
     font-size: 35px;
     margin-bottom: 5px;
+
 }
 
 .sidebar-left .sidebar-links a.selected{
@@ -666,15 +708,4 @@ div#player div#player_ctrl{
 }
 .sidebar-left .sidebar-links a.link-green i.fa {
     color: #86be2e;
-}
-
-@media (max-width: 900px) {
-    div #elements{
-        top: 0;
-        left: 0;
-        width: 500px;
-        float: left;
-        /*background-color: pink;*/
-    }
-
 }
